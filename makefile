@@ -1,5 +1,5 @@
 #OBJS specifies which files to compile
-OBJS = main.c sprite.c timer.c keyboard_input.c
+OBJS = main.c sprite.c timer.c keyboard_input.c mouse_input.c
 
 #CC specifies which compiler we're using
 CC = gcc

@@ -2,6 +2,7 @@
 #include "sprite.h"
 #include "timer.h"
 #include "keyboard_input.h"
+#include "mouse_input.h"
 
 const int SCREEN_WIDTH = 800;
 const int SCREEN_HEIGHT = 600;
@@ -21,7 +22,9 @@ SDL_Renderer* gRenderer = NULL;
 
 TTF_Font *gFont = NULL;
 
-Sprite dots;
+Sprite leftButtonText;
+Sprite rightButtonText;
+Sprite middleButtonText;
 
 bool Initialize()
 {
@@ -93,10 +96,10 @@ bool LoadContent()
 	// else
 	// {
 	// 	SDL_Color textColor = {0,0,0};
-	// 	sprite_init(&dots);
+	// 	sprite_init(&leftButtonText);
 
-		// if(!sprite_load_from_text(&dots, "The quick brown fox jumps over the lazy dog", textColor))
-		// if(!sprite_load(&dots, "dots.png"))
+		// if(!sprite_load_from_text(&leftButtonText, "The quick brown fox jumps over the lazy dog", textColor))
+		// if(!sprite_load(&leftButtonText, "leftButtonText.png"))
 		// {
 			// success = false;
 		// }
@@ -116,7 +119,7 @@ void Close()
 {
 	// Free loaded images
 	//gArrowTexture.free();	
-	sprite_destroy(&dots);
+	sprite_destroy(&leftButtonText);
 
 	TTF_CloseFont(gFont);
 	gFont = NULL;
@@ -146,7 +149,6 @@ int main( int argc, char* args[] )
 
 	timer_start(&fpsTimer);
 	int countedFrames = 0;
-	KeyboardInput keyboard;
 	//Start up SDL and create window
 	if(!Initialize())
 	{
@@ -177,16 +179,16 @@ int main( int argc, char* args[] )
 			while( !quit )
 			{				
 				timer_start(&capTimer);
-				keyboard_update(&keyboard);
+				keyboard_update();
 				//Handle events on queue
-				while( SDL_PollEvent( &e ) != 0 )
+				while(SDL_PollEvent(&e) != 0)
 				{
 					//User requests quit
 					if( e.type == SDL_QUIT )
 					{
 						quit = true;
-					}
-					else if( e.type == SDL_KEYDOWN )
+					}					
+					else if(e.type == SDL_KEYDOWN)
 					{
 						switch( e.key.keysym.sym )
 						{
@@ -223,8 +225,10 @@ int main( int argc, char* args[] )
 							// break;
 						}
 					}
+
+					mouse_handle_event(&e);
 				}
-				if(key_is_held(&keyboard, SDL_SCANCODE_LEFT))
+				if(key_is_down(SDL_SCANCODE_LEFT))
 				{
 					rot-=5;
 				}
@@ -232,10 +236,16 @@ int main( int argc, char* args[] )
 				//Clear screen
 				SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
 				SDL_RenderClear( gRenderer );
-				snprintf(buffer, sizeof(buffer), "FPS : %.f", avgFPS);
 				SDL_Color textColor = {0,0,0};
-				sprite_load_from_text(&dots, buffer, textColor);	
-				sprite_render(&dots, 100, 100, NULL, rot, NULL, SDL_FLIP_NONE);
+				snprintf(buffer, sizeof(buffer), "Left button pressed: %d", Mouse.LeftIsPressed);				
+				sprite_load_from_text(&leftButtonText, buffer, textColor);
+				snprintf(buffer, sizeof(buffer), "Right button pressed: %d", Mouse.RightIsPressed);				
+				sprite_load_from_text(&rightButtonText, buffer, textColor);
+				snprintf(buffer, sizeof(buffer), "Middle button pressed: %d", Mouse.MiddleIsPressed);				
+				sprite_load_from_text(&middleButtonText, buffer, textColor);
+				sprite_render(&leftButtonText, 100, 100, NULL, rot, NULL, SDL_FLIP_NONE);
+				sprite_render(&rightButtonText, 100, 200, NULL, rot, NULL, SDL_FLIP_NONE);
+				sprite_render(&middleButtonText, 100, 300, NULL, rot, NULL, SDL_FLIP_NONE);
 				//Render arrow
 				// gArrowTexture.render( ( SCREEN_WIDTH - gArrowTexture.getWidth() ) / 2, ( SCREEN_HEIGHT - gArrowTexture.getHeight() ) / 2, NULL, degrees, NULL, flipType );
 				// rot += rotV;

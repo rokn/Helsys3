@@ -3,16 +3,17 @@
 
 #include "magic.h"
 
-typedef struct
+struct
 {
 	const Uint8 *oldKeyboardState;
 	const Uint8 *currentKeyboardState;
 
-}KeyboardInput;
+}Keyboard;
 
-bool key_is_held(KeyboardInput *, SDL_Scancode);
-bool key_is_down(KeyboardInput *, SDL_Scancode);
-bool key_is_up(KeyboardInput *, SDL_Scancode);
-bool key_just_pressed(KeyboardInput *, SDL_Scancode);
-void keyboard_update(KeyboardInput *);
+// bool key_is_held(KeyboardInput *, SDL_Scancode); // Not working GOTO: keyboard_input.c
+// bool key_just_pressed(KeyboardInput *, SDL_Scancode); // Not working GOTO: keyboard_input.c
+bool key_is_down(SDL_Scancode);
+bool key_is_up(SDL_Scancode);
+
+void keyboard_update();
 #endif
