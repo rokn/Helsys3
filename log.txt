@@ -1,0 +1,8 @@
+main.c: In function ‘Initialize’:
+main.c:30:39: error: ‘a’ undeclared (first use in this function)
+  if( SDL_Init( SDL_INIT_VIDEO ) < 0 ) a
+                                       ^
+main.c:30:39: note: each undeclared identifier is reported only once for each function it appears in
+main.c:31:2: error: expected ‘;’ before ‘{’ token
+  {
+  ^
