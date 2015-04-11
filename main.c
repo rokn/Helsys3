@@ -53,7 +53,7 @@ bool Initialize()
 
 			if( gRenderer == NULL )
 			{
-				printf( "Renderer could not be created! SDL Error: %s\n", SDL_GetError() );
+				printf("Renderer could not be created! SDL Error: %s\n", SDL_GetError());
 				success = false;
 			}
 			else
