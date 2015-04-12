@@ -1,4 +1,4 @@
-#include "keyboard_input.h"
+#include "AGE/AGE_Input.h"
 
 //TODO: Think of a way to implement | reminder: problem is pointers of oldState
 
@@ -21,18 +21,18 @@
 
 
 
-bool key_is_down(SDL_Scancode scancode)
+bool AGE_KeyIsDown(SDL_Scancode scancode)
 {
-	return Keyboard.currentKeyboardState[scancode];
+	return AGE_Keyboard.currentKeyboardState[scancode];
 }
 
-bool key_is_up(SDL_Scancode scancode)
+bool AGE_KeyIsUp(SDL_Scancode scancode)
 {
-	return Keyboard.currentKeyboardState[scancode];
+	return AGE_Keyboard.currentKeyboardState[scancode];
 }
 
-void keyboard_update()
+void AGE_KeyboardUpdate()
 {
 	// input->oldKeyboardState = input->currentKeyboardState;
-	Keyboard.currentKeyboardState = SDL_GetKeyboardState(NULL);
+	AGE_Keyboard.currentKeyboardState = SDL_GetKeyboardState(NULL);
 }

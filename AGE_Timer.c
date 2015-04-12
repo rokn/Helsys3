@@ -1,6 +1,6 @@
-#include "timer.h"
+#include "AGE/AGE_Time.h"
 
-void timer_init(Timer *timer)
+void AGE_TimerInit(AGE_Timer *timer)
 {
 	timer->IsStarted = false;
 	timer->IsPaused = false;
@@ -8,7 +8,7 @@ void timer_init(Timer *timer)
 	timer->startTime = 0;
 }
 
-void timer_start(Timer *timer)
+void AGE_TimerStart(AGE_Timer *timer)
 {
 	if(timer->IsStarted && timer->IsPaused)
 	{
@@ -25,7 +25,7 @@ void timer_start(Timer *timer)
 	}
 }
 
-void timer_stop(Timer *timer)
+void AGE_TimerStop(AGE_Timer *timer)
 {
 	timer->IsStarted = false;
 	timer->startTime = 0;
@@ -33,7 +33,7 @@ void timer_stop(Timer *timer)
 	timer->pausedTime = 0;
 }
 
-void timer_pause(Timer *timer)
+void AGE_TimerPause(AGE_Timer *timer)
 {
 	if(timer->IsStarted && !timer->IsPaused)
 	{
@@ -42,7 +42,7 @@ void timer_pause(Timer *timer)
 	}
 }
 
-Uint32 timer_get_time(Timer *timer)
+Uint32 AGE_TimerGetTicks(AGE_Timer *timer)
 {
 	Uint32 timerTime = 0;
 

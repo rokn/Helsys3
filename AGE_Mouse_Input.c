@@ -1,11 +1,11 @@
-#include "mouse_input.h"
+#include "AGE/AGE_Input.h"
 
-void mouse_handle_event(SDL_Event *event)
+void AGE_MouseHandleEvent(SDL_Event *event)
 {
 	switch(event->type)
 	{
 		case SDL_MOUSEMOTION:
-			SDL_GetMouseState(&Mouse.X, &Mouse.Y);
+			SDL_GetMouseState(&AGE_Mouse.X, &AGE_Mouse.Y);
 			break;
 
 		case SDL_MOUSEBUTTONDOWN:
@@ -23,13 +23,13 @@ void pressButton(SDL_Event *event)
 	switch(event->button.button)
 	{
 		case SDL_BUTTON_LEFT:
-			Mouse.LeftIsPressed = true;
+			AGE_Mouse.LeftIsPressed = true;
 			break;
 		case SDL_BUTTON_MIDDLE:
-			Mouse.MiddleIsPressed = true;
+			AGE_Mouse.MiddleIsPressed = true;
 			break;
 		case SDL_BUTTON_RIGHT:
-			Mouse.RightIsPressed = true;
+			AGE_Mouse.RightIsPressed = true;
 			break;
 	}
 }
@@ -39,13 +39,13 @@ void releaseButton(SDL_Event *event)
 	switch(event->button.button)
 	{
 		case SDL_BUTTON_LEFT:
-			Mouse.LeftIsPressed = false;
+			AGE_Mouse.LeftIsPressed = false;
 			break;
 		case SDL_BUTTON_MIDDLE:
-			Mouse.MiddleIsPressed = false;
+			AGE_Mouse.MiddleIsPressed = false;
 			break;
 		case SDL_BUTTON_RIGHT:
-			Mouse.RightIsPressed = false;
+			AGE_Mouse.RightIsPressed = false;
 			break;
 	}
 }

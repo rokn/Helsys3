@@ -1,18 +1,11 @@
-#include "sprite.h"
+#include "AGE/AGE_Graphics.h"
 
-void sprite_init(Sprite *sprite)
-{
-	sprite->texture = NULL;
-	sprite->Width = 0;
-	sprite->Height = 0;
-}
-
-void sprite_destroy(Sprite *sprite)
+void AGE_SpriteDestroy(AGE_Sprite *sprite)
 {	
 	sprite_free(sprite);
 }
 
-void sprite_free(Sprite *sprite)
+void sprite_free(AGE_Sprite *sprite)
 {
 	if( sprite->texture != NULL )
 	{
@@ -23,7 +16,7 @@ void sprite_free(Sprite *sprite)
 	}
 }
 
-bool sprite_load(Sprite *sprite, char *path)
+bool AGE_SpriteLoad(AGE_Sprite *sprite, char *path)
 {
 	sprite_free(sprite);
 	
@@ -60,22 +53,22 @@ bool sprite_load(Sprite *sprite, char *path)
 	return finalTexture != NULL;
 }
 
-void sprite_set_color(Sprite *sprite, Uint8 red, Uint8 green, Uint8 blue)
+void AGE_SpriteSetColor(AGE_Sprite *sprite, Uint8 red, Uint8 green, Uint8 blue)
 {
 	SDL_SetTextureColorMod( sprite->texture, red, green, blue );
 }
 
-void sprite_set_blendMode(Sprite *sprite, SDL_BlendMode blendMode)
+void AGE_SpriteSetBlendMode(AGE_Sprite *sprite, SDL_BlendMode blendMode)
 {
 	SDL_SetTextureBlendMode( sprite->texture, blendMode );
 }
 		
-void sprite_set_alpha(Sprite *sprite, Uint8 alpha)
+void AGE_SpriteSetAlpha(AGE_Sprite *sprite, Uint8 alpha)
 {
 	SDL_SetTextureAlphaMod(sprite->texture, alpha);
 }
 
-void sprite_render(Sprite *sprite, int x, int y, SDL_Rect* clip, double rotation, SDL_Point* origin, SDL_RendererFlip flip)
+void AGE_SpriteRender(AGE_Sprite *sprite, int x, int y, SDL_Rect* clip, double rotation, SDL_Point* origin, SDL_RendererFlip flip)
 {
 	SDL_Rect renderRect = {x, y, sprite->Width, sprite->Height};
 
@@ -88,11 +81,11 @@ void sprite_render(Sprite *sprite, int x, int y, SDL_Rect* clip, double rotation
 	SDL_RenderCopyEx(gRenderer, sprite->texture, clip, &renderRect, rotation, origin, flip);
 }
 
-bool sprite_load_from_text(Sprite *sprite, char* text, SDL_Color textColor)
+bool AGE_SpriteLoadFromText(AGE_Sprite *sprite, char* text, SDL_Color textColor, TTF_Font* font)
 {
 	sprite_free(sprite);
 
-	SDL_Surface *textSurface = TTF_RenderText_Solid(gFont, text, textColor);
+	SDL_Surface *textSurface = TTF_RenderText_Solid(font, text, textColor);
 	
 	if(textSurface == NULL)
 	{
