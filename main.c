@@ -9,6 +9,7 @@ const int SCREEN_FPS = 60;
 const int SCREEN_TICKS_PER_FRAME = 1000 / 60;
 
 bool LoadContent();
+bool intlistForeach(void*);
 
 bool LoadContent()
 {
@@ -48,29 +49,11 @@ int main( )
 	// AGE_Init("AGE Test", SCREEN_WIDTH, SCREEN_HEIGHT, true);
 	// AGE_Run
 	// AGE_Close();
-
-	AGE_List list;
-	AGE_ListInit(&list,sizeof(int));
-	int number = 5;
-	AGE_ListAddFront(&list,&number);
-	number = 3;
-	AGE_ListAddFront(&list,&number);
-	number = 4;
-	AGE_ListAddFront(&list,&number);
-	number = 6;
-	AGE_ListAddFront(&list,&number);
-	number = 7;
-	AGE_ListAddFront(&list,&number);	
-	number = 8;
-	AGE_ListPeekBack(&list,&number);
-	printf("%d",AGE_ListGetSize(&list));
-	AGE_ListDestroy(&list);
+	AGE_Vector v = {1.f,1.f};
+	AGE_Vector v2 = {2.3f,0.f};
+	printf("%f\n", AGE_VectorNormalize(v2).X);
 	return 0;
 }
-
-
-
-
 
 
 	// double rot =0;

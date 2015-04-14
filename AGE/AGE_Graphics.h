@@ -26,6 +26,10 @@ void AGE_SpriteSetBlendMode(AGE_Sprite*, SDL_BlendMode);
 		
 void AGE_SpriteSetAlpha(AGE_Sprite*, Uint8);
 
-void AGE_SpriteRender(AGE_Sprite*, int, int, SDL_Rect*, double, SDL_Point*, SDL_RendererFlip);
+void AGE_SpriteRender(AGE_Sprite*, AGE_Vector*, SDL_Rect*, double, SDL_Point*, SDL_RendererFlip);
+
+// void BeginDraw();
+
+// void EndDraw();
 
 #endif

@@ -24,11 +24,14 @@ void AGE_ListInit(AGE_List*,int);
 void AGE_ListDestroy(AGE_List*);
 int AGE_ListGetSize(AGE_List*);
 void AGE_ListAddFront(AGE_List*, void*);
-void AGE_ListAddBack(AGE_List*, void*);
+void AGE_ListInsert(AGE_List*, void*, int);
+void AGE_ListAdd(AGE_List*, void*);
 void AGE_ListRemoveFront(AGE_List*);
-void AGE_ListRemoveBack(AGE_List*);
+void AGE_ListRemoveLast(AGE_List*);
+void AGE_ListRemoveAt(AGE_List*,int);
 void AGE_ListPeekFront(AGE_List*, void*);
-void AGE_ListPeekBack(AGE_List*, void*);
+void AGE_ListPeekLast(AGE_List*, void*);
+void AGE_ListPeekAt(AGE_List *, void *, int);
 void AGE_ListForEach(AGE_List*, listIterator);
 
 #endif

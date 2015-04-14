@@ -1,0 +1,8 @@
+In file included from main.c:2:0:
+AGE/AGE_Graphics.h:29:95: error: expected declaration specifiers or ‘...’ before ‘)’ token
+ void AGE_SpriteRender(AGE_Sprite*, int, int, SDL_Rect*, double, SDL_Point*, SDL_RendererFlip, );
+                                                                                               ^
+In file included from AGE_Sprite.c:1:0:
+AGE/AGE_Graphics.h:29:95: error: expected declaration specifiers or ‘...’ before ‘)’ token
+ void AGE_SpriteRender(AGE_Sprite*, int, int, SDL_Rect*, double, SDL_Point*, SDL_RendererFlip, );
+                                                                                               ^

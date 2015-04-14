@@ -68,9 +68,9 @@ void AGE_SpriteSetAlpha(AGE_Sprite *sprite, Uint8 alpha)
 	SDL_SetTextureAlphaMod(sprite->texture, alpha);
 }
 
-void AGE_SpriteRender(AGE_Sprite *sprite, int x, int y, SDL_Rect* clip, double rotation, SDL_Point* origin, SDL_RendererFlip flip)
+void AGE_SpriteRender(AGE_Sprite *sprite, AGE_Vector pos, SDL_Rect* clip, double rotation, SDL_Point* origin, SDL_RendererFlip flip)
 {
-	SDL_Rect renderRect = {x, y, sprite->Width, sprite->Height};
+	SDL_Rect renderRect = {(int)pos.X, (int)pos.Y, sprite->Width, sprite->Height};
 
 	if(clip!=NULL)
 	{

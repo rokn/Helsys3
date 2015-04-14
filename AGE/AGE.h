@@ -17,6 +17,7 @@
 #include <stdlib.h>
 #include <assert.h>
 #include <string.h>
+#include <math.h>
 
 extern SDL_Renderer *gRenderer;
 extern SDL_Window *gWindow;
@@ -47,6 +48,22 @@ void AGE_TimerStop(AGE_Timer *);
 void AGE_TimerPause(AGE_Timer *);
 
 Uint32 AGE_TimerGetTicks(AGE_Timer *);
+
+//Vector
+
+typedef struct
+{
+	float X;
+	float Y;
+}AGE_Vector;
+
+AGE_Vector AGE_VectorAdd(AGE_Vector,AGE_Vector);
+AGE_Vector AGE_VectorSubtract(AGE_Vector, AGE_Vector);
+float AGE_VectorDistance(AGE_Vector, AGE_Vector);
+AGE_Vector AGE_VectorMultiply(AGE_Vector, float);
+AGE_Vector AGE_VectorDivide(AGE_Vector, float);
+float AGE_VectorLength(AGE_Vector);
+AGE_Vector AGE_VectorNormalize(AGE_Vector);
 
 
 #endif
