@@ -1,5 +1,5 @@
-#ifndef SPRITE_H
-#define SPRITE_H
+#ifndef AGE_GRAPHICS_H
+#define AGE_GRAPHICS_H
 
 #include "AGE.h"
 

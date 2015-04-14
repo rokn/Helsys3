@@ -1,23 +1,14 @@
 #include "AGE/AGE.h"
 #include "AGE/AGE_Graphics.h"
-#include "AGE/AGE_Time.h"
 #include "AGE/AGE_Input.h"
+#include "AGE/AGE_Generics.h"
 
 const int SCREEN_WIDTH = 800;
 const int SCREEN_HEIGHT = 600;
 const int SCREEN_FPS = 60;
 const int SCREEN_TICKS_PER_FRAME = 1000 / 60;
 
-bool Initialize();
 bool LoadContent();
-void Close();
-
-
-AGE_Sprite spr;
-
-AGE_Sprite leftButtonText;
-AGE_Sprite rightButtonText;
-AGE_Sprite middleButtonText;
 
 bool LoadContent()
 {
@@ -52,12 +43,28 @@ bool LoadContent()
 	// return success;
 }
 
-int main( int argc, char* args[] )
+int main( )
 {
-	AGE_Init("AGE Test", SCREEN_WIDTH, SCREEN_HEIGHT, false);
-	SDL_Delay(2000);
-	AGE_Close();
+	// AGE_Init("AGE Test", SCREEN_WIDTH, SCREEN_HEIGHT, true);
+	// AGE_Run
+	// AGE_Close();
 
+	AGE_List list;
+	AGE_ListInit(&list,sizeof(int));
+	int number = 5;
+	AGE_ListAddFront(&list,&number);
+	number = 3;
+	AGE_ListAddFront(&list,&number);
+	number = 4;
+	AGE_ListAddFront(&list,&number);
+	number = 6;
+	AGE_ListAddFront(&list,&number);
+	number = 7;
+	AGE_ListAddFront(&list,&number);	
+	number = 8;
+	AGE_ListPeekBack(&list,&number);
+	printf("%d",AGE_ListGetSize(&list));
+	AGE_ListDestroy(&list);
 	return 0;
 }
 
