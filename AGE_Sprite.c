@@ -2,10 +2,10 @@
 
 void AGE_SpriteDestroy(AGE_Sprite *sprite)
 {	
-	sprite_free(sprite);
+	sprite_free_age(sprite);
 }
 
-void sprite_free(AGE_Sprite *sprite)
+void sprite_free_age(AGE_Sprite *sprite)
 {
 	if( sprite->texture != NULL )
 	{
@@ -18,7 +18,7 @@ void sprite_free(AGE_Sprite *sprite)
 
 bool AGE_SpriteLoad(AGE_Sprite *sprite, char *path)
 {
-	sprite_free(sprite);
+	sprite_free_age(sprite);
 	
 	SDL_Texture *finalTexture = NULL;
 	SDL_Surface *loadedSurface = IMG_Load(path);
@@ -68,9 +68,9 @@ void AGE_SpriteSetAlpha(AGE_Sprite *sprite, Uint8 alpha)
 	SDL_SetTextureAlphaMod(sprite->texture, alpha);
 }
 
-void AGE_SpriteRender(AGE_Sprite *sprite, AGE_Vector pos, SDL_Rect* clip, double rotation, SDL_Point* origin, SDL_RendererFlip flip)
+void AGE_SpriteRender(AGE_Sprite *sprite, AGE_Vector *pos, SDL_Rect* clip, double rotation, AGE_Vector *origin, SDL_RendererFlip flip, short depth)
 {
-	SDL_Rect renderRect = {(int)pos.X, (int)pos.Y, sprite->Width, sprite->Height};
+	SDL_Rect renderRect = {(int)pos->X, (int)pos->Y, sprite->Width, sprite->Height};
 
 	if(clip!=NULL)
 	{
@@ -78,12 +78,37 @@ void AGE_SpriteRender(AGE_Sprite *sprite, AGE_Vector pos, SDL_Rect* clip, double
 		renderRect.h = clip->h;
 	}
 
-	SDL_RenderCopyEx(gRenderer, sprite->texture, clip, &renderRect, rotation, origin, flip);
+	renderSprite_age renderSprite;// = {sprite, pos, clip, rotation, origin, flip, depth};
+	renderSprite.sprite = sprite;
+	renderSprite.pos = pos;
+	renderSprite.clip = clip;
+	renderSprite.renderRect = renderRect;
+	renderSprite.rotation = rotation;
+	renderSprite.origin = origin;
+	renderSprite.flip = flip;
+	renderSprite.depth = depth;
+
+	int i;
+
+	for (i = 0; i < AGE_ListGetSize(&spriteBatch_age.renderSpritesList); ++i)
+	{		
+		renderSprite_age rS;
+		AGE_ListPeekAt(&spriteBatch_age.renderSpritesList, &rS, i);
+
+		if(rS.depth>renderSprite.depth)
+		{
+			AGE_ListInsert(&spriteBatch_age.renderSpritesList, &renderSprite, i);
+			return;
+		}
+	}
+
+	AGE_ListAdd(&spriteBatch_age.renderSpritesList, &renderSprite);
+	// SDL_RenderCopyEx(gRenderer, sprite->texture, clip, &renderRect, rotation, origin, flip);
 }
 
 bool AGE_SpriteLoadFromText(AGE_Sprite *sprite, char* text, SDL_Color textColor, TTF_Font* font)
 {
-	sprite_free(sprite);
+	sprite_free_age(sprite);
 
 	SDL_Surface *textSurface = TTF_RenderText_Solid(font, text, textColor);
 	

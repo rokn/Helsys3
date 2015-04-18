@@ -5,180 +5,84 @@
 
 const int SCREEN_WIDTH = 800;
 const int SCREEN_HEIGHT = 600;
-const int SCREEN_FPS = 60;
-const int SCREEN_TICKS_PER_FRAME = 1000 / 60;
+const float CAMERA_SPEED = 4.f;
 
-bool LoadContent();
-bool intlistForeach(void*);
+void LoadContent();
+void EventHandler(SDL_Event *);
+void Update();
+void Draw();
 
-bool LoadContent()
+void CameraControl();
+
+AGE_Sprite arrow;
+AGE_Sprite explosionSheet;
+AGE_Animation explosionAnimation;
+
+int main(int argc, char const *argv[])
 {
-	//Loading success flag
-	// bool success = true;
-
-	// gFont = TTF_OpenFont("Resources/Aver.ttf", 16);
-	// if(gFont == NULL)
-	// {
-	// 	printf("Font load error 'Aver' Error: %s\n", TTF_GetError());
-	// 	success = false;
-	// }
-	// else
-	// {
-	// 	SDL_Color textColor = {0,0,0};
-	// 	sprite_init(&leftButtonText);
-
-		// if(!sprite_load_from_text(&leftButtonText, "The quick brown fox jumps over the lazy dog", textColor))
-		// if(!sprite_load(&leftButtonText, "leftButtonText.png"))
-		// {
-			// success = false;
-		// }
-	// }
-
-	// Load arrow
-	// if( !gArrowTexture.loadFromFile( "arrow.png" ) )
-	// {
-	// 	printf( "Failed to load arrow texture!\n" );
-	// 	success = false;
-	// }
-
-	// return success;
-}
-
-int main( )
-{
-	// AGE_Init("AGE Test", SCREEN_WIDTH, SCREEN_HEIGHT, true);
-	// AGE_Run
-	// AGE_Close();
-	AGE_Vector v = {1.f,1.f};
-	AGE_Vector v2 = {2.3f,0.f};
-	printf("%f\n", AGE_VectorNormalize(v2).X);
+	AGE_Init("AGE Test", SCREEN_WIDTH, SCREEN_HEIGHT, true);
+	LoadContent();
+	AGE_Run(EventHandler, Update, Draw);
+	AGE_Close();	
 	return 0;
 }
 
+void LoadContent()
+{
+	AGE_SpriteLoad(&arrow, "Arrow.png");
+	AGE_SpriteLoad(&explosionSheet, "Resources/Explosion.png");	
+	AGE_Animation_CreateFromSpriteSheet(&explosionAnimation, &explosionSheet, AGE_Animation_GetSpriteSheetRects(&explosionSheet, 0, 49, 200, 200), 2);
+}
 
-	// double rot =0;
-	// double rotV = 0;
-	// char buffer[1024];
-	// Timer fpsTimer;
-	// Timer capTimer;
-	// timer_init(&capTimer);
+void EventHandler(SDL_Event *e)
+{
 
-	// timer_init(&fpsTimer);
+}
 
-	// timer_start(&fpsTimer);
-	// int countedFrames = 0;
-	// //Start up SDL and create window
-	// if(!Initialize())
-	// {
-	// 	printf( "Failed to initialize!\n" );
-	// }
-	// else
-	// {
-	// 	//Load media
-	// 	if(!LoadContent())
-	// 	{
-	// 		printf( "Failed to load media!\n" );
-	// 	}
-	// 	else
-	// 	{	
-	// 		//Main loop flag
-	// 		bool quit = false;
+void Update()
+{
+	CameraControl();
+	AGE_Vector v = {50.f, 50.f};
+	AGE_Animation_Update(&explosionAnimation, &v);
+}
 
-	// 		//Event handler
-	// 		SDL_Event e;
+void Draw()
+{
+	AGE_DrawBegin();
+	AGE_Animation_Draw(&explosionAnimation, 0.0f,NULL, SDL_FLIP_NONE, 0);
+	AGE_DrawEnd();
+}
 
-	// 		//Angle of rotation
-	// 		double degrees = 0;
+void CameraControl()
+{
+	bool pressed = false;
+	AGE_Vector v = {0.f, 0.f};
+	if(AGE_KeyIsDown(SDL_SCANCODE_LEFT))
+	{
+		v.X = -CAMERA_SPEED;
+		pressed = true;
+	}
 
-	// 		//Flip type
-	// 		// SDL_RendererFlip flipType = SDL_FLIP_NONE;
+	if(AGE_KeyIsDown(SDL_SCANCODE_RIGHT))
+	{
+		v.X = CAMERA_SPEED;
+		pressed = true;
+	}
 
-	// 		//While application is running
-	// 		while( !quit )
-	// 		{				
-	// 			timer_start(&capTimer);
-	// 			keyboard_update();
-	// 			//Handle events on queue
-	// 			while(SDL_PollEvent(&e) != 0)
-	// 			{
-	// 				//User requests quit
-	// 				if( e.type == SDL_QUIT )
-	// 				{
-	// 					quit = true;
-	// 				}					
-	// 				else if(e.type == SDL_KEYDOWN)
-	// 				{
-	// 					switch( e.key.keysym.sym )
-	// 					{
-	// 						// case SDLK_a:
-	// 						// degrees -= 60;
-	// 						// break;
-							
-	// 						// case SDLK_d:
-	// 						// degrees += 60;
-	// 						// break;
+	if(AGE_KeyIsDown(SDL_SCANCODE_UP))
+	{
+		v.Y = -CAMERA_SPEED;
+		pressed = true;
+	}
 
-	// 						// case SDLK_q:
-	// 						// flipType = SDL_FLIP_HORIZONTAL;s
-	// 						// break;
+	if(AGE_KeyIsDown(SDL_SCANCODE_DOWN))
+	{
+		v.Y = CAMERA_SPEED;
+		pressed = true;
+	}
 
-	// 						// case SDLK_w:
-	// 						// flipType = SDL_FLIP_NONE;
-	// 						// break;
-
-	// 						// case SDLK_e:
-	// 						// flipType = SDL_FLIP_VERTICAL;
-	// 						// break;
-
-	// 						// case SDLK_p:
-	// 						// timer_pause(&timer);							
-	// 						// break;
-
-	// 						// case SDLK_s:
-	// 						// timer_start(&timer);							
-	// 						// break;
-
-	// 						// case SDLK_d:
-	// 						// timer_stop(&timer);							
-	// 						// break;
-	// 					}
-	// 				}
-
-	// 				mouse_handle_event(&e);
-	// 			}
-	// 			if(key_is_down(SDL_SCANCODE_LEFT))
-	// 			{
-	// 				rot-=5;
-	// 			}
-	// 			float avgFPS = countedFrames / (timer_get_time(&fpsTimer) / 1000.f);
-	// 			//Clear screen
-	// 			SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
-	// 			SDL_RenderClear( gRenderer );
-	// 			SDL_Color textColor = {0,0,0};
-	// 			snprintf(buffer, sizeof(buffer), "Left button pressed: %d", Mouse.LeftIsPressed);				
-	// 			sprite_load_from_text(&leftButtonText, buffer, textColor);
-	// 			snprintf(buffer, sizeof(buffer), "Right button pressed: %d", Mouse.RightIsPressed);				
-	// 			sprite_load_from_text(&rightButtonText, buffer, textColor);
-	// 			snprintf(buffer, sizeof(buffer), "Middle button pressed: %d", Mouse.MiddleIsPressed);				
-	// 			sprite_load_from_text(&middleButtonText, buffer, textColor);
-	// 			sprite_render(&leftButtonText, 100, 100, NULL, rot, NULL, SDL_FLIP_NONE);
-	// 			sprite_render(&rightButtonText, 100, 200, NULL, rot, NULL, SDL_FLIP_NONE);
-	// 			sprite_render(&middleButtonText, 100, 300, NULL, rot, NULL, SDL_FLIP_NONE);
-	// 			//Render arrow
-	// 			// gArrowTexture.render( ( SCREEN_WIDTH - gArrowTexture.getWidth() ) / 2, ( SCREEN_HEIGHT - gArrowTexture.getHeight() ) / 2, NULL, degrees, NULL, flipType );
-	// 			// rot += rotV;
-	// 			// rotV += 0.2;
-	// 			//Update screen
-	// 			SDL_RenderPresent( gRenderer );
-	// 			++countedFrames;
-
-	// 			int frameTicks = timer_get_time(&capTimer);
-
-	//                if( frameTicks < SCREEN_TICKS_PER_FRAME )
-	//                {
-	//                    //Wait remaining time
-	//                    SDL_Delay( SCREEN_TICKS_PER_FRAME - frameTicks );
-	//                }
-	// 		}
-	// 	}
-	// }
+	if(pressed)
+	{
+		AGE_DrawChangeCameraTransform(v);
+	}
+}

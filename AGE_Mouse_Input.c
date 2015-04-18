@@ -1,11 +1,11 @@
 #include "AGE/AGE_Input.h"
 
-void AGE_MouseHandleEvent(SDL_Event *event)
+void mouseHandleEvent_age(SDL_Event *event)
 {
 	switch(event->type)
 	{
 		case SDL_MOUSEMOTION:
-			SDL_GetMouseState(&AGE_Mouse.X, &AGE_Mouse.Y);
+			SDL_GetMouseState(&AGE_Mouse.Position.X, &AGE_Mouse.Position.Y);
 			break;
 
 		case SDL_MOUSEBUTTONDOWN:

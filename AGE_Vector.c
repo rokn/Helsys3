@@ -1,7 +1,7 @@
 #include "AGE/AGE.h"
 
 
-AGE_Vector AGE_VectorAdd(AGE_Vector v1,AGE_Vector v2)
+AGE_Vector 	AGE_VectorAdd(AGE_Vector v1,AGE_Vector v2)
 {
 	AGE_Vector newVector;
 	newVector.X = v1.X + v2.X;

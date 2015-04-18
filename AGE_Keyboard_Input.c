@@ -31,7 +31,7 @@ bool AGE_KeyIsUp(SDL_Scancode scancode)
 	return AGE_Keyboard.currentKeyboardState[scancode];
 }
 
-void AGE_KeyboardUpdate()
+void keyboardUpdate_age()
 {
 	// input->oldKeyboardState = input->currentKeyboardState;
 	AGE_Keyboard.currentKeyboardState = SDL_GetKeyboardState(NULL);

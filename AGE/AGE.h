@@ -21,11 +21,18 @@
 
 extern SDL_Renderer *gRenderer;
 extern SDL_Window *gWindow;
+extern int MAX_FPS;
+extern int MAX_TICKS_PER_FRAME;
+extern int CURRENT_FPS;
 
 typedef int bool;
 enum { false, true };
 
-typedef struct
+typedef void (*EventHandle_age)(SDL_Event *event);
+typedef void (*UserUpdate_age)();
+typedef void (*UserDraw_age)();
+
+typedef struct 
 {
 	Uint32 startTime;
 	Uint32 pausedTime;
@@ -38,6 +45,7 @@ typedef struct
 //Main functions
 
 bool AGE_Init(const char* windowTitle,int screenWidth, int screenHeight, bool vSync);
+void AGE_Run(EventHandle_age, UserUpdate_age, UserDraw_age);
 void AGE_Close();
 
 //Timer functions
@@ -65,5 +73,24 @@ AGE_Vector AGE_VectorDivide(AGE_Vector, float);
 float AGE_VectorLength(AGE_Vector);
 AGE_Vector AGE_VectorNormalize(AGE_Vector);
 
+//Rectangle
+
+typedef struct
+{
+	int X;
+	int Y;
+	int Width;
+	int Height;
+}AGE_Rect;
+
+void AGE_RectSetPosition(AGE_Rect *,int,int);
+bool AGE_RectIntersects(AGE_Rect, AGE_Rect);
+bool AGE_RectContains(AGE_Rect, AGE_Vector);
+
+//Helper Methods
+
+AGE_Vector AGE_Helper_RotatedVectorMove(AGE_Vector position, float rotation, float speed);
+float AGE_Helper_FindRotation(AGE_Vector, AGE_Vector, float);
+AGE_Vector AGE_Helper_AngleToVector(float);
 
 #endif

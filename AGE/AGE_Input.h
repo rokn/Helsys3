@@ -17,20 +17,19 @@ struct
 bool AGE_KeyIsDown(SDL_Scancode);
 bool AGE_KeyIsUp(SDL_Scancode);
 
-void AGE_KeyboardUpdate();
+void keyboardUpdate_age();
 
 // MOUSE INPUT
 
 struct
 {
-	int X;
-	int Y;
+	AGE_Vector Position;
 
 	bool LeftIsPressed;
 	bool RightIsPressed;
 	bool MiddleIsPressed;
 } AGE_Mouse;
 
-void AGE_MouseHandleEvent(SDL_Event*);
+void mouseHandleEvent_age(SDL_Event*);
 
 #endif
