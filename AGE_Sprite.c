@@ -106,6 +106,44 @@ void AGE_SpriteRender(AGE_Sprite *sprite, AGE_Vector *pos, SDL_Rect* clip, doubl
 	// SDL_RenderCopyEx(gRenderer, sprite->texture, clip, &renderRect, rotation, origin, flip);
 }
 
+void AGE_SpriteRenderGUI(AGE_Sprite *sprite, AGE_Vector *pos, SDL_Rect* clip, double rotation, AGE_Vector *origin, SDL_RendererFlip flip, short depth)
+{
+	SDL_Rect renderRect = {(int)pos->X, (int)pos->Y, sprite->Width, sprite->Height};
+
+	if(clip!=NULL)
+	{
+		renderRect.w = clip->w;
+		renderRect.h = clip->h;
+	}
+
+	renderSprite_age renderSprite;// = {sprite, pos, clip, rotation, origin, flip, depth};
+	renderSprite.sprite = sprite;
+	renderSprite.pos = pos;
+	renderSprite.clip = clip;
+	renderSprite.renderRect = renderRect;
+	renderSprite.rotation = rotation;
+	renderSprite.origin = origin;
+	renderSprite.flip = flip;
+	renderSprite.depth = depth;
+
+	int i;
+
+	for (i = 0; i < AGE_ListGetSize(&spriteBatchGui_age.renderSpritesList); ++i)
+	{		
+		renderSprite_age rS;
+		AGE_ListPeekAt(&spriteBatchGui_age.renderSpritesList, &rS, i);
+
+		if(rS.depth>renderSprite.depth)
+		{
+			AGE_ListInsert(&spriteBatchGui_age.renderSpritesList, &renderSprite, i);
+			return;
+		}
+	}
+
+	AGE_ListAdd(&spriteBatchGui_age.renderSpritesList, &renderSprite);
+	// SDL_RenderCopyEx(gRenderer, sprite->texture, clip, &renderRect, rotation, origin, flip);
+}
+
 bool AGE_SpriteLoadFromText(AGE_Sprite *sprite, char* text, SDL_Color textColor, TTF_Font* font)
 {
 	sprite_free_age(sprite);

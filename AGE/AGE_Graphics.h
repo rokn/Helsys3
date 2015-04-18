@@ -27,7 +27,7 @@ struct
 	AGE_List renderSpritesList;
 	AGE_Vector cameraOffset;
 
-} spriteBatch_age;
+} spriteBatch_age, spriteBatchGui_age;
 
 //void sprite_init(AGE_Sprite *);
 
@@ -46,6 +46,8 @@ void AGE_SpriteSetBlendMode(AGE_Sprite*, SDL_BlendMode);
 void AGE_SpriteSetAlpha(AGE_Sprite*, Uint8);
 
 void AGE_SpriteRender(AGE_Sprite*, AGE_Vector*, SDL_Rect*, double, AGE_Vector*, SDL_RendererFlip, short);
+
+void AGE_SpriteRenderGUI(AGE_Sprite*, AGE_Vector*, SDL_Rect*, double, AGE_Vector*, SDL_RendererFlip, short);
 
 void AGE_DrawBegin();
 

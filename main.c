@@ -7,6 +7,7 @@ const int SCREEN_WIDTH = 800;
 const int SCREEN_HEIGHT = 600;
 const float CAMERA_SPEED = 4.f;
 
+void Initialize();
 void LoadContent();
 void EventHandler(SDL_Event *);
 void Update();
@@ -14,24 +15,35 @@ void Draw();
 
 void CameraControl();
 
-AGE_Sprite arrow;
-AGE_Sprite explosionSheet;
-AGE_Animation explosionAnimation;
+AGE_Sprite fpsSprite;
+SDL_Color fpsTextColor;
+AGE_Vector fpsTextPos;
+char buffer[1024];
+// AGE_Sprite explosionSheet;
+// AGE_Animation explosionAnimation;
+TTF_Font *gFont;
 
 int main(int argc, char const *argv[])
 {
 	AGE_Init("AGE Test", SCREEN_WIDTH, SCREEN_HEIGHT, true);
+	Initialize();
 	LoadContent();
 	AGE_Run(EventHandler, Update, Draw);
-	AGE_Close();	
+	AGE_Close();
 	return 0;
 }
 
-void LoadContent()
+void Initialize()
 {
-	AGE_SpriteLoad(&arrow, "Arrow.png");
+	fpsTextColor = (SDL_Color){0, 0, 0, 255};
+	fpsTextPos = (AGE_Vector){20.f,20.f};
+}
+
+void LoadContent()
+{	
+	gFont = TTF_OpenFont("Resources/Aver.ttf",16);
 	AGE_SpriteLoad(&explosionSheet, "Resources/Explosion.png");	
-	AGE_Animation_CreateFromSpriteSheet(&explosionAnimation, &explosionSheet, AGE_Animation_GetSpriteSheetRects(&explosionSheet, 0, 49, 200, 200), 2);
+	AGE_Animation_CreateFromSpriteSheet(&explosionAnimation, &explosionSheet, AGE_Animation_GetSpriteSheetRects(&explosionSheet, 0, 49, 100, 100), 1);
 }
 
 void EventHandler(SDL_Event *e)
@@ -40,16 +52,19 @@ void EventHandler(SDL_Event *e)
 }
 
 void Update()
-{
+{	
 	CameraControl();
-	AGE_Vector v = {50.f, 50.f};
-	AGE_Animation_Update(&explosionAnimation, &v);
+	snprintf(buffer, sizeof(buffer), "FPS: %d", CURRENT_FPS);
+	AGE_SpriteLoadFromText(&fpsSprite, buffer, fpsTextColor, gFont);
+	// AGE_Vector v = {50.f, 50.f};
+	// AGE_Animation_Update(&explosionAnimation, &v);
 }
 
 void Draw()
 {
 	AGE_DrawBegin();
-	AGE_Animation_Draw(&explosionAnimation, 0.0f,NULL, SDL_FLIP_NONE, 0);
+	AGE_SpriteRenderGUI(&fpsSprite, &fpsTextPos, NULL, 0.f, NULL, SDL_FLIP_NONE, 600);
+	// AGE_Animation_Draw(&explosionAnimation, 0.0f,NULL, SDL_FLIP_NONE, 0);
 	AGE_DrawEnd();
 }
 

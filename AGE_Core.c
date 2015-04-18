@@ -68,7 +68,10 @@ bool AGE_Init(const char* windowTitle,int screenWidth, int screenHeight, bool vS
 
 				#ifdef AGE_GRAPHICS_H
 					AGE_ListInit(&spriteBatch_age.renderSpritesList, sizeof(renderSprite_age));
-					spriteBatch_age.SortMode = BACK_TO_FRONT;
+					spriteBatch_age.cameraOffset.X = 0;
+					spriteBatch_age.cameraOffset.Y = 0;
+					
+					AGE_ListInit(&spriteBatch_age.renderSpritesList, sizeof(renderSprite_age));
 					spriteBatch_age.cameraOffset.X = 0;
 					spriteBatch_age.cameraOffset.Y = 0;
 				#endif

@@ -4,14 +4,14 @@ void AGE_Animation_CreateFromSpriteSheet(AGE_Animation *animation, AGE_Sprite *s
 {
 	AGE_ListInit(&(animation->clipList),sizeof(SDL_Rect));
 	int i;
-	// printf("ListSize:%d\n",AGE_ListGetSize(&clipList));
+
 	for (i = 0; i < AGE_ListGetSize(&clipList); i++)
     {
     	SDL_Rect rect;
     	AGE_ListPeekAt(&clipList, &rect, i);
     	AGE_ListAdd(&(animation->clipList), &rect);
     }
-    printf("ListSize:%d\n",animation->clipList.length);
+
     animation->frameTime = frameTime;
     animation->spriteSheet = *spriteSheet;
     animation->currFrames = 0;
@@ -38,9 +38,8 @@ AGE_List AGE_Animation_GetSpriteSheetRects(AGE_Sprite *texture,int startingId, i
 
 void AGE_Animation_Update(AGE_Animation* animation, AGE_Vector *position)
 {
-	// printf("%d,%d\n",position->X,position->Y);
 	animation->position.X = position->X;
-	animation->position.Y = position->Y;// dafuq se sluchva ???? pak sa takiva
+	animation->position.Y = position->Y;
 	animation->currFrames++;
 
 	if(animation->currFrames>=animation->frameTime)
@@ -53,7 +52,7 @@ void AGE_Animation_Update(AGE_Animation* animation, AGE_Vector *position)
 		{
 			animation->currIndex = 0;
 		}
-		// printf("%d\n",animation->currIndex);
+		
 		animation->currFrames = 0;
 	}	
 }
