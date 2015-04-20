@@ -1,4 +1,4 @@
-#include "AGE/AGE.h"
+#include "AGE.h"
 
 
 AGE_Vector 	AGE_VectorAdd(AGE_Vector v1,AGE_Vector v2)

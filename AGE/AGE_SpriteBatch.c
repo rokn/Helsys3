@@ -1,4 +1,4 @@
-#include "AGE/AGE_Graphics.h"
+#include "AGE_Graphics.h"
 
 void renderSpriteIterator(renderSprite_age);
 void renderSpriteIterator(renderSprite_age);

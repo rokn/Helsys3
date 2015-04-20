@@ -1,4 +1,4 @@
-#include "AGE/AGE_Graphics.h"
+#include "AGE_Graphics.h"
 
 void AGE_Animation_CreateFromSpriteSheet(AGE_Animation *animation, AGE_Sprite *spriteSheet, AGE_List clipList, int frameTime)
 {
@@ -14,7 +14,7 @@ void AGE_Animation_CreateFromSpriteSheet(AGE_Animation *animation, AGE_Sprite *s
 
     animation->frameTime = frameTime;
     animation->spriteSheet = *spriteSheet;
-    animation->currFrames = 0;
+    animation->currFrameTime = 0;
     animation->currIndex = 0;
 }
 
@@ -40,9 +40,9 @@ void AGE_Animation_Update(AGE_Animation* animation, AGE_Vector *position)
 {
 	animation->position.X = position->X;
 	animation->position.Y = position->Y;
-	animation->currFrames++;
+	animation->currFrameTime += AGE_DeltaMilliSecondsGet();
 
-	if(animation->currFrames>=animation->frameTime)
+	if(animation->currFrameTime>=animation->frameTime)
 	{
 		if(animation->currIndex < AGE_ListGetSize(&(animation->clipList)) - 1)
 		{
@@ -53,7 +53,7 @@ void AGE_Animation_Update(AGE_Animation* animation, AGE_Vector *position)
 			animation->currIndex = 0;
 		}
 		
-		animation->currFrames = 0;
+		animation->currFrameTime = 0;
 	}	
 }
 

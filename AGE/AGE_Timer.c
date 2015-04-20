@@ -1,4 +1,4 @@
-#include "AGE/AGE.h"
+#include "AGE.h"
 
 void AGE_TimerInit(AGE_Timer *timer)
 {

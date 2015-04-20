@@ -1,11 +1,15 @@
-#include "AGE/AGE.h"
+#include "AGE.h"
 
-int MAX_FPS = 60;
-int MAX_TICKS_PER_FRAME = 1000 / 60;
+int MAX_FPS;
+int MAX_TICKS_PER_FRAME;
 int CURRENT_FPS;
+
+AGE_Rect AGE_WindowRect;
 
 SDL_Renderer *gRenderer = NULL;
 SDL_Window *gWindow = NULL;
+
+Uint32 lastUpdate;
 
 bool VSynced;
 
@@ -13,6 +17,7 @@ bool AGE_Init(const char* windowTitle,int screenWidth, int screenHeight, bool vS
 {
 	bool success = true;
 	VSynced = vSync;
+	AGE_SetMaxFPS(60);
 	
 	if( SDL_Init( SDL_INIT_VIDEO ) < 0 )
 	{
@@ -27,6 +32,7 @@ bool AGE_Init(const char* windowTitle,int screenWidth, int screenHeight, bool vS
 		}
 
 		gWindow = SDL_CreateWindow( windowTitle, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, screenWidth, screenHeight, SDL_WINDOW_SHOWN );
+		AGE_WindowRect = (AGE_Rect){0,0,screenWidth,screenHeight};
 
 		if( gWindow == NULL )
 		{
@@ -41,7 +47,7 @@ bool AGE_Init(const char* windowTitle,int screenWidth, int screenHeight, bool vS
 			}
 			else
 			{
-				gRenderer = SDL_CreateRenderer( gWindow, -1, SDL_RENDERER_ACCELERATED);
+				gRenderer = SDL_CreateRenderer( gWindow, -1, SDL_RENDERER_ACCELERATED);				
 			}
 
 			if( gRenderer == NULL )
@@ -98,7 +104,10 @@ void AGE_Run(EventHandle_age eventHandler, UserUpdate_age userUpdate, UserDraw_a
 
 	while( !quit )
 	{
-		AGE_TimerStart(&capTimer);
+		if(!VSynced)
+		{
+			AGE_TimerStart(&capTimer);
+		}
 
 		keyboardUpdate_age();
 
@@ -119,16 +128,49 @@ void AGE_Run(EventHandle_age eventHandler, UserUpdate_age userUpdate, UserDraw_a
 		userUpdate();
 		userDraw();
 
+		lastUpdate = SDL_GetTicks();
+
 		++countedFrames;
 
-		int frameTicks = AGE_TimerGetTicks(&capTimer);
+		if(!VSynced)
+		{
+			int frameTicks = AGE_TimerGetTicks(&capTimer);
 
-        if( frameTicks < MAX_TICKS_PER_FRAME )
-        {
-            //Wait remaining time
-            SDL_Delay( MAX_TICKS_PER_FRAME - frameTicks );
-        }
+	        if( frameTicks < MAX_TICKS_PER_FRAME )
+	        {
+	            //Wait remaining time
+	            SDL_Delay( MAX_TICKS_PER_FRAME - frameTicks );
+	        }
+    	}    	    	
 	}
+}
+
+void AGE_SetMaxFPS(int maxFps)
+{
+	MAX_FPS = maxFps;
+	if(MAX_FPS>1000)
+	{
+		MAX_FPS = 1000;
+	}
+	MAX_TICKS_PER_FRAME = 1000/MAX_FPS;
+}
+
+double AGE_DeltaSecondsGet()
+{
+	Uint32 milliSeconds = AGE_DeltaMilliSecondsGet();
+	double result = milliSeconds / 1000.f;
+	return result;
+}
+
+Uint32 AGE_DeltaMilliSecondsGet()
+{
+	Uint32 curr = SDL_GetTicks();
+	Uint32 result = curr - lastUpdate;
+	if(result<1)
+	{
+		result = 1;
+	}
+	return result;
 }
 
 void AGE_Close()

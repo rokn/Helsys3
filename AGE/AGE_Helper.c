@@ -1,4 +1,4 @@
-#include "AGE/AGE.h"
+#include "AGE.h"
 
 AGE_Vector AGE_Helper_RotatedVectorMove(AGE_Vector position, float rotation, float speed)
 {

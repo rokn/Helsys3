@@ -45,9 +45,9 @@ void AGE_SpriteSetBlendMode(AGE_Sprite*, SDL_BlendMode);
 		
 void AGE_SpriteSetAlpha(AGE_Sprite*, Uint8);
 
-void AGE_SpriteRender(AGE_Sprite*, AGE_Vector*, SDL_Rect*, double, AGE_Vector*, SDL_RendererFlip, short);
+void AGE_SpriteRender(AGE_Sprite*, AGE_Vector*, AGE_Rect*, double, AGE_Vector*, SDL_RendererFlip, short);
 
-void AGE_SpriteRenderGUI(AGE_Sprite*, AGE_Vector*, SDL_Rect*, double, AGE_Vector*, SDL_RendererFlip, short);
+void AGE_SpriteRenderGUI(AGE_Sprite*, AGE_Vector*, AGE_Rect*, double, AGE_Vector*, SDL_RendererFlip, short);
 
 void AGE_DrawBegin();
 
@@ -65,7 +65,7 @@ typedef struct
 	AGE_Sprite spriteSheet;
 	AGE_Vector position;
 	int frameTime;
-	int currFrames;
+	int currFrameTime;
 	int currIndex;
 	SDL_Rect currentClip;
 } AGE_Animation;

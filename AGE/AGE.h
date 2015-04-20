@@ -21,8 +21,6 @@
 
 extern SDL_Renderer *gRenderer;
 extern SDL_Window *gWindow;
-extern int MAX_FPS;
-extern int MAX_TICKS_PER_FRAME;
 extern int CURRENT_FPS;
 
 typedef int bool;
@@ -46,6 +44,9 @@ typedef struct
 
 bool AGE_Init(const char* windowTitle,int screenWidth, int screenHeight, bool vSync);
 void AGE_Run(EventHandle_age, UserUpdate_age, UserDraw_age);
+void AGE_SetMaxFPS(int);
+double AGE_DeltaSecondsGet();
+Uint32 AGE_DeltaMilliSecondsGet();
 void AGE_Close();
 
 //Timer functions
@@ -86,6 +87,8 @@ typedef struct
 void AGE_RectSetPosition(AGE_Rect *,int,int);
 bool AGE_RectIntersects(AGE_Rect, AGE_Rect);
 bool AGE_RectContains(AGE_Rect, AGE_Vector);
+
+extern AGE_Rect AGE_WindowRect;
 
 //Helper Methods
 

@@ -1,4 +1,4 @@
-#include "AGE/AGE_Input.h"
+#include "AGE_Input.h"
 
 //TODO: Think of a way to implement | reminder: problem is pointers of oldState
 

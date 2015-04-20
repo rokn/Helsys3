@@ -1,4 +1,4 @@
-#include "AGE/AGE.h"
+#include "AGE.h"
 
 void AGE_RectSetPosition(AGE_Rect *rect, int X, int Y)
 {

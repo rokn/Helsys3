@@ -1,4 +1,4 @@
-#include "AGE/AGE_Input.h"
+#include "AGE_Input.h"
 
 void mouseHandleEvent_age(SDL_Event *event)
 {

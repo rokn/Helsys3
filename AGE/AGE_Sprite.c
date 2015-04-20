@@ -1,4 +1,4 @@
-#include "AGE/AGE_Graphics.h"
+#include "AGE_Graphics.h"
 
 void AGE_SpriteDestroy(AGE_Sprite *sprite)
 {	
@@ -68,14 +68,22 @@ void AGE_SpriteSetAlpha(AGE_Sprite *sprite, Uint8 alpha)
 	SDL_SetTextureAlphaMod(sprite->texture, alpha);
 }
 
-void AGE_SpriteRender(AGE_Sprite *sprite, AGE_Vector *pos, SDL_Rect* clip, double rotation, AGE_Vector *origin, SDL_RendererFlip flip, short depth)
+void AGE_SpriteRender(AGE_Sprite *sprite, AGE_Vector *pos, AGE_Rect* clip, double rotation, AGE_Vector *origin, SDL_RendererFlip flip, short depth)
 {
 	SDL_Rect renderRect = {(int)pos->X, (int)pos->Y, sprite->Width, sprite->Height};
 
 	if(clip!=NULL)
 	{
-		renderRect.w = clip->w;
-		renderRect.h = clip->h;
+		renderRect.w = clip->Width;
+		renderRect.h = clip->Height;
+	}
+
+	AGE_Rect imageRect = (AGE_Rect){renderRect.x, renderRect.y, renderRect.w, renderRect.h};
+	AGE_Rect viewRect = {spriteBatch_age.cameraOffset.X, spriteBatch_age.cameraOffset.Y, AGE_WindowRect.Width, AGE_WindowRect.Height};
+
+	if(!AGE_RectIntersects(imageRect, viewRect))
+	{
+		return;
 	}
 
 	renderSprite_age renderSprite;// = {sprite, pos, clip, rotation, origin, flip, depth};
@@ -106,15 +114,15 @@ void AGE_SpriteRender(AGE_Sprite *sprite, AGE_Vector *pos, SDL_Rect* clip, doubl
 	// SDL_RenderCopyEx(gRenderer, sprite->texture, clip, &renderRect, rotation, origin, flip);
 }
 
-void AGE_SpriteRenderGUI(AGE_Sprite *sprite, AGE_Vector *pos, SDL_Rect* clip, double rotation, AGE_Vector *origin, SDL_RendererFlip flip, short depth)
+void AGE_SpriteRenderGUI(AGE_Sprite *sprite, AGE_Vector *pos, AGE_Rect* clip, double rotation, AGE_Vector *origin, SDL_RendererFlip flip, short depth)
 {
 	SDL_Rect renderRect = {(int)pos->X, (int)pos->Y, sprite->Width, sprite->Height};
 
 	if(clip!=NULL)
 	{
-		renderRect.w = clip->w;
-		renderRect.h = clip->h;
-	}
+		renderRect.w = clip->Width;
+		renderRect.h = clip->Height;
+	}	
 
 	renderSprite_age renderSprite;// = {sprite, pos, clip, rotation, origin, flip, depth};
 	renderSprite.sprite = sprite;
