@@ -16,6 +16,27 @@ void sprite_free_age(AGE_Sprite *sprite)
 	}
 }
 
+bool AGE_SpriteCreateBlank(AGE_Sprite *sprite, int width, int height, SDL_TextureAccess access)
+{
+    sprite->texture = SDL_CreateTexture(gRenderer, SDL_PIXELFORMAT_RGBA8888, access, width, height);
+    if( sprite->texture == NULL )
+    {
+        printf("Unable to create blank texture! SDL Error: %s\n", SDL_GetError());
+    }
+    else
+    {
+        sprite->Width = width;
+        sprite->Height = height;
+    }
+
+    return sprite->texture != NULL;
+}
+
+void AGE_SpriteSetRenderTarget(AGE_Sprite *sprite)
+{
+	SDL_SetRenderTarget(gRenderer, sprite->texture);
+}
+
 bool AGE_SpriteLoad(AGE_Sprite *sprite, char *path)
 {
 	sprite_free_age(sprite);
@@ -67,7 +88,7 @@ void AGE_SpriteSetAlpha(AGE_Sprite *sprite, Uint8 alpha)
 {
 	SDL_SetTextureAlphaMod(sprite->texture, alpha);
 }
-
+bool testIterator(void *rSprite);
 void AGE_SpriteRender(AGE_Sprite *sprite, AGE_Vector *pos, AGE_Rect* clip, double rotation, AGE_Vector *origin, SDL_RendererFlip flip, short depth)
 {
 	SDL_Rect renderRect = {(int)pos->X, (int)pos->Y, sprite->Width, sprite->Height};
@@ -78,10 +99,9 @@ void AGE_SpriteRender(AGE_Sprite *sprite, AGE_Vector *pos, AGE_Rect* clip, doubl
 		renderRect.h = clip->Height;
 	}
 
-	AGE_Rect imageRect = (AGE_Rect){renderRect.x, renderRect.y, renderRect.w, renderRect.h};
-	AGE_Rect viewRect = {spriteBatch_age.cameraOffset.X, spriteBatch_age.cameraOffset.Y, AGE_WindowRect.Width, AGE_WindowRect.Height};
+	AGE_Rect imageRect = (AGE_Rect){renderRect.x, renderRect.y, renderRect.w, renderRect.h};	
 
-	if(!AGE_RectIntersects(imageRect, viewRect))
+	if(!AGE_RectIntersects(imageRect, AGE_ViewRect))
 	{
 		return;
 	}
@@ -97,7 +117,7 @@ void AGE_SpriteRender(AGE_Sprite *sprite, AGE_Vector *pos, AGE_Rect* clip, doubl
 	renderSprite.depth = depth;
 
 	int i;
-
+	bool inserted = false;
 	for (i = 0; i < AGE_ListGetSize(&spriteBatch_age.renderSpritesList); ++i)
 	{		
 		renderSprite_age rS;
@@ -106,14 +126,25 @@ void AGE_SpriteRender(AGE_Sprite *sprite, AGE_Vector *pos, AGE_Rect* clip, doubl
 		if(rS.depth>renderSprite.depth)
 		{
 			AGE_ListInsert(&spriteBatch_age.renderSpritesList, &renderSprite, i);
-			return;
+			inserted = true;
+			// AGE_ListPeekAt(&spriteBatch_age.renderSpritesList, &rS, i);
+			// printf("%d\n", rS.depth);
+			AGE_ListForEach(&spriteBatch_age.renderSpritesList, testIterator);
+			break;
 		}
 	}
-
-	AGE_ListAdd(&spriteBatch_age.renderSpritesList, &renderSprite);
+	if(!inserted)
+	{
+		// printf("%d\n\n\n", renderSprite.depth);
+		AGE_ListAdd(&spriteBatch_age.renderSpritesList, &renderSprite);
+	}
 	// SDL_RenderCopyEx(gRenderer, sprite->texture, clip, &renderRect, rotation, origin, flip);
 }
-
+bool testIterator(void *rSprite)
+{
+	renderSprite_age* rS = (renderSprite_age*)rSprite;
+	printf("%d\n",rS->depth);
+}
 void AGE_SpriteRenderGUI(AGE_Sprite *sprite, AGE_Vector *pos, AGE_Rect* clip, double rotation, AGE_Vector *origin, SDL_RendererFlip flip, short depth)
 {
 	SDL_Rect renderRect = {(int)pos->X, (int)pos->Y, sprite->Width, sprite->Height};
@@ -143,7 +174,7 @@ void AGE_SpriteRenderGUI(AGE_Sprite *sprite, AGE_Vector *pos, AGE_Rect* clip, do
 
 		if(rS.depth>renderSprite.depth)
 		{
-			AGE_ListInsert(&spriteBatchGui_age.renderSpritesList, &renderSprite, i);
+			AGE_ListInsert(&spriteBatchGui_age.renderSpritesList, &renderSprite, i);			
 			return;
 		}
 	}
@@ -180,4 +211,9 @@ bool AGE_SpriteLoadFromText(AGE_Sprite *sprite, char* text, SDL_Color textColor,
 	}
 
 	return sprite->texture != NULL;
+}
+
+AGE_Vector AGE_GetCameraOffset()
+{
+	return spriteBatch_age.cameraOffset;
 }

@@ -1,7 +1,9 @@
 #include "AGE_Graphics.h"
+// bool testIterator(void *rSprite);
+void renderSpriteIterator(renderSprite_age);
+void renderSpriteIterator(renderSprite_age);
 
-void renderSpriteIterator(renderSprite_age);
-void renderSpriteIterator(renderSprite_age);
+AGE_Rect AGE_ViewRect;
 
 void AGE_DrawBegin()
 {
@@ -15,11 +17,15 @@ void AGE_DrawBegin()
 void AGE_DrawSetCameraTransform(AGE_Vector v)
 {
 	spriteBatch_age.cameraOffset = v;
+	AGE_ViewRect.X = spriteBatch_age.cameraOffset.X;
+	AGE_ViewRect.Y = spriteBatch_age.cameraOffset.Y;
 }
 
 void AGE_DrawChangeCameraTransform(AGE_Vector v)
 {
 	spriteBatch_age.cameraOffset = AGE_VectorAdd(spriteBatch_age.cameraOffset, v);
+	AGE_ViewRect.X = spriteBatch_age.cameraOffset.X;
+	AGE_ViewRect.Y = spriteBatch_age.cameraOffset.Y;
 }
 
 void AGE_DrawEnd()
@@ -28,8 +34,9 @@ void AGE_DrawEnd()
 	SDL_RenderClear(gRenderer);	
 
 	int i;
+	// AGE_ListForEach(&spriteBatch_age.renderSpritesList,testIterator);
 	for (i = 0; i < AGE_ListGetSize(&spriteBatch_age.renderSpritesList); ++i)
-	{
+	{		
 		renderSprite_age rSprite;
 		AGE_ListPeekAt(&spriteBatch_age.renderSpritesList, &rSprite, i);
 		renderSpriteIterator(rSprite);
@@ -45,6 +52,11 @@ void AGE_DrawEnd()
 	SDL_RenderPresent(gRenderer);
 }
 
+// bool testIterator(void *rSprite)
+// {
+// 	renderSprite_age* rS = (renderSprite_age*)rSprite;
+// 	// printf("%d\n",rS->depth);
+// }
 void renderSpriteIterator(renderSprite_age rSprite)
 {
 	SDL_Point *origin;

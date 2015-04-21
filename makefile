@@ -1,5 +1,5 @@
 #OBJS specifies which files to compile
-OBJS = main.c 
+OBJS = main.c battlefield.c
 
 #CC specifies which compiler we're using
 CC = gcc
@@ -22,5 +22,5 @@ OBJ_NAME = GAME
 all : $(OBJS) 
 	$(CC) $(OBJS) $(AGE) $(COMPILER_FLAGS) $(LINKER_FLAGS) -o $(OBJ_NAME) 2> $(ERROR_LOG) && ./$(OBJ_NAME)
 
-INSTALL :
+install :
 	apt-get install libsdl2-2.0-0 && apt-get install libsdl2-image-2.0-0 &&  apt-get install libsdl2-ttf-2.0-0

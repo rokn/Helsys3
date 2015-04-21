@@ -1,4 +1,6 @@
 #include "AGE.h"
+#include "AGE_Graphics.h"
+#include "AGE_Input.h"
 
 int MAX_FPS;
 int MAX_TICKS_PER_FRAME;
@@ -10,6 +12,8 @@ SDL_Renderer *gRenderer = NULL;
 SDL_Window *gWindow = NULL;
 
 Uint32 lastUpdate;
+
+bool quit;
 
 bool VSynced;
 
@@ -72,20 +76,28 @@ bool AGE_Init(const char* windowTitle,int screenWidth, int screenHeight, bool vS
 					success = false;
 				}
 
-				#ifdef AGE_GRAPHICS_H
-					AGE_ListInit(&spriteBatch_age.renderSpritesList, sizeof(renderSprite_age));
-					spriteBatch_age.cameraOffset.X = 0;
-					spriteBatch_age.cameraOffset.Y = 0;
-					
-					AGE_ListInit(&spriteBatch_age.renderSpritesList, sizeof(renderSprite_age));
-					spriteBatch_age.cameraOffset.X = 0;
-					spriteBatch_age.cameraOffset.Y = 0;
-				#endif
+				AGE_ListInit(&spriteBatch_age.renderSpritesList, sizeof(renderSprite_age));
+				spriteBatch_age.cameraOffset.X = 0;
+				spriteBatch_age.cameraOffset.Y = 0;
+				
+				AGE_ListInit(&spriteBatch_age.renderSpritesList, sizeof(renderSprite_age));
+				spriteBatch_age.cameraOffset.X = 0;
+				spriteBatch_age.cameraOffset.Y = 0;
+
+				AGE_Vector zeroV = {0.0f, 0.0f};
+				AGE_DrawSetCameraTransform(zeroV);
+				AGE_ViewRect.Width = AGE_WindowRect.Width;
+				AGE_ViewRect.Height = AGE_WindowRect.Height;
 			}
 		}
 	}
 
 	return success;
+}
+
+void AGE_Exit()
+{
+	quit = true;
 }
 
 void AGE_Run(EventHandle_age eventHandler, UserUpdate_age userUpdate, UserDraw_age userDraw)
@@ -96,9 +108,8 @@ void AGE_Run(EventHandle_age eventHandler, UserUpdate_age userUpdate, UserDraw_a
 	AGE_TimerInit(&fpsTimer);
 	AGE_TimerStart(&fpsTimer);
 
-	int countedFrames = 0;
-
-	bool quit = false;
+	quit = false;
+	int countedFrames = 0;	
 
 	SDL_Event e;
 
@@ -126,9 +137,8 @@ void AGE_Run(EventHandle_age eventHandler, UserUpdate_age userUpdate, UserDraw_a
 		CURRENT_FPS = countedFrames / (AGE_TimerGetTicks(&fpsTimer) / 1000.f);
 
 		userUpdate();
-		userDraw();
-
 		lastUpdate = SDL_GetTicks();
+		userDraw();		
 
 		++countedFrames;
 

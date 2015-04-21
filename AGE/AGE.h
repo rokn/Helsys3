@@ -48,6 +48,7 @@ void AGE_SetMaxFPS(int);
 double AGE_DeltaSecondsGet();
 Uint32 AGE_DeltaMilliSecondsGet();
 void AGE_Close();
+void AGE_Exit();
 
 //Timer functions
 
@@ -87,6 +88,7 @@ typedef struct
 void AGE_RectSetPosition(AGE_Rect *,int,int);
 bool AGE_RectIntersects(AGE_Rect, AGE_Rect);
 bool AGE_RectContains(AGE_Rect, AGE_Vector);
+void AGE_RectPrint(AGE_Rect);
 
 extern AGE_Rect AGE_WindowRect;
 

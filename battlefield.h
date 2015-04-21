@@ -1,12 +1,16 @@
 #ifndef BATTLEFIELD.h
 #define BATTLEFIELD.h
 
-typedef 
+#include "AGE/AGE.h"
+
+typedef struct
 {
 	int Width;
 	int Height;
+	AGE_Vector position;
 } Battlefield;
 
-void BattlefieldDraw(Battlefield *);
+void BattlefieldInit(Battlefield *, AGE_Vector, int, int);
+void BattlefieldDraw(Battlefield *, int);
 
 #endif

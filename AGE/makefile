@@ -19,4 +19,4 @@ LINKER_FLAGS = -lSDL2 -lSDL2_image -lSDL2_ttf -lm
 
 
 all : $(AGE)
-	$(CC) $(COMPILER_FLAGS) $(AGE) $(LINKER_FLAGS) 2> $(ERROR_LOG) && ar rcs libAGE.a $(AGE_OBJS) && rm *.o
+	$(CC) $(COMPILER_FLAGS) $(AGE) $(LINKER_FLAGS) 2> $(ERROR_LOG) && ar rcs libAGE.a $(AGE_OBJS) && rm *.o && beep

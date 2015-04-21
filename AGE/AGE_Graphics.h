@@ -35,6 +35,10 @@ void AGE_SpriteDestroy(AGE_Sprite *);
 
 bool AGE_SpriteLoad(AGE_Sprite*, char*);
 
+bool AGE_SpriteCreateBlank(AGE_Sprite *, int, int, SDL_TextureAccess);
+
+void AGE_SpriteSetRenderTarget(AGE_Sprite *);
+
 bool AGE_SpriteLoadFromText(AGE_Sprite* ,char*, SDL_Color, TTF_Font*);
 
 void sprite_free_age(AGE_Sprite*);
@@ -55,6 +59,8 @@ void AGE_DrawSetCameraTransform(AGE_Vector);
 
 void AGE_DrawChangeCameraTransform(AGE_Vector);
 
+AGE_Vector AGE_GetCameraOffset();
+
 void AGE_DrawEnd();
 
 //ANIMATION
@@ -69,6 +75,8 @@ typedef struct
 	int currIndex;
 	SDL_Rect currentClip;
 } AGE_Animation;
+
+extern AGE_Rect AGE_ViewRect;
 
 void AGE_Animation_CreateFromSpriteSheet(AGE_Animation *, AGE_Sprite *, AGE_List, int);
 

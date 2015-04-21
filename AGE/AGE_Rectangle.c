@@ -75,3 +75,8 @@ bool AGE_RectContains(AGE_Rect rect, AGE_Vector point)
 
     return true;
 }
+
+void AGE_RectPrint(AGE_Rect rect)
+{
+    printf("AGE_Rect: {X:%d, Y:%d, Width:%d, Height:%d}\n", rect.X, rect.Y, rect.Width, rect.Height);
+}

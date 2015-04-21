@@ -130,7 +130,6 @@ void AGE_ListForEach(AGE_List *list, listIterator iterator)
 void AGE_ListPeekAt(AGE_List *list, void *result, int index)
 {
     // listGetNode(list,index);
-    // printf("index:%d , size:%d\n",index,list->length);
     memcpy(result, listGetNode(list,index)->data, list->elementSize);
 }
 
@@ -163,7 +162,7 @@ void AGE_ListRemoveAt(AGE_List *list,int index)
 
 ListNode* listGetNode(AGE_List *list,int index)
 {
-    // printf("%d\n",list->length);
+    // printf("%d %d\n",index,list->length);
     assert(index>=0 && index < list->length);
     int i;
     ListNode *currNode = list->head;
@@ -180,6 +179,12 @@ void AGE_ListInsert(AGE_List *list, void *newData, int index)
 {
     assert(index >= 0 && index < list->length);
 
+    if(index == 0)
+    {
+        AGE_ListAddFront(list, newData);
+        return;
+    }
+
     ListNode *indexNode = listGetNode(list,index);
 
     ListNode *newNode = malloc(sizeof(ListNode));
@@ -188,14 +193,7 @@ void AGE_ListInsert(AGE_List *list, void *newData, int index)
 
     newNode->next = indexNode;
 
-    if(index==0)
-    {
-        newNode->prev = NULL;        
-    }
-    else
-    {
-        indexNode->prev->next = newNode;
-    }
+    indexNode->prev->next = newNode;
     indexNode->prev = newNode;
 
     list->length ++;
