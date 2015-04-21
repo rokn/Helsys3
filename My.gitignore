@@ -1,0 +1,7 @@
+# Object files
+*.o
+
+log.txt
+
+*.sublime-project
+*.sublime-workspaced
