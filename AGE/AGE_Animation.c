@@ -36,6 +36,11 @@ AGE_List AGE_Animation_GetSpriteSheetRects(AGE_Sprite *texture,int startingId, i
     return result;
 }
 
+void AGE_Animation_SetAlpha(AGE_Animation *animation, Uint8 alpha)
+{
+	AGE_SpriteSetAlpha(&(animation->spriteSheet), alpha);
+}
+
 void AGE_Animation_Update(AGE_Animation* animation, AGE_Vector *position)
 {
 	animation->position.X = position->X;

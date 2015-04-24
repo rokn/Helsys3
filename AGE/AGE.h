@@ -47,6 +47,7 @@ void AGE_Run(EventHandle_age, UserUpdate_age, UserDraw_age);
 void AGE_SetMaxFPS(int);
 double AGE_DeltaSecondsGet();
 Uint32 AGE_DeltaMilliSecondsGet();
+void AGE_SetWindowSize(int,int);
 void AGE_Close();
 void AGE_Exit();
 

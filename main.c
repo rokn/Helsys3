@@ -1,13 +1,13 @@
-#include "AGE/AGE.h"
-#include "AGE/AGE_Graphics.h"
-#include "AGE/AGE_Input.h"
-#include "AGE/AGE_Generics.h"
 #include "battlefield.h"
 #include "main.h"
+#include "tiles.h"
 
 const int SCREEN_WIDTH = 1680;
 const int SCREEN_HEIGHT = 1050;
-const float CAMERA_SPEED = 600.f;
+const float CAMERA_SPEED = 800.f;
+
+int LevelWidth;
+int LevelHeight;
 
 void Initialize();
 void LoadContent();
@@ -16,6 +16,7 @@ void Update();
 void Draw();
 
 void CameraControl();
+void HandleMainInput();
 
 AGE_Sprite fpsSprite;
 SDL_Color fpsTextColor;
@@ -25,10 +26,13 @@ AGE_Sprite explosionSheet;
 AGE_Animation explosionAnimation;
 TTF_Font *gFont;
 Battlefield *battlefield;
+SDL_Rect **modes;
+int mode;
 
 int main(int argc, char const *argv[])
 {
-	AGE_Init("AGE Test", SCREEN_WIDTH, SCREEN_HEIGHT, false);	
+	AGE_Init("AGE Test", SCREEN_WIDTH, SCREEN_HEIGHT, true);	
+	// AGE_FullScreenBorderless();
 	Initialize();
 	LoadContent();
 	AGE_Run(EventHandler, Update, Draw);
@@ -39,19 +43,26 @@ int main(int argc, char const *argv[])
 
 void Initialize()
 {
-	AGE_SetMaxFPS(100);
-	battlefield = (Battlefield*)malloc(sizeof(Battlefield));	
+	// AGE_SetMaxFPS(500);	
 	fpsTextColor = (SDL_Color){255, 0, 0, 255};
 	fpsTextPos = (AGE_Vector){18.f,20.f};
-	AGE_Vector v = {0,0};
-	BattlefieldInit(battlefield, v, 100, 45);
+
+	LevelWidth = 2592;
+	LevelHeight = 1728;
+
+	battlefield = (Battlefield*)malloc(sizeof(Battlefield));
+	AGE_Vector v = {216,288};
+	BattlefieldInit(battlefield, v, 1);
 }
 
 void LoadContent()
 {	
-	gFont = TTF_OpenFont("Resources/Aver.ttf",16);
+	gFont = TTF_OpenFont("Resources/Fonts/Aver.ttf",16);
+	LoadTileSets(72, 72);
+
 	AGE_SpriteLoad(&explosionSheet, "Resources/Explosion.png");	
 	AGE_Animation_CreateFromSpriteSheet(&explosionAnimation, &explosionSheet, AGE_Animation_GetSpriteSheetRects(&explosionSheet, 0, 49, 100, 100), 16);
+
 }
 
 void Unload()
@@ -71,20 +82,17 @@ void Update()
 	AGE_SpriteLoadFromText(&fpsSprite, buffer, fpsTextColor, gFont);
 	AGE_Vector v = {0.f, 0.f};
 	AGE_Animation_Update(&explosionAnimation, &v);
-	if(AGE_KeyIsDown(SDL_SCANCODE_ESCAPE))
-	{
-		AGE_Exit();
-	}
+	HandleMainInput();
 }
 
 void Draw()
 {
 	AGE_DrawBegin();	
 	AGE_SpriteRenderGUI(&fpsSprite, &fpsTextPos, NULL, 0.f, NULL, SDL_FLIP_NONE, 600);
-	AGE_Animation_Draw(&explosionAnimation, 0.0f,NULL, SDL_FLIP_NONE, 16); 
-	BattlefieldDraw(battlefield, 10);
-	
+	AGE_Animation_Draw(&explosionAnimation, 0.0f,NULL, SDL_FLIP_NONE, 9);
+	BattlefieldDraw(battlefield, 10);	
 	AGE_DrawEnd();
+
 }
 
 void CameraControl()
@@ -125,5 +133,32 @@ void CameraControl()
 
 void SetCameraWithinBoundary()
 {
-	AGE_GetCameraOffset().X == 5;
+	AGE_Vector cameraOffset = AGE_GetCameraOffset();
+	
+	if(cameraOffset.X < 0)
+	{
+		cameraOffset.X = 0;
+	}
+	if(cameraOffset.X+AGE_ViewRect.Width > LevelWidth)
+	{
+		cameraOffset.X = LevelWidth - AGE_ViewRect.Width;
+	}
+	if(cameraOffset.Y < 0)
+	{
+		cameraOffset.Y = 0;
+	}
+	if(cameraOffset.Y+AGE_ViewRect.Height > LevelHeight)
+	{
+		cameraOffset.Y = LevelHeight - AGE_ViewRect.Height;
+	}
+
+	AGE_DrawSetCameraTransform(cameraOffset);
+}
+
+void HandleMainInput()
+{
+	if(AGE_KeyIsDown(SDL_SCANCODE_ESCAPE))
+	{
+		AGE_Exit();
+	}
 }

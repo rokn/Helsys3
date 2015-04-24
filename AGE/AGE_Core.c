@@ -15,6 +15,8 @@ Uint32 lastUpdate;
 
 bool quit;
 
+void GoBorderless(SDL_Window*, SDL_Rect*);
+
 bool VSynced;
 
 bool AGE_Init(const char* windowTitle,int screenWidth, int screenHeight, bool vSync)
@@ -35,7 +37,7 @@ bool AGE_Init(const char* windowTitle,int screenWidth, int screenHeight, bool vS
 			printf( "Warning: Linear texture filtering not enabled!" );
 		}
 
-		gWindow = SDL_CreateWindow( windowTitle, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, screenWidth, screenHeight, SDL_WINDOW_SHOWN );
+		gWindow = SDL_CreateWindow( windowTitle, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, screenWidth, screenHeight, SDL_WINDOW_SHOWN |SDL_WINDOW_FULLSCREEN);
 		AGE_WindowRect = (AGE_Rect){0,0,screenWidth,screenHeight};
 
 		if( gWindow == NULL )
@@ -98,6 +100,11 @@ bool AGE_Init(const char* windowTitle,int screenWidth, int screenHeight, bool vS
 void AGE_Exit()
 {
 	quit = true;
+}
+
+void AGE_SetWindowSize(int Width,int Height)
+{
+	SDL_SetWindowSize(gWindow, Width, Height);
 }
 
 void AGE_Run(EventHandle_age eventHandler, UserUpdate_age userUpdate, UserDraw_age userDraw)
@@ -196,3 +203,47 @@ void AGE_Close()
 	IMG_Quit();
 	SDL_Quit();
 }
+
+void AGE_FullScreenBorderless()
+{
+	SDL_Rect oldRect = {0,0, AGE_WindowRect.Width, AGE_WindowRect.Height};
+    GoBorderless(gWindow, &oldRect);    
+}
+
+void GoBorderless(SDL_Window* window, SDL_Rect* oldBounds)
+{
+    if(SDL_GetWindowFlags(window) & SDL_WINDOW_BORDERLESS)
+    {
+        SDL_SetWindowBordered(window, SDL_TRUE);
+        SDL_SetWindowSize(window, oldBounds->w, oldBounds->h);
+        SDL_SetWindowPosition(window, oldBounds->x, oldBounds->y);
+
+        AGE_WindowRect.Width = oldBounds->w;
+		AGE_WindowRect.Height = oldBounds->h;
+		AGE_ViewRect.Width = AGE_WindowRect.Width;
+		AGE_ViewRect.Height = AGE_WindowRect.Height;
+
+        return oldBounds;
+    }
+    else
+    {
+        SDL_Rect curBounds;
+        SDL_GetWindowPosition(window, &curBounds.x, &curBounds.y);
+        SDL_GetWindowSize(window, &curBounds.w, &curBounds.h);
+
+        int idx = SDL_GetWindowDisplayIndex(window);
+        SDL_Rect bounds;
+        SDL_GetDisplayBounds(idx, &bounds);
+        SDL_SetWindowBordered(window, SDL_FALSE);
+        SDL_SetWindowPosition(window, bounds.x, bounds.y);
+        SDL_SetWindowSize(window, bounds.w, bounds.h);
+
+		AGE_WindowRect.Width = curBounds.w;
+		AGE_WindowRect.Height = curBounds.h;
+		AGE_ViewRect.Width = AGE_WindowRect.Width;
+		AGE_ViewRect.Height = AGE_WindowRect.Height;
+
+        return curBounds;
+    }
+}
+

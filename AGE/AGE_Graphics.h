@@ -82,6 +82,8 @@ void AGE_Animation_CreateFromSpriteSheet(AGE_Animation *, AGE_Sprite *, AGE_List
 
 AGE_List AGE_Animation_GetSpriteSheetRects(AGE_Sprite *,int, int, int, int);
 
+void AGE_Animation_SetAlpha(AGE_Animation*, Uint8);
+
 void AGE_Animation_Update(AGE_Animation*, AGE_Vector*);
 
 void AGE_Animation_Draw(AGE_Animation*, double, AGE_Vector *, SDL_RendererFlip, short);

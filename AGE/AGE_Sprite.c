@@ -106,7 +106,7 @@ void AGE_SpriteRender(AGE_Sprite *sprite, AGE_Vector *pos, AGE_Rect* clip, doubl
 		return;
 	}
 
-	renderSprite_age renderSprite;// = {sprite, pos, clip, rotation, origin, flip, depth};
+	renderSprite_age renderSprite;
 	renderSprite.sprite = sprite;
 	renderSprite.pos = pos;
 	renderSprite.clip = clip;
@@ -127,24 +127,15 @@ void AGE_SpriteRender(AGE_Sprite *sprite, AGE_Vector *pos, AGE_Rect* clip, doubl
 		{
 			AGE_ListInsert(&spriteBatch_age.renderSpritesList, &renderSprite, i);
 			inserted = true;
-			// AGE_ListPeekAt(&spriteBatch_age.renderSpritesList, &rS, i);
-			// printf("%d\n", rS.depth);
-			AGE_ListForEach(&spriteBatch_age.renderSpritesList, testIterator);
 			break;
 		}
 	}
 	if(!inserted)
 	{
-		// printf("%d\n\n\n", renderSprite.depth);
 		AGE_ListAdd(&spriteBatch_age.renderSpritesList, &renderSprite);
 	}
-	// SDL_RenderCopyEx(gRenderer, sprite->texture, clip, &renderRect, rotation, origin, flip);
 }
-bool testIterator(void *rSprite)
-{
-	renderSprite_age* rS = (renderSprite_age*)rSprite;
-	printf("%d\n",rS->depth);
-}
+
 void AGE_SpriteRenderGUI(AGE_Sprite *sprite, AGE_Vector *pos, AGE_Rect* clip, double rotation, AGE_Vector *origin, SDL_RendererFlip flip, short depth)
 {
 	SDL_Rect renderRect = {(int)pos->X, (int)pos->Y, sprite->Width, sprite->Height};
