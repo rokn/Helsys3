@@ -16,10 +16,11 @@ typedef struct
 	AGE_Vector Position;
 	BattlefieldObject *Objects;
 	int ObjectsCount;
-	short **fieldStatus;
+	short **fieldStatus;	
 } Battlefield;
 
-void BattlefieldInit(Battlefield *, AGE_Vector, int);
+void BattlefieldInit(Battlefield *, int);
+void BattlefieldLoad();
 void BattlefieldDraw(Battlefield *, int);
 
 #endif

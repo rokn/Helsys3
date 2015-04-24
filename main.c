@@ -50,13 +50,12 @@ void Initialize()
 	LevelWidth = 2592;
 	LevelHeight = 1728;
 
-	battlefield = (Battlefield*)malloc(sizeof(Battlefield));
-	AGE_Vector v = {216,288};
-	BattlefieldInit(battlefield, v, 1);
+	battlefield = (Battlefield*)malloc(sizeof(Battlefield));	
+	BattlefieldInit(battlefield, 1);
 }
 
 void LoadContent()
-{	
+{
 	gFont = TTF_OpenFont("Resources/Fonts/Aver.ttf",16);
 	LoadTileSets(72, 72);
 

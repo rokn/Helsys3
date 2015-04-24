@@ -1,16 +1,20 @@
 #include "battlefield.h"
 #include "tiles.h"
 
+const int BATTLEFIELD_OBJECTS_COUNT = 1;
+
 AGE_Sprite battlefieldSquare;
 AGE_Sprite battlefieldField;
 int counter;
+AGE_List objectsList;
+AGE_Sprite surroundings;
 
 void read_battlefield_file(Battlefield *battlefield, int battlefieldId)
 {
 	int i, x;
 	FILE *file;
 	char *mode = "r";
-	char buffer[100];
+	char buffer[200];
 	snprintf(buffer, sizeof(buffer), "Levels/Level_%d.txt", battlefieldId);
 
 	file = fopen(buffer, mode);
@@ -43,13 +47,14 @@ void read_battlefield_file(Battlefield *battlefield, int battlefieldId)
 	for (i = 0; i < battlefield->ObjectsCount; ++i)
 	{
 		fscanf(file, "%d %d %d", &id, &position.x, &position.y);
+		assert(id>=1 && id <= BATTLEFIELD_OBJECTS_COUNT);
 		object.position = position;
-		snprintf(buffer, sizeof(buffer), "Resources/Battlefield/Object_%d.png", id);
-		AGE_SpriteLoad(&object.sprite, buffer);
+		AGE_ListPeekAt(&objectsList, &object.sprite, id-1);
 		battlefield->Objects[i] = object;
 		int w,h,y;
 		w = object.sprite.Width / battlefieldSquare.Width;
 		h = object.sprite.Height / battlefieldSquare.Height;
+
 		for (x = position.x; x < w + position.x; ++x)
 		{
 			for (y = position.y; y < h + position.y; ++y)
@@ -59,14 +64,34 @@ void read_battlefield_file(Battlefield *battlefield, int battlefieldId)
 		}
 	}
 
+	snprintf(buffer, sizeof(buffer), "Resources/Battlefield/Surroundings_%d.png", battlefieldId);
+
+	AGE_SpriteLoad(&surroundings, buffer);
+
 	fclose(file);
 }
 
-void BattlefieldInit(Battlefield *battlefield, AGE_Vector Position, int battlefieldId)
+void BattlefieldLoad()
 {
-	battlefield->Position = Position;
 	assert(AGE_SpriteLoad(&battlefieldSquare, "Resources/Battlefield/BattlefieldSquare.png"));
-	AGE_SpriteCreateBlank(&battlefieldField, LevelWidth, LevelHeight, SDL_TEXTUREACCESS_TARGET);	
+	AGE_SpriteCreateBlank(&battlefieldField, LevelWidth, LevelHeight, SDL_TEXTUREACCESS_TARGET);
+	AGE_ListInit(&objectsList, sizeof(AGE_Sprite));
+	AGE_Sprite objectSprite;
+	int i;
+	char buffer[100];
+
+	for (i = 0; i < BATTLEFIELD_OBJECTS_COUNT; ++i)
+	{
+		snprintf(buffer, sizeof(buffer), "Resources/Battlefield/Object_%d.png", i+1);
+		AGE_SpriteLoad(&objectSprite, buffer);
+		AGE_ListAdd(&objectsList, &objectSprite);
+	}
+}
+
+void BattlefieldInit(Battlefield *battlefield, int battlefieldId)
+{
+	BattlefieldLoad();
+	battlefield->Position = (AGE_Vector){216,288};;
 	AGE_SpriteSetBlendMode(&battlefieldField,SDL_BLENDMODE_BLEND);
 	read_battlefield_file(battlefield, battlefieldId);
 	counter = 0;
@@ -143,8 +168,34 @@ void BattlefieldDraw(Battlefield *battlefield, int depth)
 			}
 		}
 
+		for (x = 0; x < LevelWidth/surroundings.Width+1; ++x)
+		{
+			SDL_Rect clip;
+			offset.X = x * surroundings.Width;
+			offset.Y = 0;
+			SDL_Rect renderRect = {(int)offset.X, (int)offset.Y, surroundings.Width, surroundings.Height};
+			AGE_Rect rect = {renderRect.x, renderRect.y , renderRect.w, renderRect.h};
+
+			if(AGE_RectIntersects(AGE_ViewRect, rect))
+			{					
+				clip = (SDL_Rect){0,0, surroundings.Width, surroundings.Height};				
+				SDL_RenderCopy(gRenderer, surroundings.texture, &clip, &renderRect);
+			}
+
+			offset.Y = battlefield->Height * battlefieldSquare.Height + battlefield->Position.Y;
+			renderRect = (SDL_Rect){(int)offset.X, (int)offset.Y, surroundings.Width, surroundings.Height};
+			rect = (AGE_Rect){renderRect.x, renderRect.y , renderRect.w, renderRect.h};
+
+			if(AGE_RectIntersects(AGE_ViewRect, rect))
+			{					
+				clip = (SDL_Rect){0,0, surroundings.Width, surroundings.Height};				
+				SDL_RenderCopy(gRenderer, surroundings.texture, &clip, &renderRect);
+			}
+		}
+
 		SDL_SetRenderTarget(gRenderer, NULL);
 	}
+
 	AGE_Vector v = {0,0};
 	AGE_SpriteRender(&battlefieldField, &v, NULL, 0.f, NULL, SDL_FLIP_NONE, depth);
 }
@@ -153,4 +204,5 @@ void BattlefieldDestroy()
 {
 	AGE_SpriteDestroy(&battlefieldSquare);
 	AGE_SpriteDestroy(&battlefieldField);
+	AGE_ListDestroy(&objectsList);
 }
