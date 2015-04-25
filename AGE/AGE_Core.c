@@ -193,15 +193,15 @@ Uint32 AGE_DeltaMilliSecondsGet()
 void AGE_Close()
 {
 	//Destroy window
-	SDL_DestroyRenderer( gRenderer );
-	SDL_DestroyWindow( gWindow );
-	gWindow = NULL;
-	gRenderer = NULL;
+	// SDL_DestroyRenderer( gRenderer );
+	// SDL_DestroyWindow( gWindow );
+	// gWindow = NULL;
+	// gRenderer = NULL;
 	
-	//Quit SDL subsystems
-	TTF_Quit();
-	IMG_Quit();
-	SDL_Quit();
+	// //Quit SDL subsystems
+	// TTF_Quit();
+	// IMG_Quit();
+	// SDL_Quit();
 }
 
 void AGE_FullScreenBorderless()

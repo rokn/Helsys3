@@ -1,12 +1,12 @@
 #OBJS specifies which files to compile
-OBJS = main.c battlefield.c tiles.c
+OBJS = main.c battlefield.c tiles.c battle_entity.c
 
 #CC specifies which compiler we're using
 CC = gcc
 
 #compiler flags
 # -w supress warnings
-COMPILER_FLAGS = -w
+COMPILER_FLAGS = -Wall -g
 
 #error log
 ERROR_LOG = log.txt

@@ -14,7 +14,7 @@ void read_battlefield_file(Battlefield *battlefield, int battlefieldId)
 	int i, x;
 	FILE *file;
 	char *mode = "r";
-	char buffer[200];
+	char buffer[100];
 	snprintf(buffer, sizeof(buffer), "Levels/Level_%d.txt", battlefieldId);
 
 	file = fopen(buffer, mode);
@@ -38,8 +38,7 @@ void read_battlefield_file(Battlefield *battlefield, int battlefieldId)
 	}
 
 	fscanf(file, "%d", &battlefield->ObjectsCount);
-	battlefield->Objects = (int*)malloc(sizeof(BattlefieldObject) * battlefield->ObjectsCount);
-	AGE_Sprite objectSprite;
+	battlefield->Objects = (BattlefieldObject*)malloc(sizeof(BattlefieldObject) * battlefield->ObjectsCount);
 	int id;
 	SDL_Point position;
 	BattlefieldObject object;
@@ -74,7 +73,7 @@ void read_battlefield_file(Battlefield *battlefield, int battlefieldId)
 void BattlefieldLoad()
 {
 	assert(AGE_SpriteLoad(&battlefieldSquare, "Resources/Battlefield/BattlefieldSquare.png"));
-	AGE_SpriteCreateBlank(&battlefieldField, LevelWidth, LevelHeight, SDL_TEXTUREACCESS_TARGET);
+	assert(AGE_SpriteCreateBlank(&battlefieldField, LevelWidth, LevelHeight, SDL_TEXTUREACCESS_TARGET));
 	AGE_ListInit(&objectsList, sizeof(AGE_Sprite));
 	AGE_Sprite objectSprite;
 	int i;
@@ -103,34 +102,41 @@ void BattlefieldDraw(Battlefield *battlefield, int depth)
 
 	AGE_Vector offset = {0.f, 0.f};
 	counter ++;
-
+	AGE_Sprite tileSet;
+	SDL_Rect renderRect;
+	SDL_Rect clip;
+	AGE_Rect rect;
 	if(counter>0)
 	{
 		counter = 0;
 		AGE_SpriteSetRenderTarget(&battlefieldField);
 		SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
 		SDL_RenderClear(gRenderer);
-
+		
 		for (x = 0; x < LevelWidth/TILE_INFO.TileWidth; ++x)
 		{
 			for (y = 0; y < LevelHeight/TILE_INFO.TileHeight; ++y)
-			{
+			{				
 				offset.X = x * TILE_INFO.TileWidth;
 				offset.Y = y * TILE_INFO.TileHeight;
-				SDL_Rect renderRect = {(int)offset.X, (int)offset.Y, battlefieldSquare.Width, battlefieldSquare.Height};
-				AGE_Rect rect = {renderRect.x, renderRect.y , renderRect.w, renderRect.h};
+				renderRect = (SDL_Rect){(int)offset.X, (int)offset.Y, battlefieldSquare.Width, battlefieldSquare.Height};
+				rect = (AGE_Rect){renderRect.x, renderRect.y , renderRect.w, renderRect.h};
 
 				if(AGE_RectIntersects(AGE_ViewRect, rect))
-				{
-					AGE_Sprite tileSet;
+				{					
 					tileSet = GetTileSet(0);
 					AGE_Rect ageClip;
 					ageClip = GetSourceRect(1,0);
-					SDL_Rect clip2 = {ageClip.X, ageClip.Y, ageClip.Width, ageClip.Height};
-					SDL_RenderCopy(gRenderer, tileSet.texture, &clip2, &renderRect);
+					clip = (SDL_Rect){ageClip.X, ageClip.Y, ageClip.Width, ageClip.Height};
+					if(AGE_KeyIsDown(SDL_SCANCODE_D))
+					{
+						AGE_SpriteRender(&tileSet, &offset, &rect, 0.0f, NULL, SDL_FLIP_NONE, 80);
+					}
+					SDL_RenderCopy(gRenderer, tileSet.texture, &clip, &renderRect);
 				}
 			}
 		}
+
 		BattlefieldObject object;
 		for (x = 0; x < battlefield->ObjectsCount; ++x)
 		{
@@ -138,12 +144,12 @@ void BattlefieldDraw(Battlefield *battlefield, int depth)
 			offset.X = object.position.x * battlefieldSquare.Width;
 			offset.Y = object.position.y * battlefieldSquare.Height;
 			offset = AGE_VectorAdd(battlefield->Position, offset);
-			SDL_Rect renderRect = {(int)offset.X, (int)offset.Y, object.sprite.Width, object.sprite.Height};
-			AGE_Rect rect = {renderRect.x, renderRect.y , renderRect.w, renderRect.h};
+			renderRect = (SDL_Rect){(int)offset.X, (int)offset.Y, object.sprite.Width, object.sprite.Height};
+			rect = (AGE_Rect){renderRect.x, renderRect.y , renderRect.w, renderRect.h};
 
 			if(AGE_RectIntersects(AGE_ViewRect, rect))
 			{					
-				SDL_Rect clip = {0,0,object.sprite.Width, object.sprite.Height};				
+				clip = (SDL_Rect){0,0,object.sprite.Width, object.sprite.Height};				
 				SDL_RenderCopy(gRenderer, object.sprite.texture, &clip, &renderRect);
 			}
 		}
@@ -156,12 +162,12 @@ void BattlefieldDraw(Battlefield *battlefield, int depth)
 					offset.X = x * battlefieldSquare.Width;
 					offset.Y = y * battlefieldSquare.Height;
 					offset = AGE_VectorAdd(battlefield->Position, offset);
-					SDL_Rect renderRect = {(int)offset.X, (int)offset.Y, battlefieldSquare.Width, battlefieldSquare.Height};
-					AGE_Rect rect = {renderRect.x, renderRect.y , renderRect.w, renderRect.h};
+					renderRect = (SDL_Rect){(int)offset.X, (int)offset.Y, battlefieldSquare.Width, battlefieldSquare.Height};
+					rect = (AGE_Rect){renderRect.x, renderRect.y , renderRect.w, renderRect.h};
 
 					if(AGE_RectIntersects(AGE_ViewRect, rect))
 					{					
-						SDL_Rect clip = {0,0,battlefieldSquare.Width, battlefieldSquare.Height};				
+						clip = (SDL_Rect){0,0,battlefieldSquare.Width, battlefieldSquare.Height};				
 						SDL_RenderCopy(gRenderer, battlefieldSquare.texture, &clip, &renderRect);
 					}
 				}
@@ -170,11 +176,10 @@ void BattlefieldDraw(Battlefield *battlefield, int depth)
 
 		for (x = 0; x < LevelWidth/surroundings.Width+1; ++x)
 		{
-			SDL_Rect clip;
 			offset.X = x * surroundings.Width;
 			offset.Y = 0;
-			SDL_Rect renderRect = {(int)offset.X, (int)offset.Y, surroundings.Width, surroundings.Height};
-			AGE_Rect rect = {renderRect.x, renderRect.y , renderRect.w, renderRect.h};
+			renderRect = (SDL_Rect){(int)offset.X, (int)offset.Y, surroundings.Width, surroundings.Height};
+			rect = (AGE_Rect){renderRect.x, renderRect.y , renderRect.w, renderRect.h};
 
 			if(AGE_RectIntersects(AGE_ViewRect, rect))
 			{					
@@ -201,7 +206,7 @@ void BattlefieldDraw(Battlefield *battlefield, int depth)
 }
 
 void BattlefieldDestroy()
-{
+{	
 	AGE_SpriteDestroy(&battlefieldSquare);
 	AGE_SpriteDestroy(&battlefieldField);
 	AGE_ListDestroy(&objectsList);

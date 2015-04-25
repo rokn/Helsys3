@@ -13,7 +13,7 @@ void AGE_Animation_CreateFromSpriteSheet(AGE_Animation *animation, AGE_Sprite *s
     }
 
     animation->frameTime = frameTime;
-    animation->spriteSheet = *spriteSheet;
+    animation->spriteSheet = spriteSheet;
     animation->currFrameTime = 0;
     animation->currIndex = 0;
 }
@@ -38,7 +38,7 @@ AGE_List AGE_Animation_GetSpriteSheetRects(AGE_Sprite *texture,int startingId, i
 
 void AGE_Animation_SetAlpha(AGE_Animation *animation, Uint8 alpha)
 {
-	AGE_SpriteSetAlpha(&(animation->spriteSheet), alpha);
+	AGE_SpriteSetAlpha(animation->spriteSheet, alpha);
 }
 
 void AGE_Animation_Update(AGE_Animation* animation, AGE_Vector *position)
@@ -46,7 +46,7 @@ void AGE_Animation_Update(AGE_Animation* animation, AGE_Vector *position)
 	animation->position.X = position->X;
 	animation->position.Y = position->Y;
 	animation->currFrameTime += AGE_DeltaMilliSecondsGet();
-
+		
 	if(animation->currFrameTime>=animation->frameTime)
 	{
 		if(animation->currIndex < AGE_ListGetSize(&(animation->clipList)) - 1)
@@ -66,5 +66,11 @@ void AGE_Animation_Draw(AGE_Animation *animation, double rotation, AGE_Vector *o
 {	
 	
 	AGE_ListPeekAt(&(animation->clipList), &(animation->currentClip), animation->currIndex);
-	AGE_SpriteRender(&(animation->spriteSheet),&(animation->position), &(animation->currentClip), rotation, origin, flip, depth);
+	AGE_SpriteRender(animation->spriteSheet,&(animation->position), &(animation->currentClip), rotation, origin, flip, depth);
+}
+
+void AGE_Animation_Destroy(AGE_Animation *animation)
+{
+	AGE_ListDestroy(&animation->clipList);
+	AGE_SpriteDestroy(&animation->spriteSheet);
 }

@@ -14,13 +14,20 @@ void AGE_ListInit(AGE_List *list,int sizeOfElement)
 void AGE_ListDestroy(AGE_List *list)
 {
     ListNode* currNode;
-
+    
     while(list->head != NULL)
     {
         currNode = list->head;
         list->head = currNode->next;
-        free(currNode->data);
-        free(currNode);
+
+        if(currNode->data != NULL)
+        {
+            free(currNode->data);
+        }
+        if(currNode!=NULL)
+        {
+            free(currNode);
+        }
     }
 }
 

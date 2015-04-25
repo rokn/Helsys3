@@ -68,7 +68,7 @@ void AGE_DrawEnd();
 typedef struct
 {
 	AGE_List clipList;
-	AGE_Sprite spriteSheet;
+	AGE_Sprite *spriteSheet;
 	AGE_Vector position;
 	int frameTime;
 	int currFrameTime;
@@ -87,5 +87,7 @@ void AGE_Animation_SetAlpha(AGE_Animation*, Uint8);
 void AGE_Animation_Update(AGE_Animation*, AGE_Vector*);
 
 void AGE_Animation_Draw(AGE_Animation*, double, AGE_Vector *, SDL_RendererFlip, short);
+
+void AGE_Animation_Destroy(AGE_Animation*);
 
 #endif

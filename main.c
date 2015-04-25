@@ -1,6 +1,7 @@
 #include "battlefield.h"
 #include "main.h"
 #include "tiles.h"
+#include "battle_entity.h"
 
 const int SCREEN_WIDTH = 1680;
 const int SCREEN_HEIGHT = 1050;
@@ -13,9 +14,11 @@ void Initialize();
 void LoadContent();
 void EventHandler(SDL_Event *);
 void Update();
+void Unload();
 void Draw();
 
 void CameraControl();
+void SetCameraWithinBoundary();
 void HandleMainInput();
 
 AGE_Sprite fpsSprite;
@@ -27,23 +30,24 @@ AGE_Animation explosionAnimation;
 TTF_Font *gFont;
 Battlefield *battlefield;
 SDL_Rect **modes;
+BattleEntity *entity;
 int mode;
 
 int main(int argc, char const *argv[])
 {
-	AGE_Init("AGE Test", SCREEN_WIDTH, SCREEN_HEIGHT, true);	
+	AGE_Init("AGE Test", SCREEN_WIDTH, SCREEN_HEIGHT, false);	
 	// AGE_FullScreenBorderless();
 	Initialize();
 	LoadContent();
 	AGE_Run(EventHandler, Update, Draw);
-	AGE_Close();
 	Unload();
+	AGE_Close();
 	return 0;
 }
 
 void Initialize()
 {
-	// AGE_SetMaxFPS(500);	
+	AGE_SetMaxFPS(60);	
 	fpsTextColor = (SDL_Color){255, 0, 0, 255};
 	fpsTextPos = (AGE_Vector){18.f,20.f};
 
@@ -58,7 +62,10 @@ void LoadContent()
 {
 	gFont = TTF_OpenFont("Resources/Fonts/Aver.ttf",16);
 	LoadTileSets(72, 72);
-
+	entity = malloc(sizeof(BattleEntity));
+	BattleEntityLoad(entity, 1);
+	SDL_Point entityPos = {2,2};
+	BattleEntitySetOnField(entity, battlefield, entityPos);
 	AGE_SpriteLoad(&explosionSheet, "Resources/Explosion.png");	
 	AGE_Animation_CreateFromSpriteSheet(&explosionAnimation, &explosionSheet, AGE_Animation_GetSpriteSheetRects(&explosionSheet, 0, 49, 100, 100), 16);
 
@@ -67,6 +74,8 @@ void LoadContent()
 void Unload()
 {
 	BattlefieldDestroy(battlefield);
+	BattleEntityDestroy(entity);
+	free(entity);
 }
 
 void EventHandler(SDL_Event *e)
@@ -81,6 +90,7 @@ void Update()
 	AGE_SpriteLoadFromText(&fpsSprite, buffer, fpsTextColor, gFont);
 	AGE_Vector v = {0.f, 0.f};
 	AGE_Animation_Update(&explosionAnimation, &v);
+	BattleEntityUpdate(entity);
 	HandleMainInput();
 }
 
@@ -89,7 +99,8 @@ void Draw()
 	AGE_DrawBegin();	
 	AGE_SpriteRenderGUI(&fpsSprite, &fpsTextPos, NULL, 0.f, NULL, SDL_FLIP_NONE, 600);
 	AGE_Animation_Draw(&explosionAnimation, 0.0f,NULL, SDL_FLIP_NONE, 9);
-	BattlefieldDraw(battlefield, 10);	
+	BattlefieldDraw(battlefield, 10);
+	BattleEntityDraw(entity);
 	AGE_DrawEnd();
 
 }
@@ -98,6 +109,7 @@ void CameraControl()
 {
 	bool pressed = false;
 	AGE_Vector v = {0.f, 0.f};
+
 	if(AGE_KeyIsDown(SDL_SCANCODE_LEFT))
 	{
 		v.X = -CAMERA_SPEED;
@@ -155,9 +167,9 @@ void SetCameraWithinBoundary()
 }
 
 void HandleMainInput()
-{
+{	
 	if(AGE_KeyIsDown(SDL_SCANCODE_ESCAPE))
-	{
+	{		
 		AGE_Exit();
 	}
 }
