@@ -12,12 +12,13 @@ typedef struct
 void mark_walkable_tiles(BattleEntity *);
 void remove_walking_squares(Battlefield *);
 void mark_square(BattleEntity *, int, int, int);
-void find_path(BattleEntity *, SDL_Point, int);
+void find_path(BattleEntity *, SDL_Point);
 bool tile_empty(Battlefield *, int, int);
 bool tile_obstructed(Battlefield *, int, int);
 bool tile_within_battlefield(Battlefield *, int, int);
 void check_for_selected_square(Battlefield *, BattleEntity*);
 void entity_update_animation(BattleEntity *);
+WalkableSquare find_walkable_square(BattleEntity* entity, SDL_Point position);
 
 void BattleEntityLoad(BattleEntity *entity, int id)
 {
@@ -59,6 +60,10 @@ void BattleEntitySetActive(BattleEntity *entity)
 {
 	entity->IsActive = true;
 	mark_walkable_tiles(entity);
+	SDL_Point p = {14, 1};
+	BattleEntityMove(entity, p);
+	AGE_ListPeekAt(&entity->moveDirections, &p.x, 0);
+	printf("%d\n", p.x);
 }
 
 void BattleEntityUpdate(BattleEntity *entity)
@@ -204,7 +209,8 @@ void check_for_selected_square(Battlefield *battlefield, BattleEntity *entity)
 
 void BattleEntityMove(BattleEntity *entity, SDL_Point position)
 {
-	
+	AGE_ListInit(&entity->moveDirections, sizeof(Direction));
+	find_path(entity, position);
 }
 
 void BattleEntityDestroy(BattleEntity *entity)
@@ -215,4 +221,95 @@ void BattleEntityDestroy(BattleEntity *entity)
 void BattleEntityDraw(BattleEntity *entity)
 {	
 	AGE_Animation_Draw(entity->currAnimation, 0.0f, NULL, SDL_FLIP_NONE, BATTLE_ENTITY_DEFAULT_DEPTH + entity->Position.y);
+}
+
+void find_path(BattleEntity *entity, SDL_Point position)
+{
+	Direction direction;
+	WalkableSquare square = find_walkable_square(entity, position);
+	if(square.length>1)
+	{
+		position.x -= 1;
+		WalkableSquare secondSquare = find_walkable_square(entity, position);
+
+		if(secondSquare.length != -1 &&square.length == secondSquare.length+1)
+		{
+			direction = RIGHT;
+			AGE_ListAddFront(&entity->moveDirections, &direction);
+			find_path(entity, position);
+		}
+
+		position.x += 2;
+		secondSquare = find_walkable_square(entity, position);
+
+		if(secondSquare.length != -1 &&square.length == secondSquare.length+1)
+		{
+			direction = LEFT;
+			AGE_ListAddFront(&entity->moveDirections, &direction);
+			find_path(entity, position);
+		}
+
+		position.x -=1;
+		position.y -= 1;
+		secondSquare = find_walkable_square(entity, position);
+
+		if(secondSquare.length != -1 &&square.length == secondSquare.length+1)
+		{
+			direction = DOWN;
+			AGE_ListAddFront(&entity->moveDirections, &direction);
+			find_path(entity, position);
+		}
+
+		position.y += 2;
+		secondSquare = find_walkable_square(entity, position);
+
+		if(secondSquare.length != -1 &&square.length == secondSquare.length+1)
+		{
+			direction = UP;
+			AGE_ListAddFront(&entity->moveDirections, &direction);
+			find_path(entity, position);
+		}
+	}
+	else if(square.length == 1)
+	{
+		if(entity->Position.x == position.x - 1)
+		{
+			direction = RIGHT;
+			AGE_ListAddFront(&entity->moveDirections, &direction);
+		}
+		if(entity->Position.x == position.x + 1)
+		{
+			direction = LEFT;
+			AGE_ListAddFront(&entity->moveDirections, &direction);
+		}
+		if(entity->Position.y == position.y - 1)
+		{
+			direction = DOWN;
+			AGE_ListAddFront(&entity->moveDirections, &direction);
+		}
+		if(entity->Position.y == position.y + 1)
+		{
+			direction = UP;
+			AGE_ListAddFront(&entity->moveDirections, &direction);
+		}
+	}
+}
+
+WalkableSquare find_walkable_square(BattleEntity* entity, SDL_Point position)
+{
+	WalkableSquare square;
+	int i;
+
+	for (i = 0; i < AGE_ListGetSize(&entity->walkableSquares); ++i)
+	{		
+		AGE_ListPeekAt(&entity->walkableSquares, &square, i);
+
+		if(square.Position.x == position.x && square.Position.y == position.y)
+		{
+			return square;
+		}
+	}
+
+	square.length = -1;
+	return square;
 }
