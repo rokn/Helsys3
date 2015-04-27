@@ -33,5 +33,6 @@ void AGE_ListPeekFront(AGE_List*, void*);
 void AGE_ListPeekLast(AGE_List*, void*);
 void AGE_ListPeekAt(AGE_List *, void *, int);
 void AGE_ListForEach(AGE_List*, listIterator);
+void AGE_ListReplace(AGE_List*, void*, int);
 
 #endif

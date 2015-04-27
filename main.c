@@ -5,7 +5,8 @@
 
 const int SCREEN_WIDTH = 1680;
 const int SCREEN_HEIGHT = 1050;
-const float CAMERA_SPEED = 800.f;
+const float CAMERA_SPEED = 900.f;
+const float MOUSE_MOVE_OFFSET = 5.f;
 
 int LevelWidth;
 int LevelHeight;
@@ -46,8 +47,10 @@ int main(int argc, char const *argv[])
 }
 
 void Initialize()
-{
-	AGE_SetMaxFPS(60);	
+{	
+	AGE_Vector v = {0,0};
+	AGE_DrawSetCameraTransform(v);
+	AGE_SetMaxFPS(60);
 	fpsTextColor = (SDL_Color){255, 0, 0, 255};
 	fpsTextPos = (AGE_Vector){18.f,20.f};
 
@@ -64,8 +67,9 @@ void LoadContent()
 	LoadTileSets(72, 72);
 	entity = malloc(sizeof(BattleEntity));
 	BattleEntityLoad(entity, 1);
-	SDL_Point entityPos = {2,2};
+	SDL_Point entityPos = {12,2};
 	BattleEntitySetOnField(entity, battlefield, entityPos);
+	BattleEntitySetActive(entity);
 	AGE_SpriteLoad(&explosionSheet, "Resources/Explosion.png");	
 	AGE_Animation_CreateFromSpriteSheet(&explosionAnimation, &explosionSheet, AGE_Animation_GetSpriteSheetRects(&explosionSheet, 0, 49, 100, 100), 16);
 
@@ -85,7 +89,7 @@ void EventHandler(SDL_Event *e)
 
 void Update()
 {	
-	CameraControl();
+	CameraControl();//printf("%d\n",);
 	snprintf(buffer, sizeof(buffer), "FPS: %d", CURRENT_FPS);
 	AGE_SpriteLoadFromText(&fpsSprite, buffer, fpsTextColor, gFont);
 	AGE_Vector v = {0.f, 0.f};
@@ -110,25 +114,25 @@ void CameraControl()
 	bool pressed = false;
 	AGE_Vector v = {0.f, 0.f};
 
-	if(AGE_KeyIsDown(SDL_SCANCODE_LEFT))
+	if(AGE_KeyIsDown(SDL_SCANCODE_LEFT) || AGE_Mouse.Position.x <= MOUSE_MOVE_OFFSET)
 	{
 		v.X = -CAMERA_SPEED;
 		pressed = true;
 	}
 
-	if(AGE_KeyIsDown(SDL_SCANCODE_RIGHT))
+	if(AGE_KeyIsDown(SDL_SCANCODE_RIGHT) || AGE_Mouse.Position.x >= AGE_WindowRect.Width - MOUSE_MOVE_OFFSET)
 	{
 		v.X = CAMERA_SPEED;
 		pressed = true;
 	}
 
-	if(AGE_KeyIsDown(SDL_SCANCODE_UP))
+	if(AGE_KeyIsDown(SDL_SCANCODE_UP) || AGE_Mouse.Position.y <= MOUSE_MOVE_OFFSET)
 	{
 		v.Y = -CAMERA_SPEED;
 		pressed = true;
 	}
 
-	if(AGE_KeyIsDown(SDL_SCANCODE_DOWN))
+	if(AGE_KeyIsDown(SDL_SCANCODE_DOWN) || AGE_Mouse.Position.y >= AGE_WindowRect.Height - MOUSE_MOVE_OFFSET)
 	{
 		v.Y = CAMERA_SPEED;
 		pressed = true;

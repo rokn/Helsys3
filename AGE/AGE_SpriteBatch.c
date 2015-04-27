@@ -1,4 +1,6 @@
 #include "AGE_Graphics.h"
+#include "AGE_Input.h"
+
 // bool testIterator(void *rSprite);
 void renderSpriteIterator(renderSprite_age);
 void renderSpriteIterator(renderSprite_age);
@@ -19,6 +21,8 @@ void AGE_DrawSetCameraTransform(AGE_Vector v)
 	spriteBatch_age.cameraOffset = v;
 	AGE_ViewRect.X = spriteBatch_age.cameraOffset.X;
 	AGE_ViewRect.Y = spriteBatch_age.cameraOffset.Y;
+	AGE_Mouse.TransformedPosition.X = AGE_Mouse.Position.x + spriteBatch_age.cameraOffset.X;
+	AGE_Mouse.TransformedPosition.Y = AGE_Mouse.Position.y + spriteBatch_age.cameraOffset.Y;
 }
 
 void AGE_DrawChangeCameraTransform(AGE_Vector v)
@@ -26,6 +30,8 @@ void AGE_DrawChangeCameraTransform(AGE_Vector v)
 	spriteBatch_age.cameraOffset = AGE_VectorAdd(spriteBatch_age.cameraOffset, v);
 	AGE_ViewRect.X = spriteBatch_age.cameraOffset.X;
 	AGE_ViewRect.Y = spriteBatch_age.cameraOffset.Y;
+	AGE_Mouse.TransformedPosition.X = AGE_Mouse.Position.x + spriteBatch_age.cameraOffset.X;
+	AGE_Mouse.TransformedPosition.Y = AGE_Mouse.Position.y + spriteBatch_age.cameraOffset.Y;
 }
 
 void AGE_DrawEnd()

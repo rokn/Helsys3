@@ -3,7 +3,8 @@
 
 const int BATTLEFIELD_OBJECTS_COUNT = 1;
 
-AGE_Sprite battlefieldSquare;
+AGE_Sprite squareWalkable;
+AGE_Sprite squareSelected;
 AGE_Sprite battlefieldField;
 int counter;
 AGE_List objectsList;
@@ -51,8 +52,8 @@ void read_battlefield_file(Battlefield *battlefield, int battlefieldId)
 		AGE_ListPeekAt(&objectsList, &object.sprite, id-1);
 		battlefield->Objects[i] = object;
 		int w,h,y;
-		w = object.sprite.Width / battlefieldSquare.Width;
-		h = object.sprite.Height / battlefieldSquare.Height;
+		w = object.sprite.Width / squareWalkable.Width;
+		h = object.sprite.Height / squareWalkable.Height;
 
 		for (x = position.x; x < w + position.x; ++x)
 		{
@@ -72,7 +73,8 @@ void read_battlefield_file(Battlefield *battlefield, int battlefieldId)
 
 void BattlefieldLoad()
 {
-	assert(AGE_SpriteLoad(&battlefieldSquare, "Resources/Battlefield/BattlefieldSquare.png"));
+	assert(AGE_SpriteLoad(&squareWalkable, "Resources/Battlefield/SquareWalkable.png"));
+	assert(AGE_SpriteLoad(&squareSelected, "Resources/Battlefield/SquareSelected.png"));
 	assert(AGE_SpriteCreateBlank(&battlefieldField, LevelWidth, LevelHeight, SDL_TEXTUREACCESS_TARGET));
 	AGE_ListInit(&objectsList, sizeof(AGE_Sprite));
 	AGE_Sprite objectSprite;
@@ -119,7 +121,7 @@ void BattlefieldDraw(Battlefield *battlefield, int depth)
 			{				
 				offset.X = x * TILE_INFO.TileWidth;
 				offset.Y = y * TILE_INFO.TileHeight;
-				renderRect = (SDL_Rect){(int)offset.X, (int)offset.Y, battlefieldSquare.Width, battlefieldSquare.Height};
+				renderRect = (SDL_Rect){(int)offset.X, (int)offset.Y, squareWalkable.Width, squareWalkable.Height};
 				rect = (AGE_Rect){renderRect.x, renderRect.y , renderRect.w, renderRect.h};
 
 				if(AGE_RectIntersects(AGE_ViewRect, rect))
@@ -141,8 +143,8 @@ void BattlefieldDraw(Battlefield *battlefield, int depth)
 		for (x = 0; x < battlefield->ObjectsCount; ++x)
 		{
 			object = battlefield->Objects[x];
-			offset.X = object.position.x * battlefieldSquare.Width;
-			offset.Y = object.position.y * battlefieldSquare.Height;
+			offset.X = object.position.x * squareWalkable.Width;
+			offset.Y = object.position.y * squareWalkable.Height;
 			offset = AGE_VectorAdd(battlefield->Position, offset);
 			renderRect = (SDL_Rect){(int)offset.X, (int)offset.Y, object.sprite.Width, object.sprite.Height};
 			rect = (AGE_Rect){renderRect.x, renderRect.y , renderRect.w, renderRect.h};
@@ -159,16 +161,30 @@ void BattlefieldDraw(Battlefield *battlefield, int depth)
 			{
 				if(battlefield->fieldStatus[x][y] != -1)
 				{	
-					offset.X = x * battlefieldSquare.Width;
-					offset.Y = y * battlefieldSquare.Height;
+					offset.X = x * squareWalkable.Width;
+					offset.Y = y * squareWalkable.Height;
 					offset = AGE_VectorAdd(battlefield->Position, offset);
-					renderRect = (SDL_Rect){(int)offset.X, (int)offset.Y, battlefieldSquare.Width, battlefieldSquare.Height};
+					renderRect = (SDL_Rect){(int)offset.X, (int)offset.Y, squareWalkable.Width, squareWalkable.Height};
 					rect = (AGE_Rect){renderRect.x, renderRect.y , renderRect.w, renderRect.h};
 
 					if(AGE_RectIntersects(AGE_ViewRect, rect))
-					{					
-						clip = (SDL_Rect){0,0,battlefieldSquare.Width, battlefieldSquare.Height};				
-						SDL_RenderCopy(gRenderer, battlefieldSquare.texture, &clip, &renderRect);
+					{
+						clip = (SDL_Rect){0,0,squareWalkable.Width, squareWalkable.Height};
+
+						if(x == battlefield->selectedSquare.x && y == battlefield->selectedSquare.y)
+						{
+							SDL_RenderCopy(gRenderer, squareSelected.texture, &clip, &renderRect);
+							continue;
+						}
+
+						switch(battlefield->fieldStatus[x][y])
+						{
+							case WALKABLE:
+								SDL_RenderCopy(gRenderer, squareWalkable.texture, &clip, &renderRect);
+								break;
+							default:
+								break;
+						}						
 					}
 				}
 			}
@@ -187,7 +203,7 @@ void BattlefieldDraw(Battlefield *battlefield, int depth)
 				SDL_RenderCopy(gRenderer, surroundings.texture, &clip, &renderRect);
 			}
 
-			offset.Y = battlefield->Height * battlefieldSquare.Height + battlefield->Position.Y;
+			offset.Y = battlefield->Height * squareWalkable.Height + battlefield->Position.Y;
 			renderRect = (SDL_Rect){(int)offset.X, (int)offset.Y, surroundings.Width, surroundings.Height};
 			rect = (AGE_Rect){renderRect.x, renderRect.y , renderRect.w, renderRect.h};
 
@@ -205,9 +221,17 @@ void BattlefieldDraw(Battlefield *battlefield, int depth)
 	AGE_SpriteRender(&battlefieldField, &v, NULL, 0.f, NULL, SDL_FLIP_NONE, depth);
 }
 
-void BattlefieldDestroy()
+void BattlefieldDestroy(Battlefield* battlefield)
 {	
-	AGE_SpriteDestroy(&battlefieldSquare);
+	AGE_SpriteDestroy(&squareWalkable);
 	AGE_SpriteDestroy(&battlefieldField);
 	AGE_ListDestroy(&objectsList);
+	free(battlefield->Objects);
+	int i;
+	for (i = 0; i < battlefield->Width; ++i)
+	{
+		free(battlefield->fieldStatus[i]);
+	}
+
+	free(battlefield->fieldStatus);
 }

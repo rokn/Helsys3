@@ -9,6 +9,14 @@ typedef struct
 	AGE_Sprite sprite;
 } BattlefieldObject;
 
+typedef enum
+{
+	BLOCKED = -1,
+	EMPTY,
+	OCCUPIED,
+	WALKABLE
+} SquareStatus;
+
 typedef struct
 {
 	int Width;
@@ -16,12 +24,14 @@ typedef struct
 	AGE_Vector Position;
 	BattlefieldObject *Objects;
 	int ObjectsCount;
-	short **fieldStatus;
+	SquareStatus **fieldStatus;
+	bool IsActive;
+	SDL_Point selectedSquare;
 } Battlefield;
 
 void BattlefieldInit(Battlefield *, int);
 void BattlefieldLoad();
 void BattlefieldDraw(Battlefield *, int);
-void BattlefieldDestroy();
+void BattlefieldDestroy(Battlefield*);
 
 #endif

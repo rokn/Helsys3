@@ -23,7 +23,8 @@ void keyboardUpdate_age();
 
 struct
 {
-	AGE_Vector Position;
+	SDL_Point Position;
+	AGE_Vector TransformedPosition;
 
 	bool LeftIsPressed;
 	bool RightIsPressed;

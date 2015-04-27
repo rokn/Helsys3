@@ -16,6 +16,12 @@ void AGE_Animation_CreateFromSpriteSheet(AGE_Animation *animation, AGE_Sprite *s
     animation->spriteSheet = spriteSheet;
     animation->currFrameTime = 0;
     animation->currIndex = 0;
+    animation->IsAnimating = true;
+}
+
+void AGE_Animation_ChangeSpeed(AGE_Animation *animation, int newSpeed)
+{
+	animation-> frameTime = newSpeed;
 }
 
 AGE_List AGE_Animation_GetSpriteSheetRects(AGE_Sprite *texture,int startingId, int endId, int frameWidth, int frameHeight)
@@ -41,25 +47,53 @@ void AGE_Animation_SetAlpha(AGE_Animation *animation, Uint8 alpha)
 	AGE_SpriteSetAlpha(animation->spriteSheet, alpha);
 }
 
+AGE_Rect AGE_Animation_GetSize(AGE_Animation *animation)
+{
+	SDL_Rect sRect;
+	AGE_ListPeekFront(&animation->clipList, &sRect);
+	AGE_Rect rect = {0, 0, sRect.w, sRect.h};
+	return rect;
+}
+
 void AGE_Animation_Update(AGE_Animation* animation, AGE_Vector *position)
 {
 	animation->position.X = position->X;
 	animation->position.Y = position->Y;
-	animation->currFrameTime += AGE_DeltaMilliSecondsGet();
-		
-	if(animation->currFrameTime>=animation->frameTime)
+
+	if(animation->IsAnimating)
 	{
-		if(animation->currIndex < AGE_ListGetSize(&(animation->clipList)) - 1)
+		animation->currFrameTime += AGE_DeltaMilliSecondsGet();
+			
+		if(animation->currFrameTime>=animation->frameTime)
 		{
-			animation->currIndex++;			
+			if(animation->currIndex < AGE_ListGetSize(&(animation->clipList)) - 1)
+			{
+				animation->currIndex++;			
+			}
+			else
+			{
+				animation->currIndex = 0;
+			}
+			
+			animation->currFrameTime = 0;
 		}
-		else
-		{
-			animation->currIndex = 0;
-		}
-		
-		animation->currFrameTime = 0;
-	}	
+	}
+}
+
+int AGE_Animation_GetIndex(AGE_Animation *animation)
+{
+	return animation->currIndex;
+}
+
+void AGE_Animation_SetIndex(AGE_Animation *animation, int newIndex)
+{
+	animation->currIndex= newIndex;
+	animation->currFrameTime = 0;
+}
+
+int AGE_Animation_ChangeState(AGE_Animation *animation, bool state)
+{
+	animation->IsAnimating = state;
 }
 
 void AGE_Animation_Draw(AGE_Animation *animation, double rotation, AGE_Vector *origin, SDL_RendererFlip flip, short depth)

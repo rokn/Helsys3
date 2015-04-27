@@ -74,6 +74,7 @@ typedef struct
 	int currFrameTime;
 	int currIndex;
 	SDL_Rect currentClip;
+	bool IsAnimating;
 } AGE_Animation;
 
 extern AGE_Rect AGE_ViewRect;
@@ -83,6 +84,16 @@ void AGE_Animation_CreateFromSpriteSheet(AGE_Animation *, AGE_Sprite *, AGE_List
 AGE_List AGE_Animation_GetSpriteSheetRects(AGE_Sprite *,int, int, int, int);
 
 void AGE_Animation_SetAlpha(AGE_Animation*, Uint8);
+
+AGE_Rect AGE_Animation_GetSize(AGE_Animation*);
+
+int AGE_Animation_GetIndex(AGE_Animation*);
+
+void AGE_Animation_ChangeSpeed(AGE_Animation*, int);
+
+void AGE_Animation_SetIndex(AGE_Animation*, int);
+
+int AGE_Animation_ChangeState(AGE_Animation*, bool);
 
 void AGE_Animation_Update(AGE_Animation*, AGE_Vector*);
 

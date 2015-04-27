@@ -1,11 +1,14 @@
 #include "AGE_Input.h"
+#include "AGE_Graphics.h"
 
 void mouseHandleEvent_age(SDL_Event *event)
 {
 	switch(event->type)
 	{
 		case SDL_MOUSEMOTION:
-			SDL_GetMouseState(&AGE_Mouse.Position.X, &AGE_Mouse.Position.Y);
+			SDL_GetMouseState(&AGE_Mouse.Position.x, &AGE_Mouse.Position.y);
+			AGE_Mouse.TransformedPosition.X = AGE_Mouse.Position.x + spriteBatch_age.cameraOffset.X;
+			AGE_Mouse.TransformedPosition.Y = AGE_Mouse.Position.y + spriteBatch_age.cameraOffset.Y;
 			break;
 
 		case SDL_MOUSEBUTTONDOWN:

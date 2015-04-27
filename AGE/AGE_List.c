@@ -29,6 +29,9 @@ void AGE_ListDestroy(AGE_List *list)
             free(currNode);
         }
     }
+
+    list->tail = NULL;
+    list->length = 0;
 }
 
 int AGE_ListGetSize(AGE_List *list)
@@ -206,3 +209,7 @@ void AGE_ListInsert(AGE_List *list, void *newData, int index)
     list->length ++;
 }
 
+void AGE_ListReplace(AGE_List *list, void *newData, int index)
+{
+    memcpy(listGetNode(list,index)->data, newData, list->elementSize);
+}
