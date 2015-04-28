@@ -4,6 +4,66 @@
 		"selected_items":
 		[
 			[
+				"Battle",
+				"BattleEntity"
+			],
+			[
+				"batt",
+				"battlefield"
+			],
+			[
+				"Battlefi",
+				"Battlefield"
+			],
+			[
+				"Battlef",
+				"Battlefield"
+			],
+			[
+				"Battlefie",
+				"BattlefieldInit"
+			],
+			[
+				"AGE_List",
+				"AGE_List"
+			],
+			[
+				"posi",
+				"Position"
+			],
+			[
+				"AGE_Vect",
+				"AGE_Vector"
+			],
+			[
+				"ANim",
+				"AGE_Animation_GetSize"
+			],
+			[
+				"Ent",
+				"BattleEntity"
+			],
+			[
+				"field",
+				"FieldPosition"
+			],
+			[
+				"AGE_ListRemove",
+				"AGE_ListRemoveFront"
+			],
+			[
+				"AGE_Peek",
+				"AGE_ListPeekFront"
+			],
+			[
+				"BattleEntt",
+				"BattleEntityMove"
+			],
+			[
+				"walka",
+				"walkingAnimations"
+			],
+			[
 				"find",
 				"find_path"
 			],
@@ -26,10 +86,6 @@
 			[
 				"battle",
 				"battlefield"
-			],
-			[
-				"Battle",
-				"Battlefield"
 			],
 			[
 				"BAtt",
@@ -56,16 +112,8 @@
 				"WalkableSquare"
 			],
 			[
-				"walka",
-				"walkableSquares"
-			],
-			[
 				"AGE_Getsize",
 				"AGE_ListGetSize"
-			],
-			[
-				"AGE_List",
-				"AGE_ListAdd"
 			],
 			[
 				"Entity",
@@ -104,10 +152,6 @@
 				"Position"
 			],
 			[
-				"field",
-				"field"
-			],
-			[
 				"pos",
 				"position"
 			],
@@ -118,10 +162,6 @@
 			[
 				"walkin",
 				"walkingDistance"
-			],
-			[
-				"batt",
-				"battlefieldSquare"
 			],
 			[
 				"p",
@@ -340,10 +380,6 @@
 				"AGE_VectorAdd"
 			],
 			[
-				"AGE_Vect",
-				"AGE_VectorMultiply"
-			],
-			[
 				"AGE_Delta",
 				"AGE_DeltaSecondsGet"
 			],
@@ -478,42 +514,6 @@
 			[
 				"rendre",
 				"renderSprite_age"
-			],
-			[
-				"AGE_Listat",
-				"AGE_ListPeekAt"
-			],
-			[
-				"renders",
-				"renderSpriteIterator"
-			],
-			[
-				"AGE_Timer",
-				"AGE_TimerGetTicks"
-			],
-			[
-				"AGE_Mous",
-				"AGE_MouseHandleEvent"
-			],
-			[
-				"AGE_ke",
-				"AGE_KeyboardUpdate"
-			],
-			[
-				"EVE",
-				"EventHandler"
-			],
-			[
-				"user",
-				"userUpdate"
-			],
-			[
-				"event",
-				"eventHandle"
-			],
-			[
-				"Eve",
-				"EventHandler"
 			]
 		]
 	},
@@ -523,15 +523,23 @@
 			"file": "main.c",
 			"settings":
 			{
-				"buffer_size": 3793,
+				"buffer_size": 3029,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "battle_entity.c",
+			"file": "battle.h",
 			"settings":
 			{
-				"buffer_size": 8605,
+				"buffer_size": 369,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "battle.c",
+			"settings":
+			{
+				"buffer_size": 677,
 				"line_ending": "Unix"
 			}
 		},
@@ -539,7 +547,23 @@
 			"file": "battle_entity.h",
 			"settings":
 			{
-				"buffer_size": 804,
+				"buffer_size": 864,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "battlefield.h",
+			"settings":
+			{
+				"buffer_size": 550,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/rokner/Downloads/iniparser/src/iniparser.h",
+			"settings":
+			{
+				"buffer_size": 11574,
 				"line_ending": "Unix"
 			}
 		},
@@ -548,14 +572,6 @@
 			"settings":
 			{
 				"buffer_size": 7148,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "battlefield.h",
-			"settings":
-			{
-				"buffer_size": 574,
 				"line_ending": "Unix"
 			}
 		},
@@ -580,14 +596,6 @@
 			"settings":
 			{
 				"buffer_size": 878,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "AGE/AGE_List.c",
-			"settings":
-			{
-				"buffer_size": 4242,
 				"line_ending": "Unix"
 			}
 		},
@@ -778,6 +786,7 @@
 	"expanded_folders":
 	[
 		"/home/rokner/Desktop/SDL/MyGame",
+		"/home/rokner/Desktop/SDL/MyGame/Entities",
 		"/home/rokner/Desktop/SDL/MyGame/Levels",
 		"/home/rokner/Desktop/SDL/MyGame/Resources",
 		"/home/rokner/Desktop/SDL/MyGame/Resources/Battlefield",
@@ -787,31 +796,41 @@
 	"file_history":
 	[
 		"/home/rokner/Desktop/SDL/MyGame/log.txt",
+		"/home/rokner/Desktop/SDL/MyGame/battle_entity.c",
+		"/home/rokner/Desktop/SDL/MyGame/battlefield.c",
+		"/home/rokner/Desktop/SDL/MyGame/makefile",
+		"/home/rokner/Desktop/SDL/MyGame/Entities/Entity_1.ini",
+		"/home/rokner/Downloads/iniparser/src/iniparser.c",
+		"/home/rokner/Desktop/SDL/MyGame/e.ini",
+		"/home/rokner/Desktop/SDL/MyGame/Resources/Entities/Entity_1.ini",
+		"/home/rokner/Downloads/iniparser/Makefile",
+		"/home/rokner/Desktop/SDL/MyGame/main.h",
+		"/home/rokner/Downloads/iniparser/src/dictionary.h",
+		"/home/rokner/Downloads/iniparser/doc/iniparser.main",
+		"/home/rokner/Desktop/SDL/MyGame/AGE/battle.h",
+		"/home/rokner/Desktop/SDL/MyGame/AGE/battle.c",
+		"/home/rokner/Desktop/SDL/MyGame/battle_entity.h",
+		"/home/rokner/Desktop/SDL/MyGame/AGE/AGE_Animation.c",
+		"/home/rokner/Desktop/SDL/MyGame/AGE/AGE_Sprite.c",
+		"/home/rokner/Desktop/SDL/MyGame/AGE/AGE_List.c",
+		"/home/rokner/Desktop/SDL/MyGame/AGE/log.txt",
+		"/home/rokner/Desktop/SDL/MyGame/AGE/AGE_Vector.c",
 		"/home/rokner/.config/sublime-text-3/Packages/Terminal/Default (Linux).sublime-keymap",
 		"/home/rokner/.config/sublime-text-3/Packages/User/Default (Linux).sublime-keymap",
-		"/home/rokner/Desktop/SDL/MyGame/battlefield.c",
-		"/home/rokner/Desktop/SDL/MyGame/AGE/AGE_List.c",
 		"/home/rokner/Desktop/SDL/MyGame/AGE/AGE_Core.c",
 		"/home/rokner/Desktop/SDL/MyGame/AGE/AGE_SpriteBatch.c",
 		"/home/rokner/.config/sublime-text-3/Packages/C++/forv.sublime-snippet",
 		"/home/rokner/.config/sublime-text-3/Packages/C++/030-for-int-loop-(fori).sublime-snippet",
-		"/home/rokner/Desktop/SDL/MyGame/AGE/log.txt",
 		"/home/rokner/Desktop/SDL/MyGame/AGE/AGE_Mouse_Input.c",
-		"/home/rokner/Desktop/SDL/MyGame/battle_entity.c",
 		"/home/rokner/Desktop/SDL/MyGame/Resources/Battlefield/SquareSelected.png",
-		"/home/rokner/Desktop/SDL/MyGame/AGE/AGE_Sprite.c",
 		"/home/rokner/Desktop/SDL/MyGame/AGE/AGE_Graphics.h",
-		"/home/rokner/Desktop/SDL/MyGame/AGE/AGE_Animation.c",
 		"/home/rokner/Downloads/WithChoice.pas",
 		"/home/rokner/Desktop/SDL/MyGame/Resources/Entities/Entity_1.png",
 		"/home/rokner/Desktop/SDL/MyGame/tiles.c",
-		"/home/rokner/Desktop/SDL/MyGame/battle_entity.h",
-		"/home/rokner/Desktop/SDL/MyGame/makefile",
 		"/home/rokner/Desktop/SDL/MyGame/Levels/Level_1.txt",
 		"/home/rokner/Desktop/SDL/MyGame/Levels/Level_1.level",
 		"/home/rokner/Desktop/SDL/MyGame/Levels/Level1.txt",
 		"/home/rokner/Desktop/SDL/MyGame/tiles.h",
-		"/home/rokner/Desktop/SDL/MyGame/main.h",
 		"/home/rokner/Desktop/SDL/MyGame/Credits",
 		"/home/rokner/Downloads/res01/Readme01.txt",
 		"/home/rokner/I smoked for ten years.txt",
@@ -821,7 +840,6 @@
 		"/home/rokner/Downloads/iniparser/INSTALL",
 		"/home/rokner/Downloads/iniparser/README",
 		"/home/rokner/Downloads/iniparser/example.ini",
-		"/home/rokner/Downloads/iniparser/Makefile",
 		"/home/rokner/.config/sublime-text-3/Packages/User/Make (Linux).sublime-build",
 		"/home/rokner/.config/sublime-text-3/Packages/Default/Default (Linux).sublime-keymap",
 		"/home/rokner/.config/sublime-text-3/Packages/SublimeClang/src/CMakeLists.txt",
@@ -841,7 +859,6 @@
 		"/home/rokner/Downloads/devilspie-0.22/INSTALL",
 		"/home/rokner/Downloads/gdevilspie-0.5/gdevilspie",
 		"/home/rokner/Desktop/SDL/MyGame/AGE/AGE_Timer.c",
-		"/home/rokner/Desktop/SDL/MyGame/AGE/AGE_Vector.c",
 		"/home/rokner/Desktop/SDL/MyGame/AGE/AGE_Helper.c",
 		"/home/rokner/Desktop/SDL/MyGame/AGE/AGE_Keyboard_Input.c",
 		"/home/rokner/Desktop/SDL/MyGame/backup.c",
@@ -919,6 +936,12 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"change_direc",
+			"change",
+			"printf",
+			"update_move",
+			"da\"",
+			"da",
 			"^.*\\S+.*$",
 			"^(.*)$",
 			"find_path",
@@ -1040,7 +1063,7 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 2,
 			"sheets":
 			[
 				{
@@ -1049,7 +1072,7 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3793,
+						"buffer_size": 3029,
 						"regions":
 						{
 							"bookmarks":
@@ -1065,8 +1088,8 @@
 						"selection":
 						[
 							[
-								1541,
-								1541
+								1206,
+								1206
 							]
 						],
 						"settings":
@@ -1078,7 +1101,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1206.0,
+						"translation.y": 289.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 2,
@@ -1086,49 +1109,19 @@
 				},
 				{
 					"buffer": 1,
-					"file": "battle_entity.c",
+					"file": "battle.h",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 8605,
+						"buffer_size": 369,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2135,
-								2135
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C.tmLanguage",
-							"translate_tabs_to_spaces": false,
-							"word_wrap": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 1683.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "battle_entity.h",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 804,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								690,
-								690
+								361,
+								361
 							]
 						],
 						"settings":
@@ -1143,7 +1136,122 @@
 					"type": "text"
 				},
 				{
+					"buffer": 2,
+					"file": "battle.c",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 677,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								410,
+								410
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
 					"buffer": 3,
+					"file": "battle_entity.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 864,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								549,
+								549
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "battlefield.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 550,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								437,
+								437
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "/home/rokner/Downloads/iniparser/src/iniparser.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 11574,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								9271,
+								9271
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 2380.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
 					"file": "battlefield.c",
 					"semi_transient": false,
 					"settings":
@@ -1155,8 +1263,8 @@
 						"selection":
 						[
 							[
-								5454,
-								5454
+								2507,
+								2507
 							]
 						],
 						"settings":
@@ -1165,42 +1273,14 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 2550.0,
+						"translation.y": 1071.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 8,
+					"stack_index": 4,
 					"type": "text"
 				},
 				{
-					"buffer": 4,
-					"file": "battlefield.h",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 574,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								388,
-								388
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 7,
-					"type": "text"
-				},
-				{
-					"buffer": 5,
+					"buffer": 7,
 					"file": "tiles.h",
 					"semi_transient": false,
 					"settings":
@@ -1224,11 +1304,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 9,
+					"stack_index": 11,
 					"type": "text"
 				},
 				{
-					"buffer": 6,
+					"buffer": 8,
 					"file": "AGE/AGE.h",
 					"semi_transient": false,
 					"settings":
@@ -1240,8 +1320,8 @@
 						"selection":
 						[
 							[
-								1839,
-								1839
+								1251,
+								1251
 							]
 						],
 						"settings":
@@ -1250,14 +1330,14 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 374.0,
+						"translation.y": 714.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 10,
 					"type": "text"
 				},
 				{
-					"buffer": 7,
+					"buffer": 9,
 					"file": "AGE/AGE_Generics.h",
 					"semi_transient": false,
 					"settings":
@@ -1269,8 +1349,8 @@
 						"selection":
 						[
 							[
-								423,
-								423
+								61,
+								61
 							]
 						],
 						"settings":
@@ -1281,45 +1361,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 8,
 					"type": "text"
 				},
 				{
-					"buffer": 8,
-					"file": "AGE/AGE_List.c",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 4242,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								724,
-								724
-							],
-							[
-								1109,
-								1109
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 374.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 9,
+					"buffer": 10,
 					"file": "AGE/AGE_Graphics.h",
 					"semi_transient": false,
 					"settings":
@@ -1331,8 +1377,8 @@
 						"selection":
 						[
 							[
-								816,
-								816
+								982,
+								982
 							]
 						],
 						"settings":
@@ -1341,14 +1387,14 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 415.0,
+						"translation.y": 391.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 9,
 					"type": "text"
 				},
 				{
-					"buffer": 10,
+					"buffer": 11,
 					"file": "AGE/AGE_Input.h",
 					"semi_transient": false,
 					"settings":
@@ -1372,7 +1418,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 6,
+					"stack_index": 7,
 					"type": "text"
 				}
 			]
@@ -1439,8 +1485,28 @@
 				"log.txt"
 			],
 			[
+				"battlefield",
+				"battlefield.c"
+			],
+			[
+				"battlef",
+				"battlefield.c"
+			],
+			[
+				"battle",
+				"battle_entity.h"
+			],
+			[
+				"main",
+				"main.h"
+			],
+			[
 				"list",
 				"AGE/AGE_List.c"
+			],
+			[
+				"animat",
+				"AGE/AGE_Animation.c"
 			],
 			[
 				"lo",
@@ -1491,24 +1557,12 @@
 				"AGE/AGE_Animation.c"
 			],
 			[
-				"animat",
-				"AGE/AGE_Animation.c"
-			],
-			[
 				"batt",
 				"battlefield.c"
 			],
 			[
 				"log.txt",
 				"log.txt"
-			],
-			[
-				"main",
-				"main.h"
-			],
-			[
-				"battle",
-				"battlefield.h"
 			],
 			[
 				"agelist",

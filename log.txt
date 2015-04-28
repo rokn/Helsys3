@@ -1,0 +1,32 @@
+main.c: In function ‘LoadContent’:
+main.c:65:33: error: ‘battlefield’ undeclared (first use in this function)
+  BattleEntitySetOnField(entity, battlefield, entityPos);
+                                 ^
+main.c:65:33: note: each undeclared identifier is reported only once for each function it appears in
+battle.c: In function ‘BattleInitialize’:
+battle.c:8:2: warning: passing argument 1 of ‘BattlefieldInit’ from incompatible pointer type [enabled by default]
+  BattlefieldInit(&CurrentBattle.battlefield, 1);
+  ^
+In file included from battle.h:5:0,
+                 from battle.c:1:
+battlefield.h:32:6: note: expected ‘struct Battlefield *’ but argument is of type ‘struct Battlefield **’
+ void BattlefieldInit(Battlefield *, int);
+      ^
+battle.c: In function ‘BattleDraw’:
+battle.c:17:2: warning: passing argument 1 of ‘BattlefieldDraw’ from incompatible pointer type [enabled by default]
+  BattlefieldDraw(&CurrentBattle.battlefield, 10);
+  ^
+In file included from battle.h:5:0,
+                 from battle.c:1:
+battlefield.h:33:6: note: expected ‘struct Battlefield *’ but argument is of type ‘struct Battlefield **’
+ void BattlefieldDraw(Battlefield *, int);
+      ^
+battle.c: In function ‘BattleEnd’:
+battle.c:22:2: warning: passing argument 1 of ‘BattlefieldDestroy’ from incompatible pointer type [enabled by default]
+  BattlefieldDestroy(&CurrentBattle.battlefield);
+  ^
+In file included from battle.h:5:0,
+                 from battle.c:1:
+battlefield.h:34:6: note: expected ‘struct Battlefield *’ but argument is of type ‘struct Battlefield **’
+ void BattlefieldDestroy(Battlefield*);
+      ^

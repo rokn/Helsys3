@@ -1,5 +1,5 @@
 #OBJS specifies which files to compile
-OBJS = main.c battlefield.c tiles.c battle_entity.c
+OBJS = main.c battlefield.c tiles.c battle_entity.c battle.c
 
 #CC specifies which compiler we're using
 CC = gcc
@@ -12,7 +12,7 @@ COMPILER_FLAGS = -Wall -g
 ERROR_LOG = log.txt
 
 #LINKER FLAGS for libraries
-LINKER_FLAGS = -L./AGE -lAGE -lSDL2 -lSDL2_image -lSDL2_ttf -lm
+LINKER_FLAGS = -L./AGE -lAGE -L./Libraries -liniparser -lSDL2 -lSDL2_image -lSDL2_ttf -lm
 
 #obj name for the name of the exe
 OBJ_NAME = GAME

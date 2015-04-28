@@ -2,6 +2,7 @@
 #include "main.h"
 #include "tiles.h"
 #include "battle_entity.h"
+#include "battle.h"
 
 const int SCREEN_WIDTH = 1680;
 const int SCREEN_HEIGHT = 1050;
@@ -25,13 +26,9 @@ void HandleMainInput();
 AGE_Sprite fpsSprite;
 SDL_Color fpsTextColor;
 AGE_Vector fpsTextPos;
-char buffer[1024];
-AGE_Sprite explosionSheet;
-AGE_Animation explosionAnimation;
+char buffer[300];
 TTF_Font *gFont;
-Battlefield *battlefield;
-SDL_Rect **modes;
-BattleEntity *entity;
+BattleEntity entity;
 int mode;
 
 int main(int argc, char const *argv[])
@@ -56,28 +53,20 @@ void Initialize()
 
 	LevelWidth = 2592;
 	LevelHeight = 1728;
-
-	battlefield = (Battlefield*)malloc(sizeof(Battlefield));	
-	BattlefieldInit(battlefield, 1);
 }
 
 void LoadContent()
 {
 	gFont = TTF_OpenFont("Resources/Fonts/Aver.ttf",16);
 	LoadTileSets(72, 72);
-	entity = malloc(sizeof(BattleEntity));
-	BattleEntityLoad(entity, 1);
-	SDL_Point entityPos = {12,2};
-	BattleEntitySetOnField(entity, battlefield, entityPos);
-	BattleEntitySetActive(entity);
-	AGE_SpriteLoad(&explosionSheet, "Resources/Explosion.png");	
-	AGE_Animation_CreateFromSpriteSheet(&explosionAnimation, &explosionSheet, AGE_Animation_GetSpriteSheetRects(&explosionSheet, 0, 49, 100, 100), 16);
+
+	BattleEntityLoad(&entity, 1);
+	
 
 }
 
 void Unload()
 {
-	BattlefieldDestroy(battlefield);
 	BattleEntityDestroy(entity);
 	free(entity);
 }
@@ -92,8 +81,6 @@ void Update()
 	CameraControl();//printf("%d\n",);
 	snprintf(buffer, sizeof(buffer), "FPS: %d", CURRENT_FPS);
 	AGE_SpriteLoadFromText(&fpsSprite, buffer, fpsTextColor, gFont);
-	AGE_Vector v = {0.f, 0.f};
-	AGE_Animation_Update(&explosionAnimation, &v);
 	BattleEntityUpdate(entity);
 	HandleMainInput();
 }
@@ -102,8 +89,6 @@ void Draw()
 {
 	AGE_DrawBegin();	
 	AGE_SpriteRenderGUI(&fpsSprite, &fpsTextPos, NULL, 0.f, NULL, SDL_FLIP_NONE, 600);
-	AGE_Animation_Draw(&explosionAnimation, 0.0f,NULL, SDL_FLIP_NONE, 9);
-	BattlefieldDraw(battlefield, 10);
 	BattleEntityDraw(entity);
 	AGE_DrawEnd();
 

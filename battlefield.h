@@ -30,7 +30,6 @@ typedef struct
 } Battlefield;
 
 void BattlefieldInit(Battlefield *, int);
-void BattlefieldLoad();
 void BattlefieldDraw(Battlefield *, int);
 void BattlefieldDestroy(Battlefield*);
 

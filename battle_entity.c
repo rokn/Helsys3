@@ -1,5 +1,7 @@
 #include "battle_entity.h"
 #include "tiles.h"
+#include "dictionary.h"
+#include "iniparser.h"
 
 const int BATTLE_ENTITY_DEFAULT_DEPTH = 200;
 
@@ -25,6 +27,8 @@ void set_field_position(BattleEntity*);
 void update_direction(BattleEntity *);
 AGE_Vector get_true_square_coordinates(Battlefield *, SDL_Point);
 void entity_change_direction(BattleEntity *);
+void entity_load_stats(BattleEntity*, int);
+void end_turn();
 
 void BattleEntityLoad(BattleEntity *entity, int id)
 {
@@ -53,6 +57,8 @@ void BattleEntityLoad(BattleEntity *entity, int id)
 	}
 
 	AGE_ListPeekAt(&entity->walkingAnimations, entity->currAnimation, entity->currentDirection);
+
+	entity_load_stats(entity, id);
 }
 
 void BattleEntitySetOnField(BattleEntity *entity, Battlefield * battlefield, SDL_Point position)
@@ -91,15 +97,6 @@ void BattleEntityMove(BattleEntity *entity, SDL_Point position)
 	entity->IsMoving = true;
 	AGE_ListInit(&entity->moveDirections, sizeof(Direction));
 	find_path(entity, position);
-
-	int i;
-	Direction dir;
-	for (i = 0; i < AGE_ListGetSize(&entity->moveDirections); ++i)
-	{
-		AGE_ListPeekAt(&entity->moveDirections, &dir, i);
-		printf("%d\n",dir);
-	}
-
 	AGE_ListPeekFront(&entity->moveDirections, &entity->currentDirection);
 	AGE_ListRemoveFront(&entity->moveDirections);
 	update_direction(entity);
@@ -140,7 +137,6 @@ void check_for_mouse_input(BattleEntity *entity)
 
 void update_movement(BattleEntity *entity)
 {
-	// printf("%f\n",entity->FieldPosition.X);
 	AGE_Vector movement = {0.f,0.f};
 
 	switch(entity->currentDirection)
@@ -189,7 +185,6 @@ void update_movement(BattleEntity *entity)
 
 	movement = AGE_VectorMultiply(movement, AGE_DeltaSecondsGet());
 	entity->FieldPosition = AGE_VectorAdd(entity->FieldPosition, movement);
-	// printf("%f\n",entity->FieldPosition.X);
 }
 
 void entity_update_animation(BattleEntity *entity)
@@ -199,36 +194,44 @@ void entity_update_animation(BattleEntity *entity)
 
 void entity_change_direction(BattleEntity *entity)
 {	
+	switch(entity->currentDirection)
+	{
+		case UP:
+			entity->Position.y --;
+			break;
+		case DOWN:
+			entity->Position.y ++;
+			break;
+		case LEFT:
+			entity->Position.x --;
+			break;
+		case RIGHT:
+			entity->Position.x ++;
+			break;
+	}		
 	if(AGE_ListGetSize(&entity->moveDirections) > 0)
 	{
-		switch(entity->currentDirection)
-		{
-			case UP:
-				entity->Position.y --;
-				break;
-			case DOWN:
-				entity->Position.y ++;
-				break;
-			case LEFT:
-				entity->Position.x --;
-				break;
-			case RIGHT:
-				entity->Position.x ++;
-				break;
-		}
-
 		AGE_ListPeekFront(&entity->moveDirections, &entity->currentDirection);
 		AGE_ListRemoveFront(&entity->moveDirections);
 		update_direction(entity);		
-
-		set_field_position(entity);		
 	}
 	else
 	{
 		entity->IsMoving = false;
+		entity->IsActive = false;
 		AGE_Animation_ChangeState(entity->currAnimation, false);
 		AGE_Animation_SetIndex(entity->currAnimation, 0);
+		printf("%d\n",entity->Position.x);		
+		end_turn();
 	}
+
+	set_field_position(entity);
+	entity_update_animation(entity);	
+}
+
+void end_turn(BattleEntity *entity)
+{
+	// AGE_ListDestroy(&entity->moveDirections);	
 }
 
 void mark_walkable_tiles(BattleEntity *entity)
@@ -466,4 +469,18 @@ AGE_Vector get_true_square_coordinates(Battlefield *battlefield, SDL_Point posit
 {
 	AGE_Vector v = {TILE_INFO.TileWidth * position.x + battlefield->Position.X, TILE_INFO.TileHeight * position.y + battlefield->Position.Y};
 	return v;
+}
+
+void entity_load_stats(BattleEntity *entity, int id)
+{
+	char buffer[25];
+	snprintf(buffer, sizeof(buffer), "Entities/Entity_%d.ini", id);
+	dictionary * iniFile = (dictionary*)malloc(sizeof(dictionary));
+	iniFile = iniparser_load(buffer);
+	entity->Damage = iniparser_getint(iniFile, "Stats:Damage", 0);
+	entity->Health = iniparser_getint(iniFile, "Stats:Health", 1);
+	entity->MaxHealth = entity->Health;
+	entity->walkingDistance = iniparser_getint(iniFile, "Stats:WalkDistance", 1);
+	entity->moveSpeed = iniparser_getint(iniFile, "Stats:MoveSpeed", 100);
+	iniparser_freedict(iniFile);
 }
