@@ -26,6 +26,7 @@ typedef struct
 	int walkingDistance;
 	int **fieldStatus;
 	AGE_List walkableSquares;
+	float moveSpeed;
 }BattleEntity;
 
 void BattleEntityLoad(BattleEntity*, int);

@@ -91,12 +91,12 @@ void AGE_ListAdd(AGE_List *list, void* newData)
 
 void AGE_ListRemoveFront(AGE_List *list)
 {
-    ListNode *node = list->head;
-    list->head = node->next;
-    list->head->prev = NULL;
+    ListNode *node = list->head;    
+    list->head = node->next;    
+    // list->head->prev = NULL;
     list->length--;
 
-    free(node->data);
+    free(node->data);    
     free(node);
 }
 
