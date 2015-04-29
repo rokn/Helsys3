@@ -172,7 +172,7 @@ void AGE_ListRemoveAt(AGE_List *list,int index)
 
 ListNode* listGetNode(AGE_List *list,int index)
 {
-    // printf("%d %d\n",index,list->length);
+    // printf("node%d %d\n",index,list->length);
     assert(index>=0 && index < list->length);
     int i;
     ListNode *currNode = list->head;
@@ -211,5 +211,6 @@ void AGE_ListInsert(AGE_List *list, void *newData, int index)
 
 void AGE_ListReplace(AGE_List *list, void *newData, int index)
 {
+    // printf("replace%d %d\n",index,list->length);
     memcpy(listGetNode(list,index)->data, newData, list->elementSize);
 }

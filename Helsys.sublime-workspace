@@ -688,7 +688,7 @@
 				"Git: Push"
 			],
 			[
-				"git com",
+				"git comm",
 				"Git: Commit"
 			],
 			[
@@ -696,12 +696,12 @@
 				"Git: Add..."
 			],
 			[
-				"Package Control: remov",
-				"Package Control: Remove Package"
+				"git com",
+				"Git: Commit"
 			],
 			[
-				"git comm",
-				"Git: Commit"
+				"Package Control: remov",
+				"Package Control: Remove Package"
 			],
 			[
 				"install",

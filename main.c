@@ -28,7 +28,8 @@ SDL_Color fpsTextColor;
 AGE_Vector fpsTextPos;
 char buffer[300];
 TTF_Font *gFont;
-BattleEntity entity;
+BattleEntity entity,entity2,e3;
+AGE_List leftTeam,rightTeam;
 int mode;
 
 int main(int argc, char const *argv[])
@@ -53,6 +54,8 @@ void Initialize()
 
 	LevelWidth = 2592;
 	LevelHeight = 1728;
+	AGE_ListInit(&leftTeam, sizeof(BattleEntity));
+	AGE_ListInit(&rightTeam, sizeof(BattleEntity));
 }
 
 void LoadContent()
@@ -61,14 +64,22 @@ void LoadContent()
 	LoadTileSets(72, 72);
 
 	BattleEntityLoad(&entity, 1);
+	BattleEntityLoad(&entity2, 1);
+	BattleEntityLoad(&e3, 1);
 	
+	AGE_ListAdd(&leftTeam, &entity);
+	AGE_ListAdd(&leftTeam, &entity2);
 
+	AGE_ListAdd(&rightTeam, &e3);
+	// AGE_ListAdd(&rightTeam, &entity);
+	// AGE_ListAdd(&rightTeam, &entity);
+
+	BattleInitialize(&leftTeam, &rightTeam, 1);
 }
 
 void Unload()
 {
-	BattleEntityDestroy(entity);
-	free(entity);
+	BattleEntityDestroy(&entity);
 }
 
 void EventHandler(SDL_Event *e)
@@ -81,15 +92,15 @@ void Update()
 	CameraControl();//printf("%d\n",);
 	snprintf(buffer, sizeof(buffer), "FPS: %d", CURRENT_FPS);
 	AGE_SpriteLoadFromText(&fpsSprite, buffer, fpsTextColor, gFont);
-	BattleEntityUpdate(entity);
+	BattleUpdate();
 	HandleMainInput();
 }
 
 void Draw()
 {
 	AGE_DrawBegin();	
-	AGE_SpriteRenderGUI(&fpsSprite, &fpsTextPos, NULL, 0.f, NULL, SDL_FLIP_NONE, 600);
-	BattleEntityDraw(entity);
+	AGE_SpriteRenderGUI(&fpsSprite, &fpsTextPos, NULL, 0.f, NULL, SDL_FLIP_NONE, 600);	
+	BattleDraw();
 	AGE_DrawEnd();
 
 }

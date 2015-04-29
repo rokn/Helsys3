@@ -33,7 +33,7 @@ typedef struct
 }BattleEntity;
 
 void BattleEntityLoad(BattleEntity*, int);
-void BattleEntitySetOnField(BattleEntity*, Battlefield*, SDL_Point);
+void BattleEntitySetOnField(BattleEntity*, Battlefield*, SDL_Point, Direction);
 void BattleEntitySetActive(BattleEntity *);
 void BattleEntityUpdate(BattleEntity*);
 void BattleEntityMove(BattleEntity*, SDL_Point);

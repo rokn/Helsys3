@@ -1,5 +1,6 @@
 #include "battle_entity.h"
 #include "tiles.h"
+#include "battle.h"
 #include "dictionary.h"
 #include "iniparser.h"
 
@@ -43,8 +44,6 @@ void BattleEntityLoad(BattleEntity *entity, int id)
 	AGE_Animation animation;
 	entity->currentDirection = RIGHT;
 	entity->IsMoving = false;
-	entity->walkingDistance = 6;
-	entity->moveSpeed = 150;
 
 	for (i = 0; i < UP-DOWN+1; ++i)
 	{
@@ -54,20 +53,20 @@ void BattleEntityLoad(BattleEntity *entity, int id)
 		AGE_Animation_GetSpriteSheetRects(spriteSheet, b, b+3, spriteSheet->Width / 4, spriteSheet->Height / 4), 120);
 		AGE_Animation_ChangeState(&animation, false);
 		AGE_ListAdd(&entity->walkingAnimations, &animation);
-	}
-
-	AGE_ListPeekAt(&entity->walkingAnimations, entity->currAnimation, entity->currentDirection);
+	}	
 
 	entity_load_stats(entity, id);
 }
 
-void BattleEntitySetOnField(BattleEntity *entity, Battlefield * battlefield, SDL_Point position)
+void BattleEntitySetOnField(BattleEntity *entity, Battlefield * battlefield, SDL_Point position, Direction direction)
 {
 	entity->battlefield = battlefield;
 	entity->Position = position;
 	battlefield->fieldStatus[position.x][position.y] = OCCUPIED;
-	entity_update_animation(entity);
+	entity->currentDirection = direction;
+	AGE_ListPeekAt(&entity->walkingAnimations, entity->currAnimation, entity->currentDirection);
 	set_field_position(entity);
+	entity_update_animation(entity);
 }
 
 void BattleEntitySetActive(BattleEntity *entity)
@@ -86,10 +85,9 @@ void BattleEntityUpdate(BattleEntity *entity)
 		if(entity->IsMoving)
 		{
 			update_movement(entity);
-		}
-
-		entity_update_animation(entity);
+		}		
 	}
+	entity_update_animation(entity);
 }
 
 void BattleEntityMove(BattleEntity *entity, SDL_Point position)
@@ -208,12 +206,13 @@ void entity_change_direction(BattleEntity *entity)
 		case RIGHT:
 			entity->Position.x ++;
 			break;
-	}		
+	}
+	// set_field_position(entity);
 	if(AGE_ListGetSize(&entity->moveDirections) > 0)
 	{
 		AGE_ListPeekFront(&entity->moveDirections, &entity->currentDirection);
 		AGE_ListRemoveFront(&entity->moveDirections);
-		update_direction(entity);		
+		update_direction(entity);
 	}
 	else
 	{
@@ -221,25 +220,25 @@ void entity_change_direction(BattleEntity *entity)
 		entity->IsActive = false;
 		AGE_Animation_ChangeState(entity->currAnimation, false);
 		AGE_Animation_SetIndex(entity->currAnimation, 0);
-		printf("%d\n",entity->Position.x);		
-		end_turn();
+		entity->battlefield->fieldStatus[entity->Position.x][entity->Position.y] = OCCUPIED;
+		end_turn();		
 	}
 
-	set_field_position(entity);
 	entity_update_animation(entity);	
 }
 
 void end_turn(BattleEntity *entity)
 {
-	// AGE_ListDestroy(&entity->moveDirections);	
+	// AGE_ListDestroy(&entity->moveDirections);
+	BattleEndTurn();
 }
 
 void mark_walkable_tiles(BattleEntity *entity)
 {
-	mark_square(entity, entity->Position.x+1,entity->Position.y, 0);
-	mark_square(entity, entity->Position.x-1,entity->Position.y, 0);
 	mark_square(entity, entity->Position.x,entity->Position.y+1, 0);
 	mark_square(entity, entity->Position.x,entity->Position.y-1, 0);
+	mark_square(entity, entity->Position.x+1,entity->Position.y, 0);
+	mark_square(entity, entity->Position.x-1,entity->Position.y, 0);	
 }
 
 void remove_walking_squares(Battlefield *battlefield)
