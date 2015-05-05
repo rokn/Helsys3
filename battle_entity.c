@@ -25,11 +25,11 @@ void check_for_selected_square(Battlefield *, BattleEntity*);
 void entity_update_animation(BattleEntity *);
 WalkableSquare find_walkable_square(BattleEntity*, SDL_Point);
 void set_field_position(BattleEntity*);
-void update_direction(BattleEntity *);
+void update_direction(BattleEntity *,Direction);
 AGE_Vector get_true_square_coordinates(Battlefield *, SDL_Point);
 void entity_change_direction(BattleEntity *);
 void entity_load_stats(BattleEntity*, int);
-void end_turn();
+void end_turn(BattleEntity *);
 
 void BattleEntityLoad(BattleEntity *entity, int id)
 {
@@ -87,17 +87,28 @@ void BattleEntityUpdate(BattleEntity *entity)
 			update_movement(entity);
 		}		
 	}
+
+	if(!entity->IsMoving)
+	{
+		set_field_position(entity);
+	}
+
 	entity_update_animation(entity);
 }
 
 void BattleEntityMove(BattleEntity *entity, SDL_Point position)
 {
 	entity->IsMoving = true;
+	entity->battlefield->fieldStatus[entity->Position.x][entity->Position.y] = EMPTY;
 	AGE_ListInit(&entity->moveDirections, sizeof(Direction));
 	find_path(entity, position);
-	AGE_ListPeekFront(&entity->moveDirections, &entity->currentDirection);
-	AGE_ListRemoveFront(&entity->moveDirections);
-	update_direction(entity);
+	Direction newDirection;
+	if(AGE_ListGetSize(&entity->moveDirections) > 0)
+	{
+		AGE_ListPeekFront(&entity->moveDirections, &newDirection);
+		AGE_ListRemoveFront(&entity->moveDirections);
+		update_direction(entity,newDirection);
+	}
 	remove_walking_squares(entity->battlefield);
 }
 
@@ -111,23 +122,28 @@ void BattleEntityDraw(BattleEntity *entity)
 	AGE_Animation_Draw(entity->currAnimation, 0.0f, NULL, SDL_FLIP_NONE, BATTLE_ENTITY_DEFAULT_DEPTH + entity->Position.y);
 }
 
-void update_direction(BattleEntity *entity)
+void update_direction(BattleEntity *entity, Direction newDirection)
 {
 	AGE_Animation_ChangeState(entity->currAnimation, false);
 	AGE_Animation_SetIndex(entity->currAnimation, 0);
+	AGE_ListReplace(&entity->walkingAnimations, entity->currAnimation, entity->currentDirection);
+	entity->currentDirection = newDirection;
 	AGE_ListPeekAt(&entity->walkingAnimations, entity->currAnimation, entity->currentDirection);
 	AGE_Animation_ChangeState(entity->currAnimation, true);
 }
 
 void check_for_mouse_input(BattleEntity *entity)
 {
-	if(AGE_Mouse.LeftIsPressed)
+	if(entity->IsActive)
 	{
-		if(entity->battlefield->selectedSquare.x != -1)
+		if(AGE_Mouse.LeftIsPressed)
 		{
-			if(!entity->IsMoving)
+			if(entity->battlefield->selectedSquare.x != -1)
 			{
-				BattleEntityMove(entity, entity->battlefield->selectedSquare);
+				if(!entity->IsMoving)
+				{
+					BattleEntityMove(entity, entity->battlefield->selectedSquare);
+				}
 			}
 		}
 	}
@@ -206,13 +222,14 @@ void entity_change_direction(BattleEntity *entity)
 		case RIGHT:
 			entity->Position.x ++;
 			break;
-	}
+	}	
 	// set_field_position(entity);
 	if(AGE_ListGetSize(&entity->moveDirections) > 0)
 	{
-		AGE_ListPeekFront(&entity->moveDirections, &entity->currentDirection);
+		Direction newDirection;
+		AGE_ListPeekFront(&entity->moveDirections, &newDirection);
 		AGE_ListRemoveFront(&entity->moveDirections);
-		update_direction(entity);
+		update_direction(entity,newDirection);		
 	}
 	else
 	{
@@ -221,16 +238,16 @@ void entity_change_direction(BattleEntity *entity)
 		AGE_Animation_ChangeState(entity->currAnimation, false);
 		AGE_Animation_SetIndex(entity->currAnimation, 0);
 		entity->battlefield->fieldStatus[entity->Position.x][entity->Position.y] = OCCUPIED;
-		end_turn();		
-	}
-
-	entity_update_animation(entity);	
+		end_turn(entity);
+		// BattleEntitySetActive(entity);
+	}	
 }
 
 void end_turn(BattleEntity *entity)
 {
-	// AGE_ListDestroy(&entity->moveDirections);
-	BattleEndTurn();
+	AGE_ListDestroy(&entity->moveDirections);
+	AGE_ListDestroy(&entity->walkableSquares);
+	BattleEndTurn();	
 }
 
 void mark_walkable_tiles(BattleEntity *entity)
@@ -273,7 +290,7 @@ void mark_square(BattleEntity *entity, int x, int y, int prevLength)
 		{
 			int i;
 
-			for (i = 0; i < AGE_ListGetSize(&entity->walkableSquares); ++i)
+			for (i = 0; i < entity->walkableSquares.length; ++i)
 			{
 				WalkableSquare square;
 				AGE_ListPeekAt(&entity->walkableSquares, &square, i);

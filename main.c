@@ -70,7 +70,7 @@ void LoadContent()
 	AGE_ListAdd(&leftTeam, &entity);
 	AGE_ListAdd(&leftTeam, &entity2);
 
-	AGE_ListAdd(&rightTeam, &e3);
+	// AGE_ListAdd(&rightTeam, &e3);
 	// AGE_ListAdd(&rightTeam, &entity);
 	// AGE_ListAdd(&rightTeam, &entity);
 
@@ -80,6 +80,8 @@ void LoadContent()
 void Unload()
 {
 	BattleEntityDestroy(&entity);
+	BattleEntityDestroy(&entity2);
+	BattleEntityDestroy(&e3);
 }
 
 void EventHandler(SDL_Event *e)

@@ -25,7 +25,6 @@ typedef struct
 	BattlefieldObject *Objects;
 	int ObjectsCount;
 	SquareStatus **fieldStatus;
-	bool IsActive;
 	SDL_Point selectedSquare;
 } Battlefield;
 

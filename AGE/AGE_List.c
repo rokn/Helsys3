@@ -13,25 +13,23 @@ void AGE_ListInit(AGE_List *list,int sizeOfElement)
 
 void AGE_ListDestroy(AGE_List *list)
 {
-    ListNode* currNode;
+  // ListNode *current;
+
+  // while(list->head != NULL) 
+  // {
+  //   current = list->head;
+  //   list->head = current->next;
+ 
+  //   free(current->data);
+  //   free(current);
+  // }
+
+    int i;
     
-    while(list->head != NULL)
+    for (i = 0; i < list->length; ++i)
     {
-        currNode = list->head;
-        list->head = currNode->next;
-
-        if(currNode->data != NULL)
-        {
-            free(currNode->data);
-        }
-        if(currNode!=NULL)
-        {
-            free(currNode);
-        }
+        AGE_ListRemoveFront(list);
     }
-
-    list->tail = NULL;
-    list->length = 0;
 }
 
 int AGE_ListGetSize(AGE_List *list)
@@ -90,7 +88,7 @@ void AGE_ListAdd(AGE_List *list, void* newData)
 }
 
 void AGE_ListRemoveFront(AGE_List *list)
-{
+{    
     ListNode *node = list->head;    
     list->head = node->next;    
     // list->head->prev = NULL;
@@ -98,6 +96,12 @@ void AGE_ListRemoveFront(AGE_List *list)
 
     free(node->data);    
     free(node);
+
+    if(list->length == 0)
+    {
+        list->tail->data = NULL;
+        list->tail = NULL;
+    }
 }
 
 void AGE_ListRemoveLast(AGE_List *list)

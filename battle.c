@@ -11,7 +11,7 @@ void BattleInitialize(AGE_List *leftTeam, AGE_List *rightTeam, int battlefieldId
 	CurrentBattle.battlefield = (Battlefield*)malloc(sizeof(Battlefield));
 	BattlefieldInit(CurrentBattle.battlefield, 1);
 	AGE_ListInit(&CurrentBattle.entitesOrder, sizeof(EntityOrder_t));
-	CurrentBattle.orderId = 1;
+	CurrentBattle.orderId = 0;
 	init_team(leftTeam, TEAM_LEFT);
 	init_team(rightTeam, TEAM_RIGHT);
 
@@ -45,7 +45,7 @@ void BattleEnd()
 void BattleEndTurn()
 {
 	EntityOrder_t order;
-
+	CurrentBattle.orderId++;
 	if(CurrentBattle.orderId >= AGE_ListGetSize(&CurrentBattle.entitesOrder))
 	{
 		CurrentBattle.orderId = 0;
@@ -57,18 +57,17 @@ void BattleEndTurn()
 
 	if(order.team == TEAM_LEFT)
 	{
-		// printf("$ddd\n");
 		AGE_ListPeekAt(CurrentBattle.leftTeamEntities, &entity, order.id);
 		BattleEntitySetActive(&entity);
 		AGE_ListReplace(CurrentBattle.leftTeamEntities, &entity, order.id);
+		
 	}
 	else
 	{
 		AGE_ListPeekAt(CurrentBattle.rightTeamEntities, &entity, order.id);
 		BattleEntitySetActive(&entity);
 		AGE_ListReplace(CurrentBattle.rightTeamEntities, &entity, order.id);
-	}	
-
+	}
 }
 
 void init_team(AGE_List *team, int side)
