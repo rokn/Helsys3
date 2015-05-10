@@ -79,15 +79,15 @@ bool AGE_Init(const char* windowTitle,int screenWidth, int screenHeight, bool vS
 				}
 
 				AGE_ListInit(&spriteBatch_age.renderSpritesList, sizeof(renderSprite_age));
-				spriteBatch_age.cameraOffset.X = 0;
-				spriteBatch_age.cameraOffset.Y = 0;
+				camera_age.Offset.X = 0;
+				camera_age.Offset.Y = 0;
 				
 				AGE_ListInit(&spriteBatch_age.renderSpritesList, sizeof(renderSprite_age));
-				spriteBatch_age.cameraOffset.X = 0;
-				spriteBatch_age.cameraOffset.Y = 0;
+				camera_age.Offset.X = 0;
+				camera_age.Offset.Y = 0;
 
 				AGE_Vector zeroV = {0.0f, 0.0f};
-				AGE_DrawSetCameraTransform(zeroV);
+				AGE_SetCameraTransform(zeroV);
 				AGE_ViewRect.Width = AGE_WindowRect.Width;
 				AGE_ViewRect.Height = AGE_WindowRect.Height;
 			}

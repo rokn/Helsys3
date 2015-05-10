@@ -23,6 +23,14 @@ void CameraControl();
 void SetCameraWithinBoundary();
 void HandleMainInput();
 
+void AGE_CameraUpdate();
+
+void AGE_SetCameraTransform(AGE_Vector);
+
+void AGE_ChangeCameraTransform(AGE_Vector);
+
+AGE_Vector AGE_GetCameraOffset();
+
 AGE_Sprite fpsSprite;
 SDL_Color fpsTextColor;
 AGE_Vector fpsTextPos;
@@ -47,7 +55,7 @@ int main(int argc, char const *argv[])
 void Initialize()
 {	
 	AGE_Vector v = {0,0};
-	AGE_DrawSetCameraTransform(v);
+	AGE_SetCameraTransform(v);
 	AGE_SetMaxFPS(60);
 	fpsTextColor = (SDL_Color){255, 0, 0, 255};
 	fpsTextPos = (AGE_Vector){18.f,20.f};
@@ -65,12 +73,12 @@ void LoadContent()
 
 	BattleEntityLoad(&entity, 1);
 	BattleEntityLoad(&entity2, 1);
-	// BattleEntityLoad(&e3, 1);
+	BattleEntityLoad(&e3, 1);
 	
 	AGE_ListAdd(&leftTeam, &entity);
 	AGE_ListAdd(&leftTeam, &entity2);
 
-	// AGE_ListAdd(&rightTeam, &e3);
+	AGE_ListAdd(&rightTeam, &e3);
 	// AGE_ListAdd(&rightTeam, &entity);
 	// AGE_ListAdd(&rightTeam, &entity);
 
@@ -90,8 +98,9 @@ void EventHandler(SDL_Event *e)
 }
 
 void Update()
-{	
-	CameraControl();//printf("%d\n",);
+{
+	AGE_CameraUpdate();
+	CameraControl();	
 	snprintf(buffer, sizeof(buffer), "FPS: %d", CURRENT_FPS);
 	AGE_SpriteLoadFromText(&fpsSprite, buffer, fpsTextColor, gFont);
 	BattleUpdate();
@@ -138,7 +147,7 @@ void CameraControl()
 
 	if(pressed)
 	{
-		AGE_DrawChangeCameraTransform(AGE_VectorMultiply(v, AGE_DeltaSecondsGet()));
+		AGE_ChangeCameraTransform(AGE_VectorMultiply(v, AGE_DeltaSecondsGet()));
 	}
 
 	SetCameraWithinBoundary();
@@ -165,7 +174,7 @@ void SetCameraWithinBoundary()
 		cameraOffset.Y = LevelHeight - AGE_ViewRect.Height;
 	}
 
-	AGE_DrawSetCameraTransform(cameraOffset);
+	AGE_SetCameraTransform(cameraOffset);
 }
 
 void HandleMainInput()

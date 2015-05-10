@@ -88,7 +88,9 @@ typedef struct
 
 void AGE_RectSetPosition(AGE_Rect *,int,int);
 bool AGE_RectIntersects(AGE_Rect, AGE_Rect);
-bool AGE_RectContains(AGE_Rect, AGE_Vector);
+bool AGE_RectContainsPoint(AGE_Rect, AGE_Vector);
+bool AGE_RectContainsRect(AGE_Rect, AGE_Rect);
+
 void AGE_RectPrint(AGE_Rect);
 
 extern AGE_Rect AGE_WindowRect;
@@ -98,5 +100,6 @@ extern AGE_Rect AGE_WindowRect;
 AGE_Vector AGE_Helper_RotatedVectorMove(AGE_Vector position, float rotation, float speed);
 float AGE_Helper_FindRotation(AGE_Vector, AGE_Vector, float);
 AGE_Vector AGE_Helper_AngleToVector(float);
+AGE_Vector AGE_Helper_FindDirection(AGE_Vector, AGE_Vector);
 
 #endif

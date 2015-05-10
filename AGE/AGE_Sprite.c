@@ -203,8 +203,3 @@ bool AGE_SpriteLoadFromText(AGE_Sprite *sprite, char* text, SDL_Color textColor,
 
 	return sprite->texture != NULL;
 }
-
-AGE_Vector AGE_GetCameraOffset()
-{
-	return spriteBatch_age.cameraOffset;
-}

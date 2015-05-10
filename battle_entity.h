@@ -41,6 +41,7 @@ typedef struct
 	int Health;
 	int MaxHealth;
 	int Damage;
+	AGE_Rect collisionRect;
 }BattleEntity;
 
 void BattleEntityLoad(BattleEntity*, int);

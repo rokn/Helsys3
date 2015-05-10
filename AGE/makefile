@@ -1,8 +1,8 @@
 #AGE engine files
-AGE = AGE_Core.c AGE_Sprite.c AGE_Timer.c AGE_Keyboard_Input.c AGE_Mouse_Input.c AGE_List.c AGE_Rectangle.c AGE_SpriteBatch.c AGE_Vector.c AGE_Helper.c AGE_Animation.c
+AGE = AGE_Core.c AGE_Sprite.c AGE_Timer.c AGE_Keyboard_Input.c AGE_Mouse_Input.c AGE_List.c AGE_Rectangle.c AGE_SpriteBatch.c AGE_Vector.c AGE_Helper.c AGE_Animation.c AGE_Camera.c
 
 #AGE objects
-AGE_OBJS = AGE_Core.o AGE_Sprite.o AGE_Timer.o AGE_Keyboard_Input.o AGE_Mouse_Input.o AGE_List.o AGE_Rectangle.o AGE_SpriteBatch.o AGE_Vector.o AGE_Helper.o AGE_Animation.o
+AGE_OBJS = AGE_Core.o AGE_Sprite.o AGE_Timer.o AGE_Keyboard_Input.o AGE_Mouse_Input.o AGE_List.o AGE_Rectangle.o AGE_SpriteBatch.o AGE_Vector.o AGE_Helper.o AGE_Animation.o AGE_Camera.o
 
 #CC specifies which compiler we're using
 CC = gcc

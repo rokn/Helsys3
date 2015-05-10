@@ -16,24 +16,6 @@ void AGE_DrawBegin()
 	AGE_ListInit(&spriteBatchGui_age.renderSpritesList, sizeof(renderSprite_age));
 }
 
-void AGE_DrawSetCameraTransform(AGE_Vector v)
-{
-	spriteBatch_age.cameraOffset = v;
-	AGE_ViewRect.X = spriteBatch_age.cameraOffset.X;
-	AGE_ViewRect.Y = spriteBatch_age.cameraOffset.Y;
-	AGE_Mouse.TransformedPosition.X = AGE_Mouse.Position.x + spriteBatch_age.cameraOffset.X;
-	AGE_Mouse.TransformedPosition.Y = AGE_Mouse.Position.y + spriteBatch_age.cameraOffset.Y;
-}
-
-void AGE_DrawChangeCameraTransform(AGE_Vector v)
-{
-	spriteBatch_age.cameraOffset = AGE_VectorAdd(spriteBatch_age.cameraOffset, v);
-	AGE_ViewRect.X = spriteBatch_age.cameraOffset.X;
-	AGE_ViewRect.Y = spriteBatch_age.cameraOffset.Y;
-	AGE_Mouse.TransformedPosition.X = AGE_Mouse.Position.x + spriteBatch_age.cameraOffset.X;
-	AGE_Mouse.TransformedPosition.Y = AGE_Mouse.Position.y + spriteBatch_age.cameraOffset.Y;
-}
-
 void AGE_DrawEnd()
 {	
 	SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
@@ -77,8 +59,8 @@ void renderSpriteIterator(renderSprite_age rSprite)
 		origin->y = (int)rSprite.origin->Y;
 	}
 
-	rSprite.renderRect.x -= (int)spriteBatch_age.cameraOffset.X;
-	rSprite.renderRect.y -= (int)spriteBatch_age.cameraOffset.Y;
+	rSprite.renderRect.x -= (int)camera_age.Offset.X;
+	rSprite.renderRect.y -= (int)camera_age.Offset.Y;
 
 	SDL_RenderCopyEx(gRenderer, rSprite.sprite->texture, rSprite.clip, &(rSprite.renderRect), rSprite.rotation, &origin, rSprite.flip);
 	// printf("ERROR");
@@ -101,3 +83,4 @@ void renderSpriteIteratorGUI(renderSprite_age rSprite)
 	SDL_RenderCopyEx(gRenderer, rSprite.sprite->texture, rSprite.clip, &(rSprite.renderRect), rSprite.rotation, &origin, rSprite.flip);
 	// printf("ERROR");
 }
+

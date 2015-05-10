@@ -25,7 +25,6 @@ typedef struct{
 struct
 {
 	AGE_List renderSpritesList;
-	AGE_Vector cameraOffset;
 
 } spriteBatch_age, spriteBatchGui_age;
 
@@ -54,12 +53,6 @@ void AGE_SpriteRender(AGE_Sprite*, AGE_Vector*, AGE_Rect*, double, AGE_Vector*, 
 void AGE_SpriteRenderGUI(AGE_Sprite*, AGE_Vector*, AGE_Rect*, double, AGE_Vector*, SDL_RendererFlip, short);
 
 void AGE_DrawBegin();
-
-void AGE_DrawSetCameraTransform(AGE_Vector);
-
-void AGE_DrawChangeCameraTransform(AGE_Vector);
-
-AGE_Vector AGE_GetCameraOffset();
 
 void AGE_DrawEnd();
 
@@ -100,5 +93,27 @@ void AGE_Animation_Update(AGE_Animation*, AGE_Vector*);
 void AGE_Animation_Draw(AGE_Animation*, double, AGE_Vector *, SDL_RendererFlip, short);
 
 void AGE_Animation_Destroy(AGE_Animation*);
+
+
+//CAMERA 
+
+struct
+{
+	AGE_Vector Offset;
+	AGE_Vector velocity;
+	bool IsFocusing;
+	AGE_Rect focusRect;
+	float focusMultiplier;
+} camera_age;
+
+void AGE_CameraUpdate();
+
+void AGE_SetCameraTransform(AGE_Vector);
+
+void AGE_ChangeCameraTransform(AGE_Vector);
+
+AGE_Vector AGE_GetCameraOffset();
+
+void AGE_FocusCamera(AGE_Rect, float);
 
 #endif

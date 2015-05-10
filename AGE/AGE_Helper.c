@@ -22,3 +22,10 @@ AGE_Vector AGE_Helper_AngleToVector(float angle)
 
 	return vector;
 }
+
+AGE_Vector AGE_Helper_FindDirection(AGE_Vector position, AGE_Vector targetPosition)
+{
+	AGE_Vector dir = AGE_VectorSubtract(targetPosition, position);
+	dir = AGE_VectorNormalize(dir);
+	return dir;
+}

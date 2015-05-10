@@ -56,6 +56,8 @@ void BattleEntityLoad(BattleEntity *entity, int id)
 		AGE_ListAdd(&entity->walkingAnimations, &animation);
 	}	
 
+	entity->collisionRect = (AGE_Rect){0,0,AGE_Animation_GetSize(&animation).Width,AGE_Animation_GetSize(&animation).Height};
+
 	entity_load_stats(entity, id);
 
 	allocate_walking_squares(entity);
@@ -69,13 +71,14 @@ void BattleEntitySetOnField(BattleEntity *entity, Battlefield * battlefield, SDL
 	entity->currentDirection = direction;
 	AGE_ListPeekAt(&entity->walkingAnimations, entity->currAnimation, entity->currentDirection);
 	set_field_position(entity);
-	entity_update_animation(entity);
+	entity_update_animation(entity);	 
 }
 
 void BattleEntitySetActive(BattleEntity *entity)
 {	
 	entity->IsActive = true;
 	mark_walkable_tiles(entity);
+	AGE_FocusCamera(entity->collisionRect, 1.07f);
 }
 
 void BattleEntityUpdate(BattleEntity *entity)
@@ -88,7 +91,17 @@ void BattleEntityUpdate(BattleEntity *entity)
 		if(entity->IsMoving)
 		{
 			update_movement(entity);
-		}		
+		}
+		// char buffer[20];				
+		// SDL_Color c = {0,0,0};
+
+		// if(get_walkable_square(entity,x,y)->prev != NULL)
+		// {
+		// 	snprintf(buffer, sizeof(buffer), "prev pos: %d,%d", get_walkable_square(entity,x,y)->prev->Position.x,get_walkable_square(entity,x,y)->prev->Position.y);
+		// }
+		// snprintf(buffer, sizeof(buffer), "withinView: %d", AGE_RectIntersects(AGE_ViewRect, entity->collisionRect));
+
+		// AGE_SpriteLoadFromText(&text, buffer, c, gFont);
 	}
 
 	if(!entity->IsMoving)
@@ -239,7 +252,7 @@ void entity_change_direction(BattleEntity *entity)
 			entity->Position.x ++;
 			break;
 	}	
-	// set_field_position(entity);
+	set_field_position(entity);
 	if(AGE_ListGetSize(&entity->moveDirections) > 0)
 	{
 		Direction newDirection;
@@ -437,6 +450,8 @@ bool tile_within_battlefield(Battlefield *battlefield, int x, int y)
 
 void check_for_selected_square(Battlefield *battlefield, BattleEntity *entity)
 {
+
+
 	if(AGE_Mouse.TransformedPosition.X >= battlefield->Position.X && AGE_Mouse.TransformedPosition.Y >= battlefield->Position.Y)
 	{		
 		if(AGE_Mouse.TransformedPosition.X < battlefield->Position.X + battlefield->Width * TILE_INFO.TileWidth && 
@@ -445,17 +460,6 @@ void check_for_selected_square(Battlefield *battlefield, BattleEntity *entity)
 			int x,y;
 			x = (int)((AGE_Mouse.TransformedPosition.X - battlefield->Position.X)/TILE_INFO.TileWidth);
 			y = (int)((AGE_Mouse.TransformedPosition.Y - battlefield->Position.Y)/TILE_INFO.TileHeight);
-
-
-			// char buffer[20];				
-			// 	SDL_Color c = {0,0,0};
-			// if(get_walkable_square(entity,x,y)->prev != NULL)
-			// 	{
-			// 		snprintf(buffer, sizeof(buffer), "prev pos: %d,%d", get_walkable_square(entity,x,y)->prev->Position.x,get_walkable_square(entity,x,y)->prev->Position.y);
-			// 	}
-
-			// 	AGE_SpriteLoadFromText(&text, buffer, c, gFont);
-
 
 			if(battlefield->fieldStatus[x][y] == WALKABLE)
 			{
@@ -535,6 +539,8 @@ void set_field_position(BattleEntity *entity)
 {
 	entity->FieldPosition.X = entity->battlefield->Position.X + entity->Position.x * TILE_INFO.TileWidth + TILE_INFO.TileWidth/2 - AGE_Animation_GetSize(entity->currAnimation).Width/2;
 	entity->FieldPosition.Y = entity->battlefield->Position.Y + entity->Position.y * TILE_INFO.TileHeight + TILE_INFO.TileHeight - AGE_Animation_GetSize(entity->currAnimation).Height;
+	entity->collisionRect.X = entity->FieldPosition.X;
+	entity->collisionRect.Y = entity->FieldPosition.Y;
 }
 
 AGE_Vector get_true_square_coordinates(Battlefield *battlefield, SDL_Point position)

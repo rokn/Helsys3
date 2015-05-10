@@ -7,8 +7,8 @@ void mouseHandleEvent_age(SDL_Event *event)
 	{
 		case SDL_MOUSEMOTION:
 			SDL_GetMouseState(&AGE_Mouse.Position.x, &AGE_Mouse.Position.y);
-			AGE_Mouse.TransformedPosition.X = AGE_Mouse.Position.x + spriteBatch_age.cameraOffset.X;
-			AGE_Mouse.TransformedPosition.Y = AGE_Mouse.Position.y + spriteBatch_age.cameraOffset.Y;
+			AGE_Mouse.TransformedPosition.X = AGE_Mouse.Position.x + camera_age.Offset.X;
+			AGE_Mouse.TransformedPosition.Y = AGE_Mouse.Position.y + camera_age.Offset.Y;
 			break;
 
 		case SDL_MOUSEBUTTONDOWN:

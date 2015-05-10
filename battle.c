@@ -78,7 +78,7 @@ void init_team(AGE_List *team, int side)
 	for (i = 0; i < AGE_ListGetSize(team); ++i)
 	{
 		AGE_ListPeekAt(team, &entity, i);
-		SDL_Point entityPos = {12,i+3};
+		SDL_Point entityPos = {0,i+3};
 		Direction dir = RIGHT;
 
 		if(side == 1)
