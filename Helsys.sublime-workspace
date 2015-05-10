@@ -3,530 +3,10 @@
 	{
 		"selected_items":
 		[
-			[
-				"curre",
-				"currentDirection"
-			],
-			[
-				"right",
-				"rightTeamEntities"
-			],
-			[
-				"LEFT",
-				"TEAM_LEFT"
-			],
-			[
-				"ent",
-				"entitesOrder"
-			],
-			[
-				"Enti",
-				"entitesOrder"
-			],
-			[
-				"Entity",
-				"EntityOrder_t"
-			],
-			[
-				"Entit",
-				"EntityOrder_t"
-			],
-			[
-				"TEAM",
-				"TEAM_RIGHT"
-			],
-			[
-				"enit",
-				"entitesOrder"
-			],
-			[
-				"BAttle",
-				"BattleEntity"
-			],
-			[
-				"left",
-				"leftTeam"
-			],
-			[
-				"BattleEntity",
-				"BattleEntityUpdate"
-			],
-			[
-				"AGE_ListPee",
-				"AGE_ListPeekAt"
-			],
-			[
-				"direct",
-				"update_direction"
-			],
-			[
-				"Battle",
-				"BattleEntity"
-			],
-			[
-				"batt",
-				"battlefield"
-			],
-			[
-				"Battlefi",
-				"Battlefield"
-			],
-			[
-				"Battlef",
-				"Battlefield"
-			],
-			[
-				"Battlefie",
-				"BattlefieldInit"
-			],
-			[
-				"AGE_List",
-				"AGE_List"
-			],
-			[
-				"posi",
-				"Position"
-			],
-			[
-				"AGE_Vect",
-				"AGE_Vector"
-			],
-			[
-				"ANim",
-				"AGE_Animation_GetSize"
-			],
-			[
-				"Ent",
-				"BattleEntity"
-			],
-			[
-				"field",
-				"FieldPosition"
-			],
-			[
-				"AGE_ListRemove",
-				"AGE_ListRemoveFront"
-			],
-			[
-				"AGE_Peek",
-				"AGE_ListPeekFront"
-			],
-			[
-				"BattleEntt",
-				"BattleEntityMove"
-			],
-			[
-				"walka",
-				"walkingAnimations"
-			],
-			[
-				"find",
-				"find_path"
-			],
-			[
-				"squa",
-				"squareSelected"
-			],
-			[
-				"Batt",
-				"BattleEntity"
-			],
-			[
-				"Walak",
-				"WALKABLE"
-			],
-			[
-				"objec",
-				"Objects"
-			],
-			[
-				"battle",
-				"battlefield"
-			],
-			[
-				"BAtt",
-				"BattleEntity"
-			],
-			[
-				"Bat",
-				"BattleEntity"
-			],
-			[
-				"Battl",
-				"BattleEntity"
-			],
-			[
-				"new",
-				"newData"
-			],
-			[
-				"AGE_ListRemo",
-				"AGE_ListRemoveAt"
-			],
-			[
-				"WAL",
-				"WalkableSquare"
-			],
-			[
-				"AGE_Getsize",
-				"AGE_ListGetSize"
-			],
-			[
-				"mark",
-				"mark_square"
-			],
-			[
-				"walak",
-				"WALKABLE"
-			],
-			[
-				"sqare",
-				"SquareSelected"
-			],
-			[
-				"tile",
-				"TILE_INFO"
-			],
-			[
-				"AGE_In",
-				"AGE_Input"
-			],
-			[
-				"Vect",
-				"AGE_Vector"
-			],
-			[
-				"AGE_",
-				"AGE_Mouse"
-			],
-			[
-				"po",
-				"Position"
-			],
-			[
-				"pos",
-				"position"
-			],
-			[
-				"tileW",
-				"tile_within_battlefield"
-			],
-			[
-				"walkin",
-				"walkingDistance"
-			],
-			[
-				"p",
-				"Position"
-			],
-			[
-				"AGE",
-				"AGE_Mouse"
-			],
-			[
-				"AGE_Anima",
-				"AGE_Animation"
-			],
-			[
-				"curr",
-				"currIndex"
-			],
-			[
-				"AGE_An",
-				"AGE_Animation"
-			],
-			[
-				"SDL_Sc",
-				"SDL_SCANCODE_UP"
-			],
-			[
-				"AGE_Sprite",
-				"AGE_SpriteLoad"
-			],
-			[
-				"battl",
-				"battlefield"
-			],
-			[
-				"AGE_Ani",
-				"AGE_Animation"
-			],
-			[
-				"le",
-				"length"
-			],
-			[
-				"object",
-				"objectsList"
-			],
-			[
-				"obje",
-				"objectsList"
-			],
-			[
-				"BATTLE",
-				"BATTLEFIELD_OBJECTS_COUNT"
-			],
-			[
-				"bat",
-				"battlefield"
-			],
-			[
-				"AGE_Spr",
-				"AGE_SpriteLoad"
-			],
-			[
-				"ob",
-				"objectCount"
-			],
-			[
-				"ba",
-				"battlefield"
-			],
-			[
-				"level",
-				"LevelHeight"
-			],
-			[
-				"Level",
-				"LevelWidth"
-			],
-			[
-				"Tile",
-				"TileHeight"
-			],
-			[
-				"he",
-				"Height"
-			],
-			[
-				"tiles",
-				"tileSet"
-			],
-			[
-				"AGE_ListAdd",
-				"AGE_ListAdd"
-			],
-			[
-				"GEt",
-				"GetTileSet"
-			],
-			[
-				"Get",
-				"GetSourceRect"
-			],
-			[
-				"Load",
-				"LoadTileSets"
-			],
-			[
-				"AGE_SpriteL",
-				"AGE_SpriteLoad"
-			],
-			[
-				"rend",
-				"renderRect"
-			],
-			[
-				"batel",
-				"battlefieldField"
-			],
-			[
-				"AGE_SpriteSet",
-				"AGE_SpriteSetBlendMode"
-			],
-			[
-				"wid",
-				"Width"
-			],
-			[
-				"render",
-				"renderRect"
-			],
-			[
-				"AGE_A",
-				"AGE_Animation"
-			],
-			[
-				"SDL_SetWind",
-				"SDL_SetWindowSize"
-			],
-			[
-				"SDL_WI",
-				"SDL_WINDOW_SHOWN"
-			],
-			[
-				"SDL_SCa",
-				"SDL_SCANCODE_LEFT"
-			],
-			[
-				"SDL_Winw",
-				"SDL_WINDOW_BORDERLESS"
-			],
-			[
-				"AGE_rect",
-				"AGE_Rect"
-			],
-			[
-				"cur",
-				"curBounds"
-			],
-			[
-				"printf",
-				"printf(\"ERROR"
-			],
-			[
-				"renderspr",
-				"renderSprite_age"
-			],
-			[
-				"RenderSpr",
-				"renderSprite_age"
-			],
-			[
-				"AGE_CAmer",
-				"AGE_DrawSetCameraTransform"
-			],
-			[
-				"Key",
-				"AGE_KeyIsDown"
-			],
-			[
-				"AGE_Key",
-				"AGE_KeyIsDown"
-			],
-			[
-				"DE",
-				"depth"
-			],
-			[
-				"ex",
-				"extern"
-			],
-			[
-				"SCREE",
-				"SCREEN_HEIGHT"
-			],
-			[
-				"camera",
-				"cameraOffset"
-			],
-			[
-				"sprite",
-				"spriteBatch_age"
-			],
-			[
-				"Age",
-				"AGE_Sprite"
-			],
-			[
-				"AGE_Came",
-				"AGE_DrawChangeCameraTransform"
-			],
-			[
-				"AGE_Vec",
-				"AGE_VectorAdd"
-			],
-			[
-				"AGE_Delta",
-				"AGE_DeltaSecondsGet"
-			],
-			[
-				"AGE_delta",
-				"AGE_DeltaMilliSecondsGet"
-			],
-			[
-				"max",
-				"MAX_FPS"
-			],
-			[
-				"MAXFP",
-				"MAX_FPS"
-			],
-			[
-				"vs",
-				"VSynced"
-			],
-			[
-				"frame",
-				"MAX_TICKS_PER_FRAME"
-			],
-			[
-				"LINK",
-				"LINKER_FLAGS"
-			],
-			[
-				"err",
-				"ERROR_LOG"
-			],
-			[
-				"ren",
-				"renderSpritesList"
-			],
-			[
-				"spr",
-				"spriteBatch_age"
-			],
-			[
-				"scree",
-				"screenHeight"
-			],
-			[
-				"fpste",
-				"fpsTextPos"
-			],
-			[
-				"AGE_VEc",
-				"AGE_Vector"
-			],
-			[
-				"AGE_sprite",
-				"AGE_SpriteLoadFromText"
-			],
-			[
-				"Vecto",
-				"AGE_Vector"
-			],
-			[
-				"ka",
-				"kaji"
-			],
-			[
-				"expl",
-				"explosionAnimation"
-			],
-			[
-				"a",
-				"animation"
-			],
-			[
-				"ANIMA",
-				"Animation"
-			],
-			[
-				"VEc",
-				"AGE_Vector"
-			],
-			[
-				"EXPL",
-				"explosionSheet"
-			],
-			[
-				"anima",
-				"explosionAnimation"
-			]
 		]
 	},
 	"buffers":
 	[
-		{
-			"file": "main.c",
-			"settings":
-			{
-				"buffer_size": 3472,
-				"line_ending": "Unix"
-			}
-		},
 		{
 			"file": "battle.h",
 			"settings":
@@ -536,18 +16,18 @@
 			}
 		},
 		{
-			"file": "battle.c",
+			"file": "battle_entity.c",
 			"settings":
 			{
-				"buffer_size": 2754,
+				"buffer_size": 15510,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "battle_entity.c",
+			"file": "battle.c",
 			"settings":
 			{
-				"buffer_size": 13640,
+				"buffer_size": 2756,
 				"line_ending": "Unix"
 			}
 		},
@@ -555,23 +35,7 @@
 			"file": "battle_entity.h",
 			"settings":
 			{
-				"buffer_size": 875,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "battlefield.h",
-			"settings":
-			{
-				"buffer_size": 534,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/home/rokner/Downloads/iniparser/src/iniparser.h",
-			"settings":
-			{
-				"buffer_size": 11574,
+				"buffer_size": 1009,
 				"line_ending": "Unix"
 			}
 		},
@@ -584,214 +48,33 @@
 			}
 		},
 		{
-			"file": "tiles.h",
+			"file": "battlefield.h",
 			"settings":
 			{
-				"buffer_size": 264,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "AGE/AGE.h",
-			"settings":
-			{
-				"buffer_size": 2078,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "AGE/AGE_Generics.h",
-			"settings":
-			{
-				"buffer_size": 878,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "AGE/AGE_List.c",
-			"settings":
-			{
-				"buffer_size": 4229,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "AGE/AGE_Graphics.h",
-			"settings":
-			{
-				"buffer_size": 2279,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "AGE/AGE_Input.h",
-			"settings":
-			{
-				"buffer_size": 657,
+				"buffer_size": 534,
 				"line_ending": "Unix"
 			}
 		}
 	],
-	"build_system": "Packages/Makefile/Make.sublime-build",
+	"build_system": "",
 	"build_system_choices":
 	[
-		[
-			[
-				[
-					"Packages/C++/C++ Single File.sublime-build",
-					""
-				],
-				[
-					"Packages/C++/C++ Single File.sublime-build",
-					"Run"
-				]
-			],
-			[
-				"Packages/C++/C++ Single File.sublime-build",
-				""
-			]
-		],
-		[
-			[
-				[
-					"Packages/C++/C++ Single File.sublime-build",
-					""
-				],
-				[
-					"Packages/C++/C++ Single File.sublime-build",
-					"Run"
-				],
-				[
-					"Packages/Makefile/Make.sublime-build",
-					""
-				],
-				[
-					"Packages/Makefile/Make.sublime-build",
-					"Clean"
-				]
-			],
-			[
-				"Packages/Makefile/Make.sublime-build",
-				""
-			]
-		],
-		[
-			[
-				[
-					"Packages/Makefile/Make.sublime-build",
-					""
-				],
-				[
-					"Packages/Makefile/Make.sublime-build",
-					"Clean"
-				]
-			],
-			[
-				"Packages/Makefile/Make.sublime-build",
-				""
-			]
-		]
 	],
 	"build_varint": "",
 	"command_palette":
 	{
-		"height": 96.0,
-		"last_filter": "remove",
+		"height": 392.0,
+		"last_filter": "",
 		"selected_items":
 		[
-			[
-				"remove",
-				"Package Control: Remove Package"
-			],
-			[
-				"install",
-				"Package Control: Install Package"
-			],
-			[
-				"git push",
-				"Git: Push"
-			],
-			[
-				"git comm",
-				"Git: Commit"
-			],
-			[
-				"git add",
-				"Git: Add..."
-			],
-			[
-				"git com",
-				"Git: Commit"
-			],
-			[
-				"Package Control: remov",
-				"Package Control: Remove Package"
-			],
-			[
-				"prv",
-				"PackageResourceViewer: Open Resource"
-			],
-			[
-				"Snippet: for",
-				"Snippet: For Loop"
-			],
-			[
-				"git commit",
-				"Git: Commit"
-			],
-			[
-				"git stat",
-				"Git: Status"
-			],
-			[
-				"git pull",
-				"Git: Pull"
-			],
-			[
-				"git add ",
-				"Git: Add..."
-			],
-			[
-				"git commi",
-				"Git: Commit"
-			],
-			[
-				"git pus",
-				"Git: Push"
-			],
-			[
-				"install ",
-				"Package Control: Install Package"
-			],
-			[
-				"Git add",
-				"Git: Add..."
-			],
-			[
-				" add",
-				"Git: Add Current File"
-			],
-			[
-				"git",
-				"Git: Push"
-			],
-			[
-				"gitcom",
-				"Git: Commit"
-			],
-			[
-				"Pack",
-				"Preferences: Browse Packages"
-			]
 		],
 		"width": 449.0
 	},
 	"console":
 	{
-		"height": 139.0,
+		"height": 0.0,
 		"history":
 		[
-			"import urllib.request,os,hashlib; h = 'eb2297e1a458f27d836c04bb0cbaf282' + 'd0e7a3098092775ccb37ca9d6b2e4b7d'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by) "
 		]
 	},
 	"distraction_free":
@@ -803,152 +86,19 @@
 		"side_bar_visible": false,
 		"status_bar_visible": false
 	},
-	"expanded_folders":
-	[
-		"/home/rokner/Desktop/SDL/MyGame"
-	],
 	"file_history":
 	[
-		"/home/rokner/Downloads/Silicon Valley S02E04 720p HDTV x264-0SEC[PsypherTV]/Important Notice ! (Must Read).txt",
-		"/home/rokner/Desktop/SDL/MyGame/AGE/log.txt",
-		"/home/rokner/Desktop/SDL/MyGame/log.txt",
-		"/home/rokner/.config/sublime-text-3/Packages/Terminal/Default (Linux).sublime-keymap",
-		"/home/rokner/.config/sublime-text-3/Packages/SublimeGDB/Default.sublime-keymap",
-		"/home/rokner/.config/sublime-text-3/Packages/Terminal/log.txt",
-		"/home/rokner/Desktop/SDL/MyGame/makefile",
-		"/home/rokner/Desktop/SDL/MyGame/Helsys.sublime-project",
-		"/home/rokner/.config/sublime-text-3/Packages/Terminal/Terminal.sublime-settings",
-		"/home/rokner/.config/sublime-text-3/Packages/User/Default (Linux).sublime-keymap",
-		"/build/buildd/eglibc-2.19/csu/libc-start.c",
-		"/home/rokner/.config/sublime-text-3/Packages/SublimeGDB/SublimeGDB.sublime-settings",
-		"/home/rokner/.config/sublime-text-3/Packages/User/SublimeGDB.sublime-settings",
-		"/home/rokner/Desktop/SDL/MyGame/Entities/Entity_1.ini",
-		"/home/rokner/Desktop/SDL/MyGame/battle_entity.c",
-		"/home/rokner/Desktop/SDL/MyGame/battle_entity.h",
-		"/home/rokner/Desktop/SDL/MyGame/battlefield.c",
-		"/home/rokner/Downloads/iniparser/src/iniparser.c",
-		"/home/rokner/Desktop/SDL/MyGame/e.ini",
-		"/home/rokner/Desktop/SDL/MyGame/Resources/Entities/Entity_1.ini",
-		"/home/rokner/Downloads/iniparser/Makefile",
-		"/home/rokner/Desktop/SDL/MyGame/main.h",
-		"/home/rokner/Downloads/iniparser/src/dictionary.h",
-		"/home/rokner/Downloads/iniparser/doc/iniparser.main",
-		"/home/rokner/Desktop/SDL/MyGame/AGE/battle.h",
-		"/home/rokner/Desktop/SDL/MyGame/AGE/battle.c",
-		"/home/rokner/Desktop/SDL/MyGame/AGE/AGE_Animation.c",
-		"/home/rokner/Desktop/SDL/MyGame/AGE/AGE_Sprite.c",
-		"/home/rokner/Desktop/SDL/MyGame/AGE/AGE_List.c",
-		"/home/rokner/Desktop/SDL/MyGame/AGE/AGE_Vector.c",
-		"/home/rokner/Desktop/SDL/MyGame/AGE/AGE_Core.c",
-		"/home/rokner/Desktop/SDL/MyGame/AGE/AGE_SpriteBatch.c",
-		"/home/rokner/.config/sublime-text-3/Packages/C++/forv.sublime-snippet",
-		"/home/rokner/.config/sublime-text-3/Packages/C++/030-for-int-loop-(fori).sublime-snippet",
-		"/home/rokner/Desktop/SDL/MyGame/AGE/AGE_Mouse_Input.c",
-		"/home/rokner/Desktop/SDL/MyGame/Resources/Battlefield/SquareSelected.png",
-		"/home/rokner/Desktop/SDL/MyGame/AGE/AGE_Graphics.h",
-		"/home/rokner/Downloads/WithChoice.pas",
-		"/home/rokner/Desktop/SDL/MyGame/Resources/Entities/Entity_1.png",
-		"/home/rokner/Desktop/SDL/MyGame/tiles.c",
-		"/home/rokner/Desktop/SDL/MyGame/Levels/Level_1.txt",
-		"/home/rokner/Desktop/SDL/MyGame/Levels/Level_1.level",
-		"/home/rokner/Desktop/SDL/MyGame/Levels/Level1.txt",
-		"/home/rokner/Desktop/SDL/MyGame/tiles.h",
-		"/home/rokner/Desktop/SDL/MyGame/Credits",
-		"/home/rokner/Downloads/res01/Readme01.txt",
-		"/home/rokner/I smoked for ten years.txt",
-		"/home/rokner/Desktop/SDL/MyGame/AGE/AGE_Rectangle.c",
-		"/home/rokner/Downloads/iniparser/test/Makefile",
-		"/home/rokner/Downloads/iniparser/test/iniexample.c",
-		"/home/rokner/Downloads/iniparser/INSTALL",
-		"/home/rokner/Downloads/iniparser/README",
-		"/home/rokner/Downloads/iniparser/example.ini",
-		"/home/rokner/.config/sublime-text-3/Packages/User/Make (Linux).sublime-build",
-		"/home/rokner/.config/sublime-text-3/Packages/Default/Default (Linux).sublime-keymap",
-		"/home/rokner/.config/sublime-text-3/Packages/SublimeClang/src/CMakeLists.txt",
-		"/home/rokner/Desktop/SDL/MyGame/GAME",
-		"/home/rokner/Desktop/SDL/MyGame/battlefield.h",
-		"/home/rokner/Desktop/SDL/MyGame/AGE/AGE_Input.h",
-		"/home/rokner/Desktop/SDL/MyGame/AGE/AGE_Generics.h",
-		"/home/rokner/Desktop/SDL/MyGame/AGE/AGE.h",
-		"/home/rokner/Desktop/SDL/MyGame/main.c",
-		"/home/rokner/Desktop/SDL/MyGame/My.gitignore",
-		"/home/rokner/Desktop/SDL/MyGame/.gitignore",
-		"/home/rokner/Desktop/SDL/MyGame/LICENSE",
-		"/home/rokner/Desktop/SDL/MyGame/AGE/makefile",
-		"/home/rokner/Desktop/SDL/MyGame/AGE/DONE",
-		"/home/rokner/Downloads/gdevilspie-0.5/README",
-		"/home/rokner/Downloads/devilspie-0.22/INSTALL",
-		"/home/rokner/Downloads/gdevilspie-0.5/gdevilspie",
-		"/home/rokner/Desktop/SDL/MyGame/AGE/AGE_Timer.c",
-		"/home/rokner/Desktop/SDL/MyGame/AGE/AGE_Helper.c",
-		"/home/rokner/Desktop/SDL/MyGame/AGE/AGE_Keyboard_Input.c",
-		"/home/rokner/Desktop/SDL/MyGame/backup.c",
-		"/home/rokner/Desktop/SDL/MyGame/libAGE.c",
-		"/home/rokner/Desktop/SDL/MyGame/AGE_SpriteBatch.c",
-		"/home/rokner/Desktop/SDL/MyGame/AGE_Sprite.c",
-		"/home/rokner/Desktop/SDL/MyGame/AGE_Core.c",
-		"/home/rokner/Desktop/SDL/MyGame/AGE_Animation.c",
-		"/home/rokner/Desktop/SDL/MyGame/AGE_List.c",
-		"/home/rokner/Downloads/Scripts.cs",
-		"/home/rokner/Downloads/Animation.cs",
-		"/home/rokner/Desktop/SDL/MyGame/AGE_Vector.c",
-		"/home/rokner/Desktop/SDL/MyGame/AGE_Helper.c",
-		"/home/rokner/Desktop/SDL/MyGame/AGE_Core",
-		"/home/rokner/Desktop/SDL/MyGame/AGE_Mouse_Input.c",
-		"/home/rokner/Desktop/SDL/MyGame/AGE_Keyboard_Input.c",
-		"/home/rokner/Downloads/MathAid.cs",
-		"/home/rokner/Desktop/SDL/MyGame/AGE_Rectangle.c",
-		"/home/rokner/Desktop/SDL/MyGame/AGE/AGE_Time.h",
-		"/home/rokner/Desktop/SDL/MyGame/AGE/AGE_Generic_Structures.h",
-		"/home/rokner/Desktop/SDL/MyGame/AGE_Timer.c",
-		"/home/rokner/.config/sublime-text-3/Packages/SublimeClang/internals/common.py",
-		"/home/rokner/Desktop/SDL/MyGame/AGE_Sprite_Batch.c",
-		"/home/rokner/.config/sublime-text-3/Packages/SublimeClang/SublimeClang.sublime-settings",
-		"/home/rokner/.config/sublime-text-3/Packages/Terminal/Terminal.py",
-		"/home/rokner/Desktop/SDL/MyGame/make.c",
-		"/home/rokner/Desktop/SDL/MyGame/core.c",
-		"/home/rokner/Desktop/SDL/MyGame/keyboard_input.c",
-		"/home/rokner/Desktop/SDL/MyGame/mouse_input.c",
-		"/home/rokner/Desktop/SDL/MyGame/timer.c",
-		"/home/rokner/Desktop/SDL/MyGame/sprite.c",
-		"/home/rokner/Desktop/SDL/MyGame/sprite.h",
-		"/home/rokner/Desktop/SDL/MyGame/make",
-		"/home/rokner/Desktop/SDL/MyGame/keyboard_input.h",
-		"/home/rokner/Desktop/SDL/MyGame/mouse_input.h",
-		"/home/rokner/Desktop/SDL/MyGame/GENERICS.h",
-		"/home/rokner/Desktop/SDL/MyGame/magic.h",
-		"/home/rokner/Desktop/SDL/MyGame/SDL2/SDL.h",
-		"/home/rokner/Desktop/SDL/MyGame/timer.h",
-		"/home/rokner/.config/sublime-text-3/Packages/Git/Git.sublime-settings",
-		"/home/rokner/.config/sublime-text-3/Packages/User/Terminal.sublime-settings",
-		"/home/rokner/Desktop/CodeJam/infinitePancakes.c",
-		"/home/rokner/Desktop/CodeJam/in.txt",
-		"/home/rokner/Desktop/CodeJam/standingOvation.c",
-		"/home/rokner/Desktop/CodeJam/standingOvation.txt",
-		"/home/rokner/Desktop/SDL/main.cpp",
-		"/home/rokner/.config/sublime-text-3/Packages/User/Preferences.sublime-settings",
-		"/home/rokner/Desktop/SDL/MyGame/Sprite.h",
-		"/home/rokner/.config/sublime-text-3/Packages/Default/Preferences.sublime-settings",
-		"/home/rokner/Desktop/SDL/15_rotation_and_flipping.cpp",
-		"/home/rokner/.cache/.fr-yjmgEt/15_rotation_and_flipping/15_rotation_and_flipping.cpp",
-		"/home/rokner/Desktop/SDL/11_clip_rendering_and_sprite_sheets/11_clip_rendering_and_sprite_sheets.cpp",
-		"/home/rokner/Desktop/SDL/01_hello_SDL.cpp"
+		"/home/rokner/Desktop/Link to MyGame/battle.c"
 	],
 	"find":
 	{
-		"height": 35.0
+		"height": 0.0
 	},
 	"find_in_files":
 	{
-		"height": 93.0,
+		"height": 0.0,
 		"where_history":
 		[
-			"/home/rokner/Desktop/SDL/MyGame",
-			"../../, *.h,*.c",
-			"./, *.h,*.c",
-			"/, *.h,*.c",
-			"/MyGame, *.h,*.c",
-			""
 		]
 	},
 	"find_state":
@@ -956,94 +106,6 @@
 		"case_sensitive": false,
 		"find_history":
 		[
-			"gbd",
-			"gdb",
-			"run",
-			"update_direction",
-			"length",
-			"mark_walk",
-			"printf",
-			"change_direc",
-			"change",
-			"printf",
-			"update_move",
-			"da\"",
-			"da",
-			"^.*\\S+.*$",
-			"^(.*)$",
-			"find_path",
-			"selected",
-			"suqareWalkable",
-			"battlefieldSquare",
-			"printf",
-			"square",
-			"squareSelected",
-			"battlefieldSquare",
-			"view",
-			"printf",
-			".",
-			"ctrl+shift+o",
-			"open_file",
-			"printf",
-			"ctrl+s",
-			"ctrl+shift+b",
-			"depth",
-			"printf",
-			"SCREEN",
-			", ",
-			"Heigth",
-			"h",
-			"w",
-			"y",
-			"x",
-			"->",
-			"b.",
-			"a.",
-			"->",
-			"length-1",
-			"printf",
-			"Back",
-			"\n    // printf(\"resize\");    \n\n    // if(makeLower==0)\n    // {\n    //     list->size *= 2;\n    // }\n    // else\n    // {\n    //     list->size /= 2;\n    // }\n    // void *oldData[list->size];\n    // oldData = malloc(list->size * list->elementSize);\n    // for(i = 0; i < list->index; i++)\n    // {\n    //     void* p = AGE_ListAt(list,i);\n    //     // printf(\"i:%d - %d\",i, *((int*)p));\n    //     oldData[i] = p;\n    // }\n\n    // free(list->data);\n\n    // list->data = oldData;\n    // printf(\"listSize:%d\\n\",list->size);\n    // for (i = 0; i < list->index; ++i)\n    // {\n    //     printf(\"%d\\n\",i);\n    //     printf(\"%d\\n\",*(int*)list->data[i]);\n    // }\n    // printf(\"endresize\");\n    // return list->size;",
-			"vector",
-			"v.",
-			"v)",
-			"v->",
-			"v,",
-			"struct ",
-			"vector_t",
-			"Timer",
-			"Sprite",
-			"dots",
-			"keyboard",
-			"ctrl+l",
-			"f5",
-			"f4",
-			"ctrl+s",
-			"f5",
-			"ctrl+f5",
-			"textColor",
-			"back",
-			"oid sprite_init(Sprite *sprite)\n//{\n	//sprite->texture = NULL;\n	//sprite->Width = 0;\n	//sprite->Height = 0;\n//}",
-			"void sprite_init(Sprite *sprite)\n{	\n	sprite->texture = NULL;\n	sprite->Width = 0;\n	sprite->Height = 0;\n}",
-			"gRenderer",
-			");\n",
-			"DL_SetColorKey( loadedSurface, SDL_TRUE, SDL_MapRGB( loadedSurface->format, 0, 0xFF, 0xFF ) );\n        newTexture = SDL_CreateTextureFromSurface( gRenderer, loadedSurface );\n\n		if( newTexture == NULL )\n		{\n			printf( \"Unable to create texture from %s! SDL Error: %s\\n\", path, SDL_GetError() );\n		}\n		else\n		{\n			//Get image dimensions\n			sprite->Width = loadedSurface->w;\n		",
-			"DL_SetColorKey( loadedSurface, SDL_TRUE, SDL_MapRGB( loadedSurface->format, 0, 0xFF, 0xFF ) );\n        newTexture = SDL_CreateTextureFromSurface( gRenderer, loadedSurface );\n\n		if( newTexture == NULL )\n		{\n			printf( \"Unable to create texture from %s! SDL Error: %s\\n\", path, SDL_GetError() );\n		}\n		else\n		{\n			//Get image dimensions\n			sprite->Width = loadedSurface->w;\n			sprite->Height = loadedSurface->h;\n		}\n",
-			"DL_SetColorKey( loadedSurface, SDL_TRUE, SDL_MapRGB( loadedSurface->format, 0, 0xFF, 0xFF ) );\n        newTexture = SDL_CreateTextureFromSurface( gRenderer, loadedSurface );\n",
-			"ewTexture = SDL_CreateTextureFromSurface( gRenderer, loadedSurface );\n\n		if( newTexture == NULL )\n		{",
-			"{\n",
-			"\n		SDL_SetColorKey( loadedSurface, SDL_TRUE, SDL_MapRGB( loadedSurface->format, 0, 0xFF, 0xFF ) );\n        newTexture = SDL_CreateTextureFromSurface( gRenderer, loadedSurface );\n\n		if( newTexture == NULL )\n		{",
-			"ctrl+e",
-			"unable",
-			"bool",
-			"();\n",
-			"images",
-			"();\n",
-			"comment",
-			"ctrl+e",
-			"comment",
-			"if( !gArrowTexture.loadFromFile( \"arrow.png\" ) )\n	{\n		printf( \"Failed to load arrow texture!\\n\" );\n		success = false;\n	}",
-			"arrow"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1051,35 +113,6 @@
 		"regex": false,
 		"replace_history":
 		[
-			"squareWalkable",
-			"suqareWalkable",
-			"squareWalkable",
-			"squareSelected",
-			"->",
-			"MAX",
-			";\n",
-			"Height",
-			"Heigth",
-			"Width",
-			"Y",
-			"X",
-			".",
-			"rect2->",
-			"rect1->",
-			".",
-			"Last",
-			"list",
-			"list.",
-			"list)",
-			"list->",
-			"list,",
-			"",
-			"AGE_List",
-			"AGE_Timer",
-			"AGE_Sprite",
-			"leftButtonText",
-			"DL_SetColorKey( loadedSurface, SDL_TRUE, SDL_MapRGB( loadedSurface->format, 0, 0xFF, 0xFF ) );\n        newTexture = SDL_CreateTextureFromSurface( gRenderer, loadedSurface );\n\n		if( newTexture == NULL )\n		{\n			printf( \"Unable to create texture from %s! SDL Error: %s\\n\", path, SDL_GetError() );\n		}\n		else\n		{\n			//Get image dimensions\n			sprite->Width = loadedSurface->w;\n		",
-			"boolean"
 		],
 		"reverse": false,
 		"show_context": true,
@@ -1090,52 +123,11 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 1,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "main.c",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3472,
-						"regions":
-						{
-							"bookmarks":
-							{
-								"flags": 144,
-								"icon": "bookmark",
-								"regions":
-								[
-								],
-								"scope": "bookmarks"
-							}
-						},
-						"selection":
-						[
-							[
-								1490,
-								1490
-							]
-						],
-						"settings":
-						{
-							"rulers":
-							[
-							],
-							"syntax": "Packages/C++/C.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 459.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
 					"file": "battle.h",
 					"semi_transient": false,
 					"settings":
@@ -1147,8 +139,8 @@
 						"selection":
 						[
 							[
-								133,
-								133
+								0,
+								0
 							]
 						],
 						"settings":
@@ -1159,52 +151,24 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "battle.c",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2754,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1783,
-								1783
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 1071.0,
-						"zoom_level": 1.0
-					},
 					"stack_index": 2,
 					"type": "text"
 				},
 				{
-					"buffer": 3,
+					"buffer": 1,
 					"file": "battle_entity.c",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 13640,
+						"buffer_size": 15510,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								6815,
-								6815
+								15318,
+								15318
 							]
 						],
 						"settings":
@@ -1213,19 +177,48 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 3939.0,
+						"translation.y": 8551.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
-					"buffer": 4,
+					"buffer": 2,
+					"file": "battle.c",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2756,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2567,
+								2567
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1343.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
 					"file": "battle_entity.h",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 875,
+						"buffer_size": 1009,
 						"regions":
 						{
 						},
@@ -1245,7 +238,36 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 7,
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "battlefield.c",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 7148,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
 					"type": "text"
 				},
 				{
@@ -1261,66 +283,8 @@
 						"selection":
 						[
 							[
-								360,
-								360
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 6,
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"file": "/home/rokner/Downloads/iniparser/src/iniparser.h",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 11574,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								9271,
-								9271
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 2380.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 10,
-					"type": "text"
-				},
-				{
-					"buffer": 7,
-					"file": "battlefield.c",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 7148,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2910,
-								2910
+								21,
+								21
 							]
 						],
 						"settings":
@@ -1329,182 +293,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1428.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 8,
-					"type": "text"
-				},
-				{
-					"buffer": 8,
-					"file": "tiles.h",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 264,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C.tmLanguage"
-						},
-						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 13,
-					"type": "text"
-				},
-				{
-					"buffer": 9,
-					"file": "AGE/AGE.h",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2078,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1251,
-								1251
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 714.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 12,
-					"type": "text"
-				},
-				{
-					"buffer": 10,
-					"file": "AGE/AGE_Generics.h",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 878,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								831,
-								831
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 5,
-					"type": "text"
-				},
-				{
-					"buffer": 11,
-					"file": "AGE/AGE_List.c",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 4229,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								412,
-								412
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 51.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
-					"type": "text"
-				},
-				{
-					"buffer": 12,
-					"file": "AGE/AGE_Graphics.h",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2279,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								982,
-								982
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 391.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 9,
-					"type": "text"
-				},
-				{
-					"buffer": 13,
-					"file": "AGE/AGE_Input.h",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 657,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								509,
-								509
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 11,
+					"stack_index": 3,
 					"type": "text"
 				}
 			]
@@ -1512,11 +304,11 @@
 	],
 	"incremental_find":
 	{
-		"height": 25.0
+		"height": 0.0
 	},
 	"input":
 	{
-		"height": 33.0
+		"height": 0.0
 	},
 	"layout":
 	{
@@ -1541,23 +333,15 @@
 		]
 	},
 	"menu_visible": true,
-	"output.exec":
-	{
-		"height": 254.0
-	},
 	"output.find_results":
 	{
 		"height": 0.0
 	},
-	"output.git":
-	{
-		"height": 154.0
-	},
-	"pinned_build_system": "Packages/Makefile/Make.sublime-build",
+	"pinned_build_system": "",
 	"project": "Helsys.sublime-project",
 	"replace":
 	{
-		"height": 64.0
+		"height": 0.0
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -1568,189 +352,40 @@
 		[
 			[
 				"log",
-				"AGE/log.txt"
-			],
-			[
-				"battlee",
-				"battle_entity.c"
-			],
-			[
-				"battle",
-				"battle_entity.c"
-			],
-			[
-				"battlefield",
-				"battlefield.c"
-			],
-			[
-				"battlef",
-				"battlefield.c"
-			],
-			[
-				"main",
-				"main.h"
-			],
-			[
-				"list",
-				"AGE/AGE_List.c"
-			],
-			[
-				"animat",
-				"AGE/AGE_Animation.c"
-			],
-			[
-				"lo",
-				"log.txt"
-			],
-			[
-				"spr",
-				"AGE/AGE_SpriteBatch.c"
-			],
-			[
-				"sprite",
-				"AGE/AGE_SpriteBatch.c"
-			],
-			[
-				"grap",
-				"AGE/AGE_Graphics.h"
-			],
-			[
-				"mouse",
-				"AGE/AGE_Mouse_Input.c"
-			],
-			[
-				"core",
-				"AGE/AGE_Core.c"
-			],
-			[
-				"battl",
-				"battlefield.c"
-			],
-			[
-				"anima",
-				"AGE/AGE_Animation.c"
-			],
-			[
-				"tiles",
-				"tiles.h"
-			],
-			[
-				"gra",
-				"AGE/AGE_Graphics.h"
-			],
-			[
-				"sprte",
-				"AGE/AGE_Sprite.c"
-			],
-			[
-				"anim",
-				"AGE/AGE_Animation.c"
-			],
-			[
-				"batt",
-				"battlefield.c"
-			],
-			[
-				"log.txt",
-				"log.txt"
-			],
-			[
-				"agelist",
-				"AGE/AGE_List.c"
-			],
-			[
-				"agespr",
-				"AGE/AGE_Sprite.c"
-			],
-			[
-				"gam",
-				"GAME"
-			],
-			[
-				"age_list",
-				"AGE/AGE_List.c"
+				"~/Desktop/Link to MyGame/battle.c"
 			]
 		],
 		"width": 0.0
 	},
 	"select_project":
 	{
-		"height": 500.0,
+		"height": 0.0,
 		"last_filter": "",
 		"selected_items":
 		[
-			[
-				"main",
-				"~/Desktop/SDL/MyGame/Main.sublime-workspace"
-			],
-			[
-				"",
-				"~/Desktop/SDL/MyGame/Main.sublime-workspace"
-			]
 		],
-		"width": 380.0
+		"width": 0.0
 	},
 	"select_symbol":
 	{
-		"height": 54.0,
-		"last_filter": "AGE_ListDes",
+		"height": 0.0,
+		"last_filter": "",
 		"selected_items":
 		[
-			[
-				"AGE_ListDes",
-				"AGE_ListDestroy"
-			],
-			[
-				"getspr",
-				"AGE_Animation_GetSpriteSheetRects"
-			],
-			[
-				"age_animat",
-				"AGE_Animation_GetSpriteSheetRects"
-			],
-			[
-				"sprite",
-				"AGE_SpriteDestroy"
-			],
-			[
-				"alpha",
-				"AGE_SpriteSetAlpha"
-			],
-			[
-				"setwin",
-				"AGE_SetWindowSize"
-			],
-			[
-				"battle",
-				"BattlefieldDraw"
-			],
-			[
-				"go bor",
-				"GoBorderless"
-			],
-			[
-				"AGE_clse",
-				"AGE_Close"
-			]
 		],
-		"width": 392.0
+		"width": 0.0
 	},
 	"selected_group": 0,
 	"settings":
 	{
-		"xdebug":
-		{
-			"hide_conflict": false
-		}
 	},
 	"show_minimap": true,
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 213.0,
+	"side_bar_width": 150.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{
-		"max_columns": 2
 	}
 }

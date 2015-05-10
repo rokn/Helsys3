@@ -22,14 +22,13 @@ void AGE_ListDestroy(AGE_List *list)
  
   //   free(current->data);
   //   free(current);
-  // }
-
+  // }    
     int i;
     
     for (i = 0; i < list->length; ++i)
     {
         AGE_ListRemoveFront(list);
-    }
+    }    
 }
 
 int AGE_ListGetSize(AGE_List *list)

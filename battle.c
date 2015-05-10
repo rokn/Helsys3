@@ -11,7 +11,7 @@ void BattleInitialize(AGE_List *leftTeam, AGE_List *rightTeam, int battlefieldId
 	CurrentBattle.battlefield = (Battlefield*)malloc(sizeof(Battlefield));
 	BattlefieldInit(CurrentBattle.battlefield, 1);
 	AGE_ListInit(&CurrentBattle.entitesOrder, sizeof(EntityOrder_t));
-	CurrentBattle.orderId = 0;
+	CurrentBattle.orderId = 1;
 	init_team(leftTeam, TEAM_LEFT);
 	init_team(rightTeam, TEAM_RIGHT);
 
@@ -45,13 +45,12 @@ void BattleEnd()
 void BattleEndTurn()
 {
 	EntityOrder_t order;
-	CurrentBattle.orderId++;
 	if(CurrentBattle.orderId >= AGE_ListGetSize(&CurrentBattle.entitesOrder))
 	{
 		CurrentBattle.orderId = 0;
 	}
 
-	AGE_ListPeekAt(&CurrentBattle.entitesOrder, &order, CurrentBattle.orderId++);
+	AGE_ListPeekAt(&CurrentBattle.entitesOrder, &order, CurrentBattle.orderId);
 
 	BattleEntity entity;
 
@@ -68,6 +67,7 @@ void BattleEndTurn()
 		BattleEntitySetActive(&entity);
 		AGE_ListReplace(CurrentBattle.rightTeamEntities, &entity, order.id);
 	}
+	CurrentBattle.orderId++;
 }
 
 void init_team(AGE_List *team, int side)
@@ -78,7 +78,7 @@ void init_team(AGE_List *team, int side)
 	for (i = 0; i < AGE_ListGetSize(team); ++i)
 	{
 		AGE_ListPeekAt(team, &entity, i);
-		SDL_Point entityPos = {0,i};
+		SDL_Point entityPos = {12,i+3};
 		Direction dir = RIGHT;
 
 		if(side == 1)

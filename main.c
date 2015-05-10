@@ -65,7 +65,7 @@ void LoadContent()
 
 	BattleEntityLoad(&entity, 1);
 	BattleEntityLoad(&entity2, 1);
-	BattleEntityLoad(&e3, 1);
+	// BattleEntityLoad(&e3, 1);
 	
 	AGE_ListAdd(&leftTeam, &entity);
 	AGE_ListAdd(&leftTeam, &entity2);

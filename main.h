@@ -11,5 +11,6 @@ extern const int SCREEN_HEIGHT;
 
 extern int LevelWidth;
 extern int LevelHeight;
+extern TTF_Font *gFont;
 
 #endif

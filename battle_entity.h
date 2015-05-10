@@ -12,6 +12,15 @@ typedef enum
 	UP
 } Direction;
 
+typedef struct walkSquare WalkableSquare;
+
+struct walkSquare
+{
+	SDL_Point Position;
+	int length;
+	WalkableSquare *prev;
+};
+
 typedef struct
 {
 	SDL_Point Position;
@@ -25,7 +34,9 @@ typedef struct
 	bool IsActive;
 	int walkingDistance;
 	int **fieldStatus;
-	AGE_List walkableSquares;
+	// AGE_List walkableSquares;
+	WalkableSquare **walkableSquares;
+	int walkableSquaresCount;
 	float moveSpeed;
 	int Health;
 	int MaxHealth;

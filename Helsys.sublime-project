@@ -1,14 +1,8 @@
 {
-    "folders":
-    [
-        {
-            "follow_symlinks": true,
-            "path": "."
-        }
-    ],
-    "settings": {
-        "xdebug": {
-             "url": "http://my.local.website/",
-        }
-    }
+	"folders":
+	[
+		{
+			"path": "/home/rokner/Desktop/SDL/MyGame"
+		}
+	]
 }
