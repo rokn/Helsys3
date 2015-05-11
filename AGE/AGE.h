@@ -98,8 +98,9 @@ extern AGE_Rect AGE_WindowRect;
 //Helper Methods
 
 AGE_Vector AGE_Helper_RotatedVectorMove(AGE_Vector position, float rotation, float speed);
-float AGE_Helper_FindRotation(AGE_Vector, AGE_Vector, float);
+float AGE_Helper_FindRotation(AGE_Vector, AGE_Vector);
 AGE_Vector AGE_Helper_AngleToVector(float);
 AGE_Vector AGE_Helper_FindDirection(AGE_Vector, AGE_Vector);
+AGE_Vector AGE_Helper_RectCenter(AGE_Rect);
 
 #endif

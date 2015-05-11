@@ -1,6 +1,7 @@
 #include "battlefield.h"
 #include "main.h"
 #include "tiles.h"
+#include "projectile.h"
 #include "battle_entity.h"
 #include "battle.h"
 
@@ -70,6 +71,7 @@ void LoadContent()
 {
 	gFont = TTF_OpenFont("Resources/Fonts/Aver.ttf",16);
 	LoadTileSets(72, 72);
+	// LoadProjectiles();
 
 	BattleEntityLoad(&entity, 1);
 	BattleEntityLoad(&entity2, 1);
@@ -90,6 +92,7 @@ void Unload()
 	BattleEntityDestroy(&entity);
 	BattleEntityDestroy(&entity2);
 	BattleEntityDestroy(&e3);
+	BattleEnd();
 }
 
 void EventHandler(SDL_Event *e)

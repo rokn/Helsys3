@@ -2,6 +2,7 @@
 #include "tiles.h"
 #include "main.h"
 #include "battle.h"
+#include "projectile.h"
 #include "dictionary.h"
 #include "iniparser.h"
 
@@ -31,6 +32,9 @@ void entity_load_stats(BattleEntity*, int);
 void end_turn(BattleEntity *);
 void allocate_walking_squares(BattleEntity *);
 void free_walking_squares(BattleEntity *);
+void attack(BattleEntity *);
+void update_projectiles(BattleEntity *);
+void draw_projectiles(BattleEntity *entity);
 
 void BattleEntityLoad(BattleEntity *entity, int id)
 {
@@ -61,6 +65,8 @@ void BattleEntityLoad(BattleEntity *entity, int id)
 	entity_load_stats(entity, id);
 
 	allocate_walking_squares(entity);
+
+	AGE_ListInit(&entity->projectilesList, sizeof(Projectile));
 }
 
 void BattleEntitySetOnField(BattleEntity *entity, Battlefield * battlefield, SDL_Point position, Direction direction)
@@ -104,6 +110,8 @@ void BattleEntityUpdate(BattleEntity *entity)
 		// AGE_SpriteLoadFromText(&text, buffer, c, gFont);
 	}
 
+	update_projectiles(entity);
+
 	if(!entity->IsMoving)
 	{
 		set_field_position(entity);
@@ -111,6 +119,8 @@ void BattleEntityUpdate(BattleEntity *entity)
 
 	entity_update_animation(entity);
 }
+
+
 
 void BattleEntityMove(BattleEntity *entity, SDL_Point position)
 {
@@ -149,6 +159,7 @@ void BattleEntityDraw(BattleEntity *entity)
 	AGE_Vector pos = {10,50};
 	AGE_SpriteRenderGUI(&text, &pos, NULL, 0.f, NULL, SDL_FLIP_NONE, 600);	
 	AGE_Animation_Draw(entity->currAnimation, 0.0f, NULL, SDL_FLIP_NONE, BATTLE_ENTITY_DEFAULT_DEPTH + entity->Position.y);
+	draw_projectiles(entity);
 }
 
 void update_direction(BattleEntity *entity, Direction newDirection)
@@ -174,6 +185,11 @@ void check_for_mouse_input(BattleEntity *entity)
 					BattleEntityMove(entity, entity->battlefield->selectedSquare);
 				}
 			}
+		}
+
+		if(AGE_Mouse.RightIsPressed)
+		{
+			attack(entity);
 		}
 	}
 }
@@ -267,6 +283,7 @@ void entity_change_direction(BattleEntity *entity)
 		AGE_Animation_ChangeState(entity->currAnimation, false);
 		AGE_Animation_SetIndex(entity->currAnimation, 0);
 		entity->battlefield->fieldStatus[entity->Position.x][entity->Position.y] = OCCUPIED;
+		// set_field_position(entity);
 		end_turn(entity);
 		// BattleEntitySetActive(entity);
 	}	
@@ -585,4 +602,37 @@ void free_walking_squares(BattleEntity *entity)
 	}
 
 	free(entity->walkableSquares);
+}
+
+void attack(BattleEntity *entity)
+{
+	Projectile proj;
+	ProjectileCreate(&proj, entity->FieldPosition, 1);
+	ProjectileSetTarget(&proj, AGE_ViewRect);
+	AGE_ListAdd(&entity->projectilesList, &proj);
+}
+
+void update_projectiles(BattleEntity *entity)
+{
+	int i;
+	Projectile proj;
+
+	for (i = 0; i < entity->projectilesList.length; ++i)
+	{
+		AGE_ListPeekAt(&entity->projectilesList, &proj, i);
+		ProjectileUpdate(&proj);
+		AGE_ListReplace(&entity->projectilesList, &proj, i);
+	}
+}
+
+void draw_projectiles(BattleEntity *entity)
+{
+	int i;
+	Projectile proj;
+
+	for (i = 0; i < entity->projectilesList.length; ++i)
+	{
+		AGE_ListPeekAt(&entity->projectilesList, &proj, i);
+		ProjectileDraw(&proj);
+	}
 }

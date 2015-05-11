@@ -12,6 +12,8 @@ typedef enum
 	UP
 } Direction;
 
+
+
 typedef struct walkSquare WalkableSquare;
 
 struct walkSquare
@@ -34,7 +36,6 @@ typedef struct
 	bool IsActive;
 	int walkingDistance;
 	int **fieldStatus;
-	// AGE_List walkableSquares;
 	WalkableSquare **walkableSquares;
 	int walkableSquaresCount;
 	float moveSpeed;
@@ -42,6 +43,7 @@ typedef struct
 	int MaxHealth;
 	int Damage;
 	AGE_Rect collisionRect;
+	AGE_List projectilesList;
 }BattleEntity;
 
 void BattleEntityLoad(BattleEntity*, int);
