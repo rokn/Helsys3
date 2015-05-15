@@ -3,6 +3,19 @@
 
 void mouseHandleEvent_age(SDL_Event *event)
 {
+	// if(AGE_Mouse.LeftJustPressed)
+	// {
+	// 	AGE_Mouse.LeftJustPressed = false;
+	// }
+	// if(AGE_Mouse.MiddleJustPressed)
+	// {
+	// 	AGE_Mouse.MiddleJustPressed = false;
+	// }
+	// if(AGE_Mouse.RightJustPressed)
+	// {
+	// 	AGE_Mouse.RightJustPressed = false;
+	// }
+
 	switch(event->type)
 	{
 		case SDL_MOUSEMOTION:
@@ -27,12 +40,15 @@ void pressButton(SDL_Event *event)
 	{
 		case SDL_BUTTON_LEFT:
 			AGE_Mouse.LeftIsPressed = true;
+			// AGE_Mouse.LeftJustPressed = false;
 			break;
 		case SDL_BUTTON_MIDDLE:
 			AGE_Mouse.MiddleIsPressed = true;
+			// AGE_Mouse.MiddleJustPressed = false;
 			break;
 		case SDL_BUTTON_RIGHT:
 			AGE_Mouse.RightIsPressed = true;
+			// AGE_Mouse.RightJustPressed = false;
 			break;
 	}
 }

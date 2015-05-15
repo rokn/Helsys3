@@ -71,7 +71,6 @@ void LoadContent()
 {
 	gFont = TTF_OpenFont("Resources/Fonts/Aver.ttf",16);
 	LoadTileSets(72, 72);
-	// LoadProjectiles();
 
 	BattleEntityLoad(&entity, 1);
 	BattleEntityLoad(&entity2, 1);
@@ -81,6 +80,10 @@ void LoadContent()
 	AGE_ListAdd(&leftTeam, &entity2);
 
 	AGE_ListAdd(&rightTeam, &e3);
+	// AGE_ListAdd(&leftTeam, &e3);
+	// AGE_ListAdd(&leftTeam, &e3);
+	// AGE_ListAdd(&leftTeam, &e3);
+	// AGE_ListAdd(&leftTeam, &e3);
 	// AGE_ListAdd(&rightTeam, &entity);
 	// AGE_ListAdd(&rightTeam, &entity);
 

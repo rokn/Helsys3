@@ -4,6 +4,7 @@
 const int BATTLEFIELD_OBJECTS_COUNT = 1;
 
 AGE_Sprite squareWalkable;
+AGE_Sprite squareEnemy;
 AGE_Sprite squareSelected;
 AGE_Sprite battlefieldField;
 int counter;
@@ -75,6 +76,7 @@ void BattlefieldLoad()
 {
 	assert(AGE_SpriteLoad(&squareWalkable, "Resources/Battlefield/SquareWalkable.png"));
 	assert(AGE_SpriteLoad(&squareSelected, "Resources/Battlefield/SquareSelected.png"));
+	assert(AGE_SpriteLoad(&squareEnemy, "Resources/Battlefield/SquareEnemy.png"));
 	assert(AGE_SpriteCreateBlank(&battlefieldField, LevelWidth, LevelHeight, SDL_TEXTUREACCESS_TARGET));
 	AGE_ListInit(&objectsList, sizeof(AGE_Sprite));
 	AGE_Sprite objectSprite;
@@ -181,6 +183,9 @@ void BattlefieldDraw(Battlefield *battlefield, int depth)
 						{
 							case WALKABLE:
 								SDL_RenderCopy(gRenderer, squareWalkable.texture, &clip, &renderRect);
+								break;
+							case ENEMY:
+								SDL_RenderCopy(gRenderer, squareEnemy.texture, &clip, &renderRect);
 								break;
 							default:
 								break;

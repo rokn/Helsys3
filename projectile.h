@@ -3,16 +3,19 @@
 
 #include "AGE/AGE.h"
 #include "AGE/AGE_Graphics.h"
+#include "battle_entity.h"
 
-void LoadProjectiles();
-void UnloadProjectiles();
+typedef struct projectile_t Projectile;
 
-typedef struct
+typedef bool (*DestroyEvent)(Projectile*);
+
+struct projectile_t
 {
 	int index;
+	BattleEntity *owner;
 	AGE_Sprite *sprite;
 	AGE_Vector Position;
-	AGE_Vector velocity;
+	AGE_Vector Direction;
 	AGE_Rect targetRect;
 	float speed;
 	AGE_Rect collisionRect;
@@ -20,11 +23,14 @@ typedef struct
 	int AI;
 	AGE_Vector Origin;
 	bool IsDestroyed;
-}Projectile;
+	DestroyEvent destroyEvent;
+};
 
-void ProjectileCreate(Projectile *, AGE_Vector, int);
+void ProjectileCreate(Projectile *, AGE_Vector, int, BattleEntity*);
 
 void ProjectileSetTarget(Projectile *, AGE_Rect);
+
+void ProjectileSetDestroyEvent(Projectile *, DestroyEvent);
 
 void ProjectileUpdate(Projectile *);
 

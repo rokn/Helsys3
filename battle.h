@@ -20,6 +20,8 @@ struct
 	AGE_List entitesOrder;
 	Battlefield *battlefield;
 	int orderId;
+	int currTeam;
+	bool endTurn;
 }CurrentBattle;
 
 void BattleInitialize(AGE_List *leftTeam, AGE_List *rightTeam, int battlefieldId);
@@ -29,6 +31,8 @@ void BattleUpdate();
 void BattleDraw();
 
 void BattleEndTurn();
+
+AGE_List BattleGetEnemyTeam();
 
 void BattleEnd();
 

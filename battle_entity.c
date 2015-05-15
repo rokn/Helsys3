@@ -34,7 +34,12 @@ void allocate_walking_squares(BattleEntity *);
 void free_walking_squares(BattleEntity *);
 void attack(BattleEntity *);
 void update_projectiles(BattleEntity *);
-void draw_projectiles(BattleEntity *entity);
+void draw_projectiles(BattleEntity *);
+void mark_enemies(BattleEntity *);
+SquareStatus get_square_status(Battlefield *, int , int );
+SquareStatus get_selected_sqare_status(BattleEntity *);
+void remove_enemies_marks(Battlefield *battlefield);
+void projectile_destroyed(Projectile *);
 
 void BattleEntityLoad(BattleEntity *entity, int id)
 {
@@ -49,6 +54,7 @@ void BattleEntityLoad(BattleEntity *entity, int id)
 	AGE_Animation animation;
 	entity->currentDirection = RIGHT;
 	entity->IsMoving = false;
+	entity->targetId = 0;
 
 	for (i = 0; i < UP-DOWN+1; ++i)
 	{
@@ -77,7 +83,7 @@ void BattleEntitySetOnField(BattleEntity *entity, Battlefield * battlefield, SDL
 	entity->currentDirection = direction;
 	AGE_ListPeekAt(&entity->walkingAnimations, entity->currAnimation, entity->currentDirection);
 	set_field_position(entity);
-	entity_update_animation(entity);	 
+	entity_update_animation(entity);
 }
 
 void BattleEntitySetActive(BattleEntity *entity)
@@ -85,6 +91,8 @@ void BattleEntitySetActive(BattleEntity *entity)
 	entity->IsActive = true;
 	mark_walkable_tiles(entity);
 	AGE_FocusCamera(entity->collisionRect, 1.07f);
+	AGE_ListInit(&entity->enemiesList, sizeof(EntityEnemy));
+	mark_enemies(entity);
 }
 
 void BattleEntityUpdate(BattleEntity *entity)
@@ -151,7 +159,7 @@ void BattleEntityMove(BattleEntity *entity, SDL_Point position)
 void BattleEntityDestroy(BattleEntity *entity)
 {
 	AGE_ListDestroy(&entity->walkingAnimations);
-	free_walking_squares(entity);
+	free_walking_squares(entity);	
 }
 
 void BattleEntityDraw(BattleEntity *entity)
@@ -180,16 +188,30 @@ void check_for_mouse_input(BattleEntity *entity)
 		{
 			if(entity->battlefield->selectedSquare.x != -1)
 			{
-				if(!entity->IsMoving)
+				if(get_selected_sqare_status(entity) == WALKABLE)
 				{
-					BattleEntityMove(entity, entity->battlefield->selectedSquare);
+					if(!entity->IsMoving)
+					{
+						BattleEntityMove(entity, entity->battlefield->selectedSquare);
+						entity->battlefield->selectedSquare.x = -1;
+						entity->battlefield->selectedSquare.y = -1;
+					}
 				}
 			}
 		}
 
 		if(AGE_Mouse.RightIsPressed)
 		{
-			attack(entity);
+			if(entity->battlefield->selectedSquare.x != -1)
+			{
+				if(get_selected_sqare_status(entity) == ENEMY)
+				{
+					printf("%u\n",entity);
+					attack(entity);
+					entity->battlefield->selectedSquare.x = -1;
+					entity->battlefield->selectedSquare.y = -1;
+				}
+			}
 		}
 	}
 }
@@ -278,12 +300,11 @@ void entity_change_direction(BattleEntity *entity)
 	}
 	else
 	{
-		entity->IsMoving = false;
-		entity->IsActive = false;
+		entity->IsMoving = false;		
 		AGE_Animation_ChangeState(entity->currAnimation, false);
 		AGE_Animation_SetIndex(entity->currAnimation, 0);
 		entity->battlefield->fieldStatus[entity->Position.x][entity->Position.y] = OCCUPIED;
-		// set_field_position(entity);
+		remove_enemies_marks(entity->battlefield);
 		end_turn(entity);
 		// BattleEntitySetActive(entity);
 	}	
@@ -291,7 +312,9 @@ void entity_change_direction(BattleEntity *entity)
 
 void end_turn(BattleEntity *entity)
 {
+	entity->IsActive = false;
 	AGE_ListDestroy(&entity->moveDirections);
+	AGE_ListDestroy(&entity->enemiesList);
 	BattleEndTurn();
 }
 
@@ -478,7 +501,7 @@ void check_for_selected_square(Battlefield *battlefield, BattleEntity *entity)
 			x = (int)((AGE_Mouse.TransformedPosition.X - battlefield->Position.X)/TILE_INFO.TileWidth);
 			y = (int)((AGE_Mouse.TransformedPosition.Y - battlefield->Position.Y)/TILE_INFO.TileHeight);
 
-			if(battlefield->fieldStatus[x][y] == WALKABLE)
+			if(battlefield->fieldStatus[x][y] == WALKABLE || battlefield->fieldStatus[x][y] == ENEMY)
 			{
 				battlefield->selectedSquare.x = x;
 				battlefield->selectedSquare.y = y;				
@@ -606,10 +629,34 @@ void free_walking_squares(BattleEntity *entity)
 
 void attack(BattleEntity *entity)
 {
+	EntityEnemy entEnemy;
+	BattleEntity enemy;
+	int i;
+	
+	for (i = 0; i < entity->enemiesList.length; ++i)
+	{
+		AGE_ListPeekAt(&entity->enemiesList, &entEnemy, i);
+		if(entEnemy.Position.x == entity->battlefield->selectedSquare.x &&
+		 entEnemy.Position.y == entity->battlefield->selectedSquare.y)
+		{
+			entity->targetId = entEnemy.id;
+			AGE_List enemies = BattleGetEnemyTeam();
+			AGE_ListPeekAt(&enemies, &enemy, entity->targetId);
+			break;
+		}
+	}
+	entity->battlefield->selectedSquare.x = -1;
+	entity->battlefield->selectedSquare.y = -1;
+
 	Projectile proj;
-	ProjectileCreate(&proj, entity->FieldPosition, 1);
-	ProjectileSetTarget(&proj, AGE_ViewRect);
+	// printf("%f,%f\n",entity->FieldPosition.X,entity->FieldPosition.Y);	
+	ProjectileCreate(&proj, entity->FieldPosition, 1, entity);
+	ProjectileSetDestroyEvent(&proj,projectile_destroyed);
+	ProjectileSetTarget(&proj, enemy.collisionRect);
 	AGE_ListAdd(&entity->projectilesList, &proj);
+	remove_enemies_marks(entity->battlefield);
+	remove_walking_squares(entity->battlefield);
+	entity->hasAttacked = true;
 }
 
 void update_projectiles(BattleEntity *entity)
@@ -621,7 +668,15 @@ void update_projectiles(BattleEntity *entity)
 	{
 		AGE_ListPeekAt(&entity->projectilesList, &proj, i);
 		ProjectileUpdate(&proj);
-		AGE_ListReplace(&entity->projectilesList, &proj, i);
+
+		if(proj.IsDestroyed)
+		{
+			AGE_ListRemoveAt(&entity->projectilesList, i);
+		}
+		else
+		{
+			AGE_ListReplace(&entity->projectilesList, &proj, i);
+		}
 	}
 }
 
@@ -635,4 +690,63 @@ void draw_projectiles(BattleEntity *entity)
 		AGE_ListPeekAt(&entity->projectilesList, &proj, i);
 		ProjectileDraw(&proj);
 	}
+}
+
+void mark_enemies(BattleEntity *entity)
+{
+	AGE_List enemies;
+	enemies = BattleGetEnemyTeam();
+	BattleEntity enemy;
+	EntityEnemy entEnemy;
+	int i;
+	
+	for (i = 0; i < enemies.length; ++i)
+	{		
+		AGE_ListPeekAt(&enemies, &enemy, i);
+		entity->battlefield->fieldStatus[enemy.Position.x][enemy.Position.y] = ENEMY;
+		entEnemy.Position = enemy.Position;
+		entEnemy.id = i;
+		AGE_ListAdd(&entity->enemiesList, &entEnemy);
+	}
+}
+
+SquareStatus get_square_status(Battlefield *battlefield, int x, int y)
+{
+	return battlefield->fieldStatus[x][y];
+}
+
+SquareStatus get_selected_sqare_status(BattleEntity *entity)
+{
+	return get_square_status(entity->battlefield, entity->battlefield->selectedSquare.x,entity->battlefield->selectedSquare.y);
+}
+
+void remove_enemies_marks(Battlefield *battlefield)
+{
+	int x,y;
+
+	for (x = 0; x < battlefield->Width; ++x)
+	{
+		for (y = 0; y < battlefield->Height; ++y)
+		{
+			if(battlefield->fieldStatus[x][y] == ENEMY)
+			{
+				battlefield->fieldStatus[x][y] = OCCUPIED;
+			}
+		}
+	}
+
+	// int i;
+	
+	// EntityEnemy enemy;
+
+	// for (i = 0; i < entity->enemiesList.length; ++i)
+	// {
+	// 	AGE_ListPeekAt(&entity->enemiesList, &enemy, i);
+	// 	entity->battlefield->fieldStatus[enemy.Position.x][enemy.Position.y] = OCCUPIED;
+	// }
+}
+
+void projectile_destroyed(Projectile *proj)
+{
+	end_turn(proj->owner);
 }

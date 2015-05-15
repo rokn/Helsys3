@@ -14,7 +14,8 @@ typedef enum
 	BLOCKED = -1,
 	EMPTY,
 	OCCUPIED,
-	WALKABLE
+	WALKABLE,
+	ENEMY
 } SquareStatus;
 
 typedef struct

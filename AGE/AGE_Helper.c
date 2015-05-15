@@ -10,9 +10,10 @@ AGE_Vector AGE_Helper_RotatedVectorMove(AGE_Vector position, float rotation, flo
 float AGE_Helper_FindRotation(AGE_Vector position, AGE_Vector targetPosition)
 {
 	AGE_Vector place = {targetPosition.X - position.X, targetPosition.Y - position.Y};
-
+	// printf("place:%f,%f\n",place.X,place.Y);
     float rotation = (float)atan2(place.Y, place.X);
-
+	// printf("rotation:%f\n",rotation);
+	rotation *= 180.0 / M_PI;
     return rotation;
 }
 
@@ -32,6 +33,6 @@ AGE_Vector AGE_Helper_FindDirection(AGE_Vector position, AGE_Vector targetPositi
 
 AGE_Vector AGE_Helper_RectCenter(AGE_Rect rect)
 {
-	AGE_Vector center = {rect.X + rect.Width/2, rect.Y + rect.Height/2};
+	AGE_Vector center = {rect.X + rect.Width/2, rect.Y + rect.Height/2};	
 	return center;
 }

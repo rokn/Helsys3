@@ -3,6 +3,7 @@
 void init_team(AGE_List *, int);
 void update_team(AGE_List *);
 void draw_team(AGE_List *);
+void battle_end_turn();
 
 void BattleInitialize(AGE_List *leftTeam, AGE_List *rightTeam, int battlefieldId)
 {
@@ -12,6 +13,7 @@ void BattleInitialize(AGE_List *leftTeam, AGE_List *rightTeam, int battlefieldId
 	BattlefieldInit(CurrentBattle.battlefield, 1);
 	AGE_ListInit(&CurrentBattle.entitesOrder, sizeof(EntityOrder_t));
 	CurrentBattle.orderId = 1;
+	CurrentBattle.currTeam = TEAM_LEFT;
 	init_team(leftTeam, TEAM_LEFT);
 	init_team(rightTeam, TEAM_RIGHT);
 
@@ -28,6 +30,12 @@ void BattleUpdate()
 {
 	update_team(CurrentBattle.leftTeamEntities);
 	update_team(CurrentBattle.rightTeamEntities);
+
+	if(CurrentBattle.endTurn)
+	{
+		CurrentBattle.endTurn = false;
+		battle_end_turn();
+	}
 }
 
 void BattleDraw()
@@ -42,7 +50,25 @@ void BattleEnd()
 	BattlefieldDestroy(CurrentBattle.battlefield);
 }
 
+AGE_List BattleGetEnemyTeam()
+{
+	if(CurrentBattle.currTeam == TEAM_LEFT)
+	{
+		return *CurrentBattle.rightTeamEntities;
+		
+	}
+	else
+	{
+		return *CurrentBattle.leftTeamEntities;
+	}
+}
+
 void BattleEndTurn()
+{
+	CurrentBattle.endTurn = true;
+}
+
+void battle_end_turn()
 {
 	EntityOrder_t order;
 	if(CurrentBattle.orderId >= AGE_ListGetSize(&CurrentBattle.entitesOrder))
@@ -51,6 +77,8 @@ void BattleEndTurn()
 	}
 
 	AGE_ListPeekAt(&CurrentBattle.entitesOrder, &order, CurrentBattle.orderId);
+
+	CurrentBattle.currTeam = order.team;
 
 	BattleEntity entity;
 
@@ -67,6 +95,7 @@ void BattleEndTurn()
 		BattleEntitySetActive(&entity);
 		AGE_ListReplace(CurrentBattle.rightTeamEntities, &entity, order.id);
 	}
+
 	CurrentBattle.orderId++;
 }
 

@@ -26,6 +26,12 @@ struct walkSquare
 typedef struct
 {
 	SDL_Point Position;
+	int id;
+}EntityEnemy;
+
+typedef struct
+{
+	SDL_Point Position;
 	AGE_Vector FieldPosition;
 	AGE_List walkingAnimations;
 	Direction currentDirection;
@@ -44,6 +50,9 @@ typedef struct
 	int Damage;
 	AGE_Rect collisionRect;
 	AGE_List projectilesList;
+	AGE_List enemiesList;
+	int targetId;
+	bool hasAttacked;
 }BattleEntity;
 
 void BattleEntityLoad(BattleEntity*, int);

@@ -29,6 +29,9 @@ struct
 	bool LeftIsPressed;
 	bool RightIsPressed;
 	bool MiddleIsPressed;
+	// bool LeftJustPressed;
+	// bool RightJustPressed;
+	// bool MiddleJustPressed;
 } AGE_Mouse;
 
 void mouseHandleEvent_age(SDL_Event*);
